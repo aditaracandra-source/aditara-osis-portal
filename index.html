@@ -16,56 +16,164 @@
 @media(max-width:1050px){.tiles{grid-template-columns:repeat(4,1fr)}.peoplegrid{grid-template-columns:repeat(5,1fr)}}
 @media(max-width:700px){.app{display:block;height:100dvh}.sidebar{display:none}.topbar{height:52px;padding:0 13px}.content{height:calc(100dvh - 108px);padding:13px 12px 16px}.welcome h1{font-size:17px}.date{display:none}.hero{padding:14px;min-height:105px}.hero h2{font-size:18px}.heroStats{gap:12px}.stat b{font-size:18px}.stat:last-child{display:none}.tiles{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.tile{min-height:76px;padding:9px 8px}.tile b{font-size:9px}.tile small{font-size:8px}.lower{grid-template-columns:1fr;gap:8px;margin-top:10px}.head{margin:13px 0 8px}.peoplegrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.person{padding:6px}.person b{font-size:8px}.pagehead h2{font-size:16px}.mobilebar{position:fixed;display:flex;bottom:0;left:0;right:0;height:56px;background:white;border-top:1px solid var(--line);justify-content:space-around;align-items:center;z-index:10}.mobilebar button{background:transparent;color:#8291a5;font-size:8px;display:grid;justify-items:center;gap:2px}.mobilebar button.active{color:var(--blue)}.mobilebar i{font-style:normal;font-size:18px}}
 
-/* ===== ADITARA 3D OSIS VISUAL UPGRADE v0.3 ===== */
-:root{--navy:#071d3d;--blue:#1267b2;--gold:#f4c542;--bg:#eaf1fb;--ink:#102747;--muted:#647b98;--line:#dce7f5;--shadow:0 22px 55px #08264a24}
-body{background:radial-gradient(ellipse at 12% 12%,#d6eaff 0,transparent 34%),radial-gradient(ellipse at 90% 85%,#d8e8fb 0,transparent 32%),#edf3fb}
-.login-wrap{position:relative;isolation:isolate;overflow:hidden;grid-template-columns:minmax(280px,1fr) minmax(360px,480px);gap:clamp(24px,6vw,90px);padding:clamp(20px,6vw,90px);background:linear-gradient(135deg,#eaf3ff,#dce9f8 55%,#f5f8fd)}
-.login-wrap:before{content:"ADITARA\\A OSIS PORTAL\\A\\A AKTIF • DISIPLIN\\A INOVATIF • BERKARAKTER";white-space:pre;display:flex;align-items:center;justify-content:center;text-align:center;text-shadow:0 3px 0 #ffffff70,0 14px 28px #0a2a4f30;color:#123c70;font-weight:1000;letter-spacing:3px;line-height:1.65;font-size:clamp(25px,4vw,54px);padding:30px;min-height:450px;border-radius:34px;background:linear-gradient(145deg,#fafdff,#c8def6);border:1px solid #ffffff;box-shadow:inset 8px 8px 18px #ffffff, inset -10px -10px 22px #a9c3e2,0 28px 55px #0b2d551c;transform:perspective(900px) rotateY(7deg) rotateX(2deg)}
-.login-wrap:after{content:"✦";position:absolute;z-index:-1;left:7%;top:5%;font-size:150px;color:#f2c94c55;text-shadow:0 15px 30px #17385a22}
-.login-card{width:100%;max-width:480px;border:1px solid #ffffff;background:linear-gradient(145deg,#fff,#f7faff);border-radius:28px;padding:clamp(23px,3vw,34px);box-shadow:14px 18px 0 #b8cce4,0 35px 70px #102f542b;transform:perspective(1000px) rotateY(-3deg);position:relative}
-.login-card:before{content:"";position:absolute;inset:8px;border:1px solid #e7eff9;border-radius:21px;pointer-events:none}
-.login-brand img{filter:drop-shadow(0 7px 5px #17385a30);transform:translateZ(20px) scale(1.04)}
-.login-brand b{color:#0b2c58;letter-spacing:.6px}
-.login-card h1{color:#0b2c58;font-size:25px}
-.login-card .btn{background:linear-gradient(135deg,#0d3970,#197bc2 70%,#2c91d1);box-shadow:0 6px 0 #08264d,0 12px 20px #1267b244;transition:.18s transform,.18s box-shadow}
-.login-card .btn:hover{transform:translateY(-3px);box-shadow:0 9px 0 #08264d,0 18px 25px #1267b244}
-.login-card .btn:active{transform:translateY(3px);box-shadow:0 2px 0 #08264d}
-.field input{background:linear-gradient(145deg,#fff,#f3f7fc);box-shadow:inset 3px 3px 7px #dfe8f3,inset -3px -3px 7px #fff}
-.app{background:#f2f6fc}
-.sidebar{background:linear-gradient(165deg,#061a36 0%,#0d3566 58%,#124b7d 100%);box-shadow:8px 0 30px #0a25431c;position:relative}
-.sidebar:after{content:"ADITARA";position:absolute;bottom:76px;left:12px;font-size:31px;font-weight:1000;letter-spacing:3px;color:#ffffff09;transform:rotate(-90deg);transform-origin:left}
-.brand img{box-shadow:0 5px 12px #0003}
-.nav button{transition:transform .15s,background .15s}
-.nav button:hover{transform:translateX(4px);background:#ffffff25}
-.nav button.active{background:linear-gradient(100deg,#ffffff2c,#ffffff0c);box-shadow:inset 3px 0 var(--gold)}
-.topbar{box-shadow:0 4px 15px #17365b08}
-.hero{background:linear-gradient(115deg,#071d3d,#104c86 58%,#1681bd);box-shadow:0 9px 0 #09294d,0 20px 35px #0a2d5329;border:1px solid #ffffff40}
-.hero:before{content:"";position:absolute;width:230px;height:230px;right:8%;top:-90px;border:2px solid #f4c54255;border-radius:34% 66% 58% 42%;transform:rotate(35deg);box-shadow:0 0 0 13px #ffffff08,0 0 0 27px #ffffff06}
-.hero h2{text-shadow:0 3px 0 #08294c}
-.tile{border:1px solid #e0eaf6;box-shadow:0 5px 0 #d8e3f1,0 10px 18px #17365b0c;transition:transform .18s,box-shadow .18s}
-.tile:hover{transform:translateY(-4px);box-shadow:0 9px 0 #c8d9ed,0 18px 25px #17365b18}
-.tile i{background:linear-gradient(145deg,#f9fcff,#dcecff);box-shadow:3px 4px 7px #c9d9ec,-3px -3px 7px #fff;color:#145b9b}
-.panel,.card,.person{box-shadow:0 4px 0 #e0e8f2,0 10px 22px #17365b08}
-.person{transition:transform .18s,box-shadow .18s}
-.person:hover{transform:translateY(-4px);box-shadow:0 8px 0 #d4e0ee,0 16px 25px #17365b16}
-.photo{box-shadow:inset 3px 3px 8px #9bb9d8,inset -3px -3px 8px #fff}
-.btn,.secondary{transition:transform .15s,box-shadow .15s}
-.secondary{box-shadow:0 3px 0 #d6e2f0}
-.secondary:active{transform:translateY(2px);box-shadow:0 1px 0 #d6e2f0}
-.modalbox{box-shadow:0 18px 50px #061a3680;border:1px solid #ffffff}
+
+
+/* ===== ADITARA DIGITAL BANKING PREMIUM v0.5 ===== */
+:root{
+  --navy:#17123f; --blue:#3157d5; --violet:#6545c7; --gold:#f5cf55;
+  --bg:#f5f6fc; --ink:#20264a; --muted:#78809c; --line:#e8e9f3;
+  --white:#fff; --green:#16845e; --red:#c74c56;
+  --shadow:0 18px 48px rgba(22,15,66,.16);
+}
+body{background:var(--bg);color:var(--ink)}
+/* Login: dark violet atmospheric background with soft luminous layers */
+.login-wrap{
+  min-height:100dvh;display:grid;grid-template-columns:minmax(260px,1fr) minmax(360px,470px);
+  align-items:center;gap:clamp(28px,6vw,92px);padding:clamp(24px,6vw,88px);
+  position:relative;isolation:isolate;overflow:hidden;
+  background:
+    radial-gradient(ellipse at 12% 18%,rgba(112,76,214,.54),transparent 34%),
+    radial-gradient(ellipse at 88% 82%,rgba(45,91,210,.36),transparent 34%),
+    radial-gradient(ellipse at 52% 48%,rgba(83,53,155,.26),transparent 42%),
+    linear-gradient(128deg,#100b2e 0%,#21104f 46%,#101d50 100%);
+}
+.login-wrap:before{
+  content:"";position:absolute;z-index:-1;width:min(58vw,690px);aspect-ratio:1;
+  left:-13%;top:-33%;border-radius:50%;
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 0 0 28px rgba(255,255,255,.025),0 0 0 62px rgba(255,255,255,.02),
+    inset 0 0 90px rgba(143,117,255,.12);
+}
+.login-wrap:after{
+  content:"";position:absolute;z-index:-1;width:min(44vw,520px);aspect-ratio:1;
+  right:-10%;bottom:-35%;border-radius:42% 58% 62% 38%;
+  transform:rotate(-24deg);border:1px solid rgba(245,207,85,.20);
+  background:linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,0));
+  box-shadow:0 0 0 22px rgba(255,255,255,.025),0 25px 90px rgba(5,4,30,.25);
+}
+/* Left identity area */
+.login-wrap .login-card{grid-column:2;grid-row:1}
+.login-wrap:has(.login-card):not(:has(.login-intro)){}
+.login-intro{
+  grid-column:1;grid-row:1;max-width:620px;color:#fff;padding:12px 0;
+}
+.login-intro .eyebrow{
+  display:inline-flex;align-items:center;gap:9px;padding:8px 13px;border-radius:30px;
+  border:1px solid rgba(255,255,255,.17);background:rgba(255,255,255,.08);
+  color:#f9df8b;font-size:10px;font-weight:800;letter-spacing:1.8px;text-transform:uppercase;
+  backdrop-filter:blur(12px)
+}
+.login-intro .eyebrow:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 12px var(--gold)}
+.login-intro h2{font-size:clamp(34px,5vw,62px);line-height:1.02;letter-spacing:-1.8px;margin:22px 0 14px;color:#fff}
+.login-intro h2 span{color:#f5d36e}
+.login-intro p{max-width:470px;color:#d3d2ed;font-size:14px;line-height:1.8;margin:0}
+.login-intro .motto{display:flex;flex-wrap:wrap;gap:9px;margin-top:27px}
+.login-intro .motto span{
+  padding:9px 12px;border-radius:11px;background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.12);color:#f7f4ff;font-size:10px;font-weight:700;
+  backdrop-filter:blur(10px)
+}
+.login-intro .motto span:before{content:"✦";color:var(--gold);margin-right:7px}
+.login-card{
+  width:100%;max-width:470px;padding:30px;border-radius:25px;
+  border:1px solid rgba(255,255,255,.82);
+  background:linear-gradient(145deg,rgba(255,255,255,.98),rgba(249,249,255,.94));
+  box-shadow:0 28px 80px rgba(5,4,30,.35),0 0 0 7px rgba(255,255,255,.045);
+  backdrop-filter:blur(18px);transform:none;position:relative;overflow:hidden
+}
+.login-card:before{
+  content:"";position:absolute;top:0;left:30px;right:30px;height:3px;border-radius:0 0 5px 5px;
+  background:linear-gradient(90deg,#3157d5,#8061dc,#f5cf55)
+}
+.login-brand{display:flex;align-items:center;gap:13px;margin:0 0 27px}
+.login-brand img{
+  width:62px;height:62px;object-fit:contain;display:block;flex:none;
+  padding:4px;border-radius:15px;background:#fff;
+  box-shadow:0 5px 16px rgba(28,40,90,.13);filter:none
+}
+.login-brand b{font-size:16px;color:#20295b;letter-spacing:.25px}
+.login-brand small{display:block;color:#858aa5;font-size:11px;margin-top:4px}
+.login-card h1{font-size:25px;letter-spacing:-.5px;color:#202653;margin:0 0 7px}
+.login-card p{font-size:12px;color:#7b819e;margin:0 0 23px}
+.field{display:grid;gap:7px;margin:14px 0}
+.field label{font-size:11px;font-weight:750;color:#505a83}
+.field input{
+  border:1px solid #e3e6f2;border-radius:12px;padding:13px 14px;outline:none;
+  color:#22294f;background:#f9faff;box-shadow:inset 0 1px 3px rgba(26,33,83,.025)
+}
+.field input:focus{border-color:#8272df;box-shadow:0 0 0 3px rgba(101,69,199,.11);background:#fff}
+.login-card .btn{
+  width:100%;margin-top:10px;border-radius:12px;padding:13px 16px;
+  background:linear-gradient(105deg,#3157d5 0%,#5d4acb 62%,#7654cf 100%);
+  box-shadow:0 7px 17px rgba(76,67,190,.23);font-size:12px;letter-spacing:.15px;
+  transition:transform .16s,box-shadow .16s
+}
+.login-card .btn:hover{transform:translateY(-2px);box-shadow:0 11px 22px rgba(76,67,190,.28)}
+.login-card .btn:active{transform:translateY(1px)}
+.login-card .hint{font-size:10px;color:#9298ae;line-height:1.6;margin-top:15px}
+.login-card .error{font-size:11px;color:var(--red);min-height:16px}
+/* Main application retains compact digital-banking cards */
+.app{background:#f5f6fc}
+.sidebar{
+  background:linear-gradient(180deg,#17123f 0%,#25236a 58%,#263e91 100%);
+  color:#fff;box-shadow:5px 0 22px rgba(23,18,63,.10)
+}
+.brand{border-bottom-color:rgba(255,255,255,.15)}
+.brand img{background:#fff;border-radius:12px;padding:3px;box-shadow:0 4px 12px rgba(0,0,0,.15)}
+.period{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.14)}
+.nav button{border-radius:11px;transition:background .16s,transform .16s}
+.nav button:hover{background:rgba(255,255,255,.12);transform:translateX(2px)}
+.nav button.active{background:linear-gradient(100deg,rgba(245,207,85,.22),rgba(255,255,255,.10));box-shadow:inset 3px 0 #f5cf55}
+.topbar{background:#fff;box-shadow:0 2px 12px rgba(31,35,82,.035)}
+.hero{background:linear-gradient(112deg,#20205d 0%,#3157d5 58%,#7051c7 100%);border:1px solid rgba(255,255,255,.3);box-shadow:0 10px 24px rgba(60,65,165,.16)}
+.hero h2{text-shadow:none}
+.hero:after{border-color:rgba(245,207,85,.42);box-shadow:0 0 0 25px rgba(255,255,255,.045),0 0 0 54px rgba(255,255,255,.025)}
+.tile{background:linear-gradient(145deg,#fff,#fbfbff);border:1px solid #e9eaf4;box-shadow:0 5px 15px rgba(31,35,82,.055);transition:transform .16s,border-color .16s,box-shadow .16s}
+.tile:hover{transform:translateY(-2px);border-color:#c9c8ee;box-shadow:0 10px 20px rgba(75,66,160,.10)}
+.tile i{background:linear-gradient(145deg,#edf1ff,#f2edff);color:#594bc0}
+.panel,.card,.person{background:#fff;border:1px solid #e9eaf4;box-shadow:0 5px 15px rgba(31,35,82,.045)}
+.person{transition:transform .16s,box-shadow .16s}
+.person:hover{transform:translateY(-2px);box-shadow:0 10px 18px rgba(31,35,82,.09)}
+.secondary{background:#f0efff;color:#5545b5}
+.eventdate{background:linear-gradient(145deg,#edf1ff,#f2edff);color:#5545b5}
+.progress i{background:linear-gradient(90deg,#3157d5,#7654cf)}
+.btn{background:linear-gradient(105deg,#3157d5,#6545c7)}
+.modalbox{box-shadow:0 18px 50px rgba(17,15,55,.32)}
+@media(max-width:900px){
+ .login-wrap{grid-template-columns:minmax(220px,.85fr) minmax(340px,440px);gap:24px;padding:24px}
+ .login-intro h2{font-size:clamp(30px,4vw,44px)}
+ .login-card{padding:25px}
+}
 @media(max-width:700px){
- .login-wrap{display:grid;grid-template-columns:1fr;gap:15px;padding:15px;align-content:center}
- .login-wrap:before{min-height:105px;font-size:20px;line-height:1.45;padding:13px;border-radius:18px;transform:none;letter-spacing:1.5px}
- .login-wrap:after{font-size:70px;top:0;left:3%}
- .login-card{max-width:460px;margin:auto;transform:none;border-radius:22px;padding:22px;box-shadow:7px 8px 0 #b8cce4,0 20px 38px #102f542b}
- .login-card h1{font-size:21px}
- .hero{box-shadow:0 5px 0 #09294d,0 12px 22px #0a2d5329}
+ .login-wrap{display:grid;grid-template-columns:1fr;gap:18px;padding:22px 16px;align-content:center;overflow:auto}
+ .login-intro{grid-column:1;grid-row:1;max-width:470px;margin:0 auto;width:100%;padding:0 3px}
+ .login-intro .eyebrow{font-size:9px;padding:7px 10px}
+ .login-intro h2{font-size:30px;line-height:1.05;margin:12px 0 7px}
+ .login-intro p{font-size:11px;line-height:1.55}
+ .login-intro .motto{margin-top:12px;gap:6px}
+ .login-intro .motto span{font-size:8px;padding:6px 8px}
+ .login-card{grid-column:1;grid-row:2;width:100%;max-width:470px;margin:0 auto;padding:22px;border-radius:20px;box-shadow:0 18px 42px rgba(5,4,30,.28),0 0 0 5px rgba(255,255,255,.04)}
+ .login-brand{margin-bottom:20px}
+ .login-brand img{width:54px;height:54px}
+ .login-card h1{font-size:22px}
+}
+@media(max-height:700px) and (min-width:701px){
+ .login-wrap{padding-top:18px;padding-bottom:18px}
+ .login-card{padding:22px}
+ .login-brand{margin-bottom:16px}
+ .login-card p{margin-bottom:14px}
+ .field{margin:10px 0}
 }
 
 </style></head><body>
-<div id="loginView" class="login-wrap"><div class="login-card"><div class="login-brand"><img src="assets/logo-smpn2-kawali.png"><div><b>ADITARA OSIS PORTAL</b><small>SMP Negeri 2 Kawali · 2026–2027</small></div></div><h1>Selamat datang</h1><p>Masuk menggunakan akun pengurus masing-masing.</p><div class="field"><label>Username</label><input id="username" autocomplete="username" placeholder="Masukkan username"></div><div class="field"><label>Password</label><input id="password" type="password" autocomplete="current-password" placeholder="Masukkan password"></div><div class="error" id="loginError"></div><button class="btn" id="loginBtn">Masuk ke portal</button><div class="hint">Akun awal dibuat oleh administrator melalui Google Apps Script. Jangan bagikan password kepada pengurus lain.</div></div></div>
+<div id="loginView" class="login-wrap"><div class="login-intro">
+<div class="eyebrow">SMP NEGERI 2 KAWALI · PERIODE 2026–2027</div>
+<h2>Ruang <span>Kolaborasi</span><br>ADITARA</h2>
+<p>Tempat pengurus OSIS bergerak bersama, belajar memimpin, dan menghadirkan aksi nyata bagi sekolah.</p>
+<div class="motto"><span>Aktif</span><span>Disiplin</span><span>Inovatif</span><span>Berkarakter</span></div>
+</div><div class="login-card"><div class="login-brand"><img src="/aditara-osis-portal/assets/logo-smpn2-kawali.png" alt="Logo SMP Negeri 2 Kawali"><div><b>ADITARA OSIS PORTAL</b><small>SMP Negeri 2 Kawali · 2026–2027</small></div></div><h1>Selamat datang</h1><p>Masuk menggunakan akun pengurus masing-masing.</p><div class="field"><label>Username</label><input id="username" autocomplete="username" placeholder="Masukkan username"></div><div class="field"><label>Password</label><input id="password" type="password" autocomplete="current-password" placeholder="Masukkan password"></div><div class="error" id="loginError"></div><button class="btn" id="loginBtn">Masuk ke portal</button><div class="hint">Akun awal dibuat oleh administrator melalui Google Apps Script. Jangan bagikan password kepada pengurus lain.</div></div></div>
 <div id="appView" class="app hidden">
-<aside class="sidebar"><div class="brand"><img src="assets/logo-smpn2-kawali.png"><div><b>ADITARA PORTAL</b><small>OSIS SMP Negeri 2 Kawali</small></div></div><div class="period">PERIODE AKTIF<b>2026 — 2027</b></div><nav class="nav" id="sideNav">
+<aside class="sidebar"><div class="brand"><img src="/aditara-osis-portal/assets/logo-smpn2-kawali.png" alt="Logo SMP Negeri 2 Kawali"><div><b>ADITARA PORTAL</b><small>OSIS SMP Negeri 2 Kawali</small></div></div><div class="period">PERIODE AKTIF<b>2026 — 2027</b></div><nav class="nav" id="sideNav">
 <button class="active" data-page="home"><em>⌂</em>Dashboard</button><button data-page="people"><em>♙</em>Data Pengurus</button><button data-page="attendance"><em>▦</em>Absensi Pertemuan</button><button data-page="agenda"><em>▣</em>Agenda Kegiatan</button><button data-page="proker"><em>☷</em>Program Kerja</button><button data-page="meeting"><em>✎</em>Rapat & Notulen</button><button data-page="finance"><em>◈</em>Keuangan OSIS</button><button data-page="gallery"><em>▧</em>Dokumentasi</button><button data-page="settings"><em>⚙</em>Pengaturan</button></nav><div class="sidefoot">ADITARA · Aktif, Disiplin, Inovatif<br>Portal organisasi siswa</div></aside>
 <main class="main"><header class="topbar"><div class="crumb" id="crumb">Ruang organisasi / Dashboard</div><div class="topright"><button class="secondary" id="logoutBtn">Keluar</button><div class="mini-avatar" id="userInitial">AD</div><span id="userNameTop">Pengurus</span></div></header>
 <div class="content">
