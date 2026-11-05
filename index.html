@@ -15,6 +15,53 @@
 .mobilebar{display:none}.modal{position:fixed;inset:0;background:#091b30a8;display:none;align-items:center;justify-content:center;padding:18px;z-index:20}.modal.show{display:flex}.modalbox{width:min(440px,100%);background:white;border-radius:17px;padding:19px}.modalbox h3{font-size:15px;margin:0}.modalbox p{font-size:11px;color:var(--muted);line-height:1.5}.modalrow{display:flex;justify-content:flex-end;gap:8px;margin-top:15px}
 @media(max-width:1050px){.tiles{grid-template-columns:repeat(4,1fr)}.peoplegrid{grid-template-columns:repeat(5,1fr)}}
 @media(max-width:700px){.app{display:block;height:100dvh}.sidebar{display:none}.topbar{height:52px;padding:0 13px}.content{height:calc(100dvh - 108px);padding:13px 12px 16px}.welcome h1{font-size:17px}.date{display:none}.hero{padding:14px;min-height:105px}.hero h2{font-size:18px}.heroStats{gap:12px}.stat b{font-size:18px}.stat:last-child{display:none}.tiles{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.tile{min-height:76px;padding:9px 8px}.tile b{font-size:9px}.tile small{font-size:8px}.lower{grid-template-columns:1fr;gap:8px;margin-top:10px}.head{margin:13px 0 8px}.peoplegrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.person{padding:6px}.person b{font-size:8px}.pagehead h2{font-size:16px}.mobilebar{position:fixed;display:flex;bottom:0;left:0;right:0;height:56px;background:white;border-top:1px solid var(--line);justify-content:space-around;align-items:center;z-index:10}.mobilebar button{background:transparent;color:#8291a5;font-size:8px;display:grid;justify-items:center;gap:2px}.mobilebar button.active{color:var(--blue)}.mobilebar i{font-style:normal;font-size:18px}}
+
+/* ===== ADITARA 3D OSIS VISUAL UPGRADE v0.3 ===== */
+:root{--navy:#071d3d;--blue:#1267b2;--gold:#f4c542;--bg:#eaf1fb;--ink:#102747;--muted:#647b98;--line:#dce7f5;--shadow:0 22px 55px #08264a24}
+body{background:radial-gradient(ellipse at 12% 12%,#d6eaff 0,transparent 34%),radial-gradient(ellipse at 90% 85%,#d8e8fb 0,transparent 32%),#edf3fb}
+.login-wrap{position:relative;isolation:isolate;overflow:hidden;grid-template-columns:minmax(280px,1fr) minmax(360px,480px);gap:clamp(24px,6vw,90px);padding:clamp(20px,6vw,90px);background:linear-gradient(135deg,#eaf3ff,#dce9f8 55%,#f5f8fd)}
+.login-wrap:before{content:"ADITARA\\A OSIS PORTAL\\A\\A AKTIF • DISIPLIN\\A INOVATIF • BERKARAKTER";white-space:pre;display:flex;align-items:center;justify-content:center;text-align:center;text-shadow:0 3px 0 #ffffff70,0 14px 28px #0a2a4f30;color:#123c70;font-weight:1000;letter-spacing:3px;line-height:1.65;font-size:clamp(25px,4vw,54px);padding:30px;min-height:450px;border-radius:34px;background:linear-gradient(145deg,#fafdff,#c8def6);border:1px solid #ffffff;box-shadow:inset 8px 8px 18px #ffffff, inset -10px -10px 22px #a9c3e2,0 28px 55px #0b2d551c;transform:perspective(900px) rotateY(7deg) rotateX(2deg)}
+.login-wrap:after{content:"✦";position:absolute;z-index:-1;left:7%;top:5%;font-size:150px;color:#f2c94c55;text-shadow:0 15px 30px #17385a22}
+.login-card{width:100%;max-width:480px;border:1px solid #ffffff;background:linear-gradient(145deg,#fff,#f7faff);border-radius:28px;padding:clamp(23px,3vw,34px);box-shadow:14px 18px 0 #b8cce4,0 35px 70px #102f542b;transform:perspective(1000px) rotateY(-3deg);position:relative}
+.login-card:before{content:"";position:absolute;inset:8px;border:1px solid #e7eff9;border-radius:21px;pointer-events:none}
+.login-brand img{filter:drop-shadow(0 7px 5px #17385a30);transform:translateZ(20px) scale(1.04)}
+.login-brand b{color:#0b2c58;letter-spacing:.6px}
+.login-card h1{color:#0b2c58;font-size:25px}
+.login-card .btn{background:linear-gradient(135deg,#0d3970,#197bc2 70%,#2c91d1);box-shadow:0 6px 0 #08264d,0 12px 20px #1267b244;transition:.18s transform,.18s box-shadow}
+.login-card .btn:hover{transform:translateY(-3px);box-shadow:0 9px 0 #08264d,0 18px 25px #1267b244}
+.login-card .btn:active{transform:translateY(3px);box-shadow:0 2px 0 #08264d}
+.field input{background:linear-gradient(145deg,#fff,#f3f7fc);box-shadow:inset 3px 3px 7px #dfe8f3,inset -3px -3px 7px #fff}
+.app{background:#f2f6fc}
+.sidebar{background:linear-gradient(165deg,#061a36 0%,#0d3566 58%,#124b7d 100%);box-shadow:8px 0 30px #0a25431c;position:relative}
+.sidebar:after{content:"ADITARA";position:absolute;bottom:76px;left:12px;font-size:31px;font-weight:1000;letter-spacing:3px;color:#ffffff09;transform:rotate(-90deg);transform-origin:left}
+.brand img{box-shadow:0 5px 12px #0003}
+.nav button{transition:transform .15s,background .15s}
+.nav button:hover{transform:translateX(4px);background:#ffffff25}
+.nav button.active{background:linear-gradient(100deg,#ffffff2c,#ffffff0c);box-shadow:inset 3px 0 var(--gold)}
+.topbar{box-shadow:0 4px 15px #17365b08}
+.hero{background:linear-gradient(115deg,#071d3d,#104c86 58%,#1681bd);box-shadow:0 9px 0 #09294d,0 20px 35px #0a2d5329;border:1px solid #ffffff40}
+.hero:before{content:"";position:absolute;width:230px;height:230px;right:8%;top:-90px;border:2px solid #f4c54255;border-radius:34% 66% 58% 42%;transform:rotate(35deg);box-shadow:0 0 0 13px #ffffff08,0 0 0 27px #ffffff06}
+.hero h2{text-shadow:0 3px 0 #08294c}
+.tile{border:1px solid #e0eaf6;box-shadow:0 5px 0 #d8e3f1,0 10px 18px #17365b0c;transition:transform .18s,box-shadow .18s}
+.tile:hover{transform:translateY(-4px);box-shadow:0 9px 0 #c8d9ed,0 18px 25px #17365b18}
+.tile i{background:linear-gradient(145deg,#f9fcff,#dcecff);box-shadow:3px 4px 7px #c9d9ec,-3px -3px 7px #fff;color:#145b9b}
+.panel,.card,.person{box-shadow:0 4px 0 #e0e8f2,0 10px 22px #17365b08}
+.person{transition:transform .18s,box-shadow .18s}
+.person:hover{transform:translateY(-4px);box-shadow:0 8px 0 #d4e0ee,0 16px 25px #17365b16}
+.photo{box-shadow:inset 3px 3px 8px #9bb9d8,inset -3px -3px 8px #fff}
+.btn,.secondary{transition:transform .15s,box-shadow .15s}
+.secondary{box-shadow:0 3px 0 #d6e2f0}
+.secondary:active{transform:translateY(2px);box-shadow:0 1px 0 #d6e2f0}
+.modalbox{box-shadow:0 18px 50px #061a3680;border:1px solid #ffffff}
+@media(max-width:700px){
+ .login-wrap{display:grid;grid-template-columns:1fr;gap:15px;padding:15px;align-content:center}
+ .login-wrap:before{min-height:105px;font-size:20px;line-height:1.45;padding:13px;border-radius:18px;transform:none;letter-spacing:1.5px}
+ .login-wrap:after{font-size:70px;top:0;left:3%}
+ .login-card{max-width:460px;margin:auto;transform:none;border-radius:22px;padding:22px;box-shadow:7px 8px 0 #b8cce4,0 20px 38px #102f542b}
+ .login-card h1{font-size:21px}
+ .hero{box-shadow:0 5px 0 #09294d,0 12px 22px #0a2d5329}
+}
+
 </style></head><body>
 <div id="loginView" class="login-wrap"><div class="login-card"><div class="login-brand"><img src="assets/logo-smpn2-kawali.png"><div><b>ADITARA OSIS PORTAL</b><small>SMP Negeri 2 Kawali · 2026–2027</small></div></div><h1>Selamat datang</h1><p>Masuk menggunakan akun pengurus masing-masing.</p><div class="field"><label>Username</label><input id="username" autocomplete="username" placeholder="Masukkan username"></div><div class="field"><label>Password</label><input id="password" type="password" autocomplete="current-password" placeholder="Masukkan password"></div><div class="error" id="loginError"></div><button class="btn" id="loginBtn">Masuk ke portal</button><div class="hint">Akun awal dibuat oleh administrator melalui Google Apps Script. Jangan bagikan password kepada pengurus lain.</div></div></div>
 <div id="appView" class="app hidden">
