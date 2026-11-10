@@ -206,6 +206,21 @@ body{background:var(--bg);color:var(--ink)}
   .field input{width:100%!important;min-width:0!important;font-size:14px!important}
 }
 
+
+/* ADITARA account controls inside the existing profile modal */
+.modalbox{max-height:calc(100dvh - 36px);overflow-y:auto}
+.account-admin-area{margin-top:14px;padding-top:13px;border-top:1px solid var(--line);text-align:left}
+.account-admin-area .account-heading{font-size:11px;font-weight:800;color:var(--ink);margin-bottom:8px}
+.account-admin-area .account-meta{display:flex;justify-content:space-between;gap:12px;align-items:center;font-size:10px;margin:6px 0;color:var(--muted)}
+.account-admin-area .account-meta strong{color:var(--ink);font-weight:700;text-align:right;overflow-wrap:anywhere}
+.account-status{display:inline-block;padding:4px 8px;border-radius:20px;font-size:9px;font-weight:800;background:#fff4dc;color:#946200}
+.account-status.active{background:#e7f7ef;color:#16845e}
+.account-status.off{background:#fdebed;color:#b33a45}
+.account-admin-area .field{margin:10px 0 7px}
+.account-admin-area .field input{width:100%;min-width:0}
+.account-admin-area .modalrow{flex-wrap:wrap;align-items:center}
+.account-admin-area .account-note{font-size:9px;line-height:1.5;color:var(--muted);margin-top:7px}
+.account-admin-area .error{margin-top:5px}
 </style></head><body>
 <div id="loginView" class="login-wrap"><div class="login-intro">
 <div class="eyebrow">SMP NEGERI 2 KAWALI · PERIODE 2026–2027</div>
@@ -227,28 +242,111 @@ body{background:var(--bg);color:var(--ink)}
 <section class="page" id="attendance"><div class="pagehead"><div><h2>Absensi Pertemuan</h2><p>Khusus rapat dan kegiatan organisasi, bukan absensi sekolah.</p></div></div><div class="card"><b style="font-size:12px">Modul absensi</b><p class="tiny">QR Code dan input manual akan diaktifkan setelah database dan deployment backend selesai.</p></div></section>
 <section class="page" id="agenda"><div class="pagehead"><h2>Agenda Kegiatan</h2></div><div class="card tiny">Agenda organisasi akan ditampilkan di sini.</div></section><section class="page" id="proker"><div class="pagehead"><h2>Program Kerja</h2></div><div class="card tiny">Program kerja 10 seksi bidang.</div></section><section class="page" id="meeting"><div class="pagehead"><h2>Rapat & Notulen</h2></div><div class="card tiny">Arsip rapat dan keputusan organisasi.</div></section><section class="page" id="finance"><div class="pagehead"><h2>Keuangan OSIS</h2></div><div class="card tiny">Pencatatan kas dan transaksi.</div></section><section class="page" id="gallery"><div class="pagehead"><h2>Dokumentasi</h2></div><div class="card tiny">Galeri foto dan video kegiatan.</div></section><section class="page" id="settings"><div class="pagehead"><h2>Pengaturan</h2></div><div class="card tiny">Pengaturan akun dan periode.</div></section><section class="page" id="tasks"><div class="pagehead"><h2>Tugas Pengurus</h2></div><div class="card tiny">Daftar penugasan pribadi.</div></section><section class="page" id="evaluation"><div class="pagehead"><h2>Evaluasi Kinerja</h2></div><div class="card tiny">Rekap evaluasi dan catatan pembina.</div></section>
 </div></main><nav class="mobilebar"><button class="active" data-page="home"><i>⌂</i>Beranda</button><button data-page="agenda"><i>▣</i>Agenda</button><button data-page="attendance"><i>▦</i>Absensi</button><button data-page="people"><i>♙</i>Pengurus</button></nav></div>
-<div class="modal" id="profileModal"><div class="modalbox"><h3 id="modalName">Profil</h3><p id="modalInfo"></p><div class="modalrow"><button class="secondary" onclick="closeProfile()">Tutup</button></div></div></div>
+<div class="modal" id="profileModal"><div class="modalbox"><h3 id="modalName">Profil</h3><p id="modalInfo"></p><div id="adminAccountArea" class="account-admin-area hidden"></div><div class="modalrow"><button class="secondary" onclick="closeProfile()">Tutup</button></div></div></div>
 <script>
 const API_URL="https://script.google.com/macros/s/AKfycbwOXCvSLPyp5kUxJLee6l9PgHcILYAU44GGBMULqWD5MNq7-Y5arhB9dLzVM8S9ferlNw/exec"; // Backend Apps Script ADITARA v1.0.0.
 const periodId="PRD001";
 const people=[
 ["P001","Raffa Heri Aditya","7A","Ketua OSIS","INTI"],["P002","Salsa Syakila Zahra","8C","Wakil Ketua OSIS","INTI"],["P003","Zahira","8B","Sekretaris I","INTI"],["P004","Naura Saffa Nur Handini","","Sekretaris II","INTI"],["P005","Hilman Permana","7A","Bendahara I","INTI"],["P006","Fitya Najiyah Rahmadan","8A","Bendahara II","INTI"],
 ["P007","Silfa","8B","Koordinator","SB01"],["P008","Aa M. Faqih","7B","Anggota","SB01"],["P009","Sipa Herlianatasari","7A","Koordinator","SB02"],["P010","Laela Fitriani","8A","Anggota","SB02"],["P011","Wiywan Alhaz","7A","Koordinator","SB03"],["P012","M. Azka Alfarizki","8C","Anggota","SB03"],["P013","Salma Silpiana","","Koordinator","SB04"],["P014","Iffa Aldea Muren","7A","Anggota","SB04"],["P015","Farhan","7A","Anggota","SB04"],["P016","Bintang Febriyani","8C","Koordinator","SB05"],["P017","Siti Putri Maesaroh","7A","Anggota","SB05"],["P018","Uzma Patin Sahira","7B","Koordinator","SB06"],["P019","Resa Nugraha","7A","Anggota","SB06"],["P020","Agni Nurhasanah","8B","Koordinator","SB07"],["P021","Raisa Nur Anggraeni","8A","Anggota","SB07"],["P022","Rahmah Widawati","8B","Koordinator","SB08"],["P023","Davina Gita Setiani","7B","Anggota","SB08"],["P024","Khairunnisa Nurlaela Salsabila","7A","Anggota","SB08"],["P025","Dzikri Ahmad Fauzi","7A","Koordinator","SB09"],["P026","M. Alfathoni Aulia Adha","8A","Anggota","SB09"],["P027","Salsa Sahara","7B","Koordinator","SB10"],["P028","M. Labib Azizan","7A","Anggota","SB10"]];
-let currentUser=null,token=null,remotePeople=null;
+let currentUser=null,token=null,remotePeople=null,remoteUsers=null;
 const $=id=>document.getElementById(id);
 function initials(n){return n.split(/\s+/).filter(Boolean).slice(0,2).map(x=>x[0]).join("").toUpperCase()}
 function renderPeople(){const q=$("searchPeople").value.toLowerCase(),f=$("filterPeople").value;const list=(remotePeople||people.map(p=>({pengurus_id:p[0],nama_lengkap:p[1],kelas:p[2],jabatan:p[3],seksi_id:p[4]}))).filter(p=>(!f||p.seksi_id===f)&&(!q||p.nama_lengkap.toLowerCase().includes(q)));$("peopleGrid").innerHTML=list.map(p=>`<article class="person"><div class="photo">${p.foto_url?`<img src="${escapeAttr(p.foto_url)}" alt="">`:initials(p.nama_lengkap)}</div><b>${escapeHtml(p.nama_lengkap)}</b><small>${escapeHtml(p.jabatan||"Pengurus")} · ${escapeHtml(p.kelas||"Kelas belum dicatat")}</small><button data-profile="${p.pengurus_id}">Lihat profil</button></article>`).join("")||'<p class="tiny">Tidak ada pengurus yang cocok.</p>'}
 function escapeHtml(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}function escapeAttr(s){return escapeHtml(s)}
 function go(page){document.querySelectorAll(".page").forEach(x=>x.classList.toggle("active",x.id===page));document.querySelectorAll("[data-page]").forEach(x=>x.classList.toggle("active",x.dataset.page===page));$("crumb").textContent="Ruang organisasi / "+page; if(innerWidth<701)$("content")?.scrollTo(0,0)}
 document.addEventListener("click",e=>{const b=e.target.closest("[data-page]");if(b)go(b.dataset.page);const p=e.target.closest("[data-profile]");if(p)openProfile(p.dataset.profile)});
-function openProfile(id){const p=(remotePeople||people.map(x=>({pengurus_id:x[0],nama_lengkap:x[1],kelas:x[2],jabatan:x[3],seksi_id:x[4]}))).find(x=>x.pengurus_id===id);if(!p)return;$("modalName").textContent=p.nama_lengkap;$("modalInfo").textContent=(p.jabatan||"Pengurus")+" · "+(p.kelas||"Kelas belum dicatat")+" · "+(p.seksi_id==="INTI"?"Pengurus inti":p.seksi_id.replace("SB","Seksi bidang "));$("profileModal").classList.add("show")}
+function openProfile(id){
+ const p=(remotePeople||people.map(x=>({pengurus_id:x[0],nama_lengkap:x[1],kelas:x[2],jabatan:x[3],seksi_id:x[4]}))).find(x=>String(x.pengurus_id)===String(id));
+ if(!p)return;
+ $("modalName").textContent=p.nama_lengkap;
+ const section=p.seksi_id==="INTI"?"Pengurus inti":(p.seksi_id||"").replace("SB","Seksi bidang ");
+ $("modalInfo").textContent=(p.jabatan||"Pengurus")+" · "+(p.kelas||"Kelas belum dicatat")+(section?" · "+section:"");
+ renderProfileAccount(p);
+ $("profileModal").classList.add("show");
+}
+function renderProfileAccount(person){
+ const area=$("adminAccountArea");
+ if(!area)return;
+ if(!currentUser||String(currentUser.role||"").toUpperCase()!=="ADMIN"){
+   area.classList.add("hidden");area.innerHTML="";return;
+ }
+ area.classList.remove("hidden");
+ const account=(remoteUsers||[]).find(u=>String(u.pengurus_id)===String(person.pengurus_id));
+ if(!account){
+   area.innerHTML='<div class="account-heading">Manajemen akun</div><div class="tiny">Status akun belum berhasil dimuat. Tekan Muat Ulang pada Galeri Pengurus, lalu coba kembali.</div>';
+   return;
+ }
+ const status=String(account.status||"").toUpperCase();
+ const active=status==="AKTIF";
+ const statusClass=active?"active":(status==="NONAKTIF"?"off":"");
+ const actionLabel=active?"Simpan Password Baru":"Aktifkan Akun";
+ area.innerHTML=`
+  <div class="account-heading">Manajemen akun pengurus</div>
+  <div class="account-meta"><span>Username</span><strong>${escapeHtml(account.username||"-")}</strong></div>
+  <div class="account-meta"><span>ID akun</span><strong>${escapeHtml(account.user_id||"-")}</strong></div>
+  <div class="account-meta"><span>Status akun</span><span class="account-status ${statusClass}">${escapeHtml(status||"TIDAK DIKETAHUI")}</span></div>
+  <div class="field"><label for="accountPassword">${active?"Password baru":"Password yang ditetapkan pembina"}</label><input id="accountPassword" type="password" minlength="10" autocomplete="new-password" placeholder="Minimal 10 karakter"></div>
+  <div class="account-note">Password ditetapkan oleh pembina dan disampaikan langsung kepada pengurus. Password asli tidak ditampilkan kembali setelah disimpan.</div>
+  <div class="error" id="accountActionMessage" aria-live="polite"></div>
+  <div class="modalrow" style="justify-content:space-between">
+    ${active?'<button type="button" class="secondary" id="deactivateAccountBtn">Nonaktifkan akun</button>':'<span class="tiny">Akun belum aktif</span>'}
+    <button type="button" class="btn" id="saveAccountPasswordBtn">${actionLabel}</button>
+  </div>`;
+ const saveBtn=$("saveAccountPasswordBtn");
+ saveBtn.onclick=async()=>{
+   const input=$("accountPassword");const msg=$("accountActionMessage");
+   const password=input.value;
+   if(password.length<10){msg.textContent="Password minimal 10 karakter.";input.focus();return;}
+   saveBtn.disabled=true;saveBtn.textContent="Menyimpan…";msg.textContent="";
+   try{
+     const result=await api({action:"adminSetPassword",token,user_id:account.user_id,password});
+     input.value="";
+     await loadAdminUsers();
+     renderProfileAccount(person);
+     const updatedMsg=$("accountActionMessage");
+     if(updatedMsg)updatedMsg.style.color="var(--green)";
+     if(updatedMsg)updatedMsg.textContent=result.message||"Password berhasil disimpan dan akun diaktifkan.";
+   }catch(err){msg.textContent=err.message||"Gagal menyimpan password.";saveBtn.disabled=false;saveBtn.textContent=actionLabel;}
+ };
+ const deactivateBtn=$("deactivateAccountBtn");
+ if(deactivateBtn)deactivateBtn.onclick=async()=>{
+   if(!confirm("Nonaktifkan akun "+(account.username||person.nama_lengkap)+"? Pengurus tidak dapat login sampai akun diaktifkan kembali."))return;
+   deactivateBtn.disabled=true;deactivateBtn.textContent="Memproses…";
+   try{
+     const result=await api({action:"adminSetStatus",token,user_id:account.user_id,status:"NONAKTIF"});
+     await loadAdminUsers();
+     renderProfileAccount(person);
+     const updatedMsg=$("accountActionMessage");
+     if(updatedMsg){updatedMsg.style.color="var(--green)";updatedMsg.textContent=result.message||"Akun berhasil dinonaktifkan.";}
+   }catch(err){const msg=$("accountActionMessage");if(msg)msg.textContent=err.message||"Gagal menonaktifkan akun.";deactivateBtn.disabled=false;deactivateBtn.textContent="Nonaktifkan akun";}
+ };
+}
 function closeProfile(){$("profileModal").classList.remove("show")}
 $("searchPeople").addEventListener("input",renderPeople);$("filterPeople").addEventListener("change",renderPeople);
 function showApp(user){currentUser=user;const displayName=user.nama||user.nama_lengkap||user.username;$("loginView").classList.add("hidden");$("appView").classList.remove("hidden");$("userNameTop").textContent=displayName;$("userInitial").textContent=initials(displayName);$("heroName").textContent=displayName;$("heroRole").textContent=(user.jabatan||user.role)+" · SMP Negeri 2 Kawali";$("greeting").textContent="Selamat datang, "+displayName+" 👋";go("home")}
 async function api(payload){if(!API_URL)throw new Error("URL Apps Script belum dipasang. Mode demo belum mengaktifkan login.");const r=await fetch(API_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload)});const j=await r.json();if(!j.ok)throw new Error(j.message||"Permintaan gagal");return j}
 $("loginBtn").onclick=async()=>{const btn=$("loginBtn");$("loginError").textContent="";btn.disabled=true;btn.textContent="Memeriksa…";try{const result=await api({action:"login",username:$("username").value.trim(),password:$("password").value});token=result.token;showApp(result.user);localStorage.setItem("aditara_session",token);await loadPeople()}catch(e){$("loginError").textContent=e.message}finally{btn.disabled=false;btn.textContent="Masuk ke portal"}};
 $("logoutBtn").onclick=()=>{token=null;currentUser=null;localStorage.removeItem("aditara_session");$("appView").classList.add("hidden");$("loginView").classList.remove("hidden");$("password").value=""};
-async function loadPeople(){try{const r=await api({action:"listPeople",token,periode_id:periodId});remotePeople=(r.people||[]).map(p=>{const legacy=people.find(x=>x[0]===p.pengurus_id)||[];return {...p,nama_lengkap:p.nama||legacy[1]||"",kelas:p.kelas||legacy[2]||"",jabatan:p.jabatan||legacy[3]||"Pengurus",seksi_id:legacy[4]||""}});renderPeople()}catch(e){console.warn("Data pengurus belum dapat dimuat:",e.message)}}
+async function loadAdminUsers(){
+ if(!currentUser||String(currentUser.role||"").toUpperCase()!=="ADMIN"){remoteUsers=null;return;}
+ const result=await api({action:"adminListUsers",token});
+ remoteUsers=result.users||[];
+}
+async function loadPeople(){
+ try{
+   const r=await api({action:"listPeople",token,periode_id:periodId});
+   remotePeople=(r.people||[]).map(p=>{
+     const legacy=people.find(x=>x[0]===p.pengurus_id)||[];
+     return {...p,nama_lengkap:p.nama||p.nama_lengkap||legacy[1]||"",kelas:p.kelas||legacy[2]||"",jabatan:p.jabatan||legacy[3]||"Pengurus",seksi_id:legacy[4]||""};
+   });
+   renderPeople();
+ }catch(e){console.warn("Data pengurus belum dapat dimuat:",e.message);}
+ if(currentUser&&String(currentUser.role||"").toUpperCase()==="ADMIN"){
+   try{await loadAdminUsers();}
+   catch(e){remoteUsers=null;console.warn("Status akun belum dapat dimuat:",e.message);}
+ }
+}
 $("refreshPeople").onclick=loadPeople;
 renderPeople();
 </script></body></html>
