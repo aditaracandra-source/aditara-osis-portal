@@ -221,13 +221,44 @@ body{background:var(--bg);color:var(--ink)}
 .account-admin-area .modalrow{flex-wrap:wrap;align-items:center}
 .account-admin-area .account-note{font-size:9px;line-height:1.5;color:var(--muted);margin-top:7px}
 .account-admin-area .error{margin-top:5px}
+
+/* ===== PASSWORD VISIBILITY CONTROL v1.0.3 ===== */
+.password-field-wrap{position:relative;display:block;width:100%;min-width:0}
+.password-field-wrap>input{width:100%!important;min-width:0;padding-right:49px!important}
+.password-toggle{
+  position:absolute;right:8px;top:50%;transform:translateY(-50%);
+  width:34px;height:34px;display:grid;place-items:center;
+  padding:0;border:0;border-radius:9px;background:transparent;
+  color:#75809a;cursor:pointer;z-index:2
+}
+.password-toggle:hover{background:#eef0fb;color:#5545b5}
+.password-toggle:focus-visible{outline:2px solid #8061dc;outline-offset:2px}
+.password-toggle svg{width:19px;height:19px;display:block;pointer-events:none}
+
+/* Login feedback: visible on desktop and mobile without changing the layout. */
+.login-card .error:not(:empty){
+  display:block;padding:9px 11px;margin:8px 0;border-radius:9px;
+  background:#fff1f1;border:1px solid #f4caca;color:#b33a45;
+  line-height:1.45;overflow-wrap:anywhere
+}
+.login-card .error[data-state="loading"]{
+  background:#eef4ff;border-color:#d5e3ff;color:#3157a8
+}
+.login-card .error[data-state="success"]{
+  background:#eaf8f1;border-color:#c9ead9;color:#176b4e
+}
+
 </style></head><body>
 <div id="loginView" class="login-wrap"><div class="login-intro">
 <div class="eyebrow">SMP NEGERI 2 KAWALI · PERIODE 2026–2027</div>
 <h2>Ruang <span>Kolaborasi</span><br>ADITARA</h2>
 <p>Tempat pengurus OSIS bergerak bersama, belajar memimpin, dan menghadirkan aksi nyata bagi sekolah.</p>
 <div class="motto"><span>Aktif</span><span>Disiplin</span><span>Inovatif</span><span>Berkarakter</span></div>
-</div><div class="login-card"><div class="login-brand"><img src="/aditara-osis-portal/assets/logo-smpn2-kawali.png" alt="Logo SMP Negeri 2 Kawali"><div><b>ADITARA OSIS PORTAL</b><small>SMP Negeri 2 Kawali · 2026–2027</small></div></div><h1>Selamat datang</h1><p>Masuk menggunakan akun pengurus masing-masing.</p><div class="field"><label>Username</label><input id="username" autocomplete="username" placeholder="Masukkan username"></div><div class="field"><label>Password</label><input id="password" type="password" autocomplete="current-password" placeholder="Masukkan password"></div><div class="error" id="loginError"></div><button class="btn" id="loginBtn">Masuk ke portal</button><div class="hint">Akun awal dibuat oleh administrator melalui Google Apps Script. Jangan bagikan password kepada pengurus lain.</div></div></div>
+</div><div class="login-card"><div class="login-brand"><img src="/aditara-osis-portal/assets/logo-smpn2-kawali.png" alt="Logo SMP Negeri 2 Kawali"><div><b>ADITARA OSIS PORTAL</b><small>SMP Negeri 2 Kawali · 2026–2027</small></div></div><h1>Selamat datang</h1><p>Masuk menggunakan akun pengurus masing-masing.</p><div class="field"><label>Username</label><input id="username" autocomplete="username" placeholder="Masukkan username"></div><div class="field"><label>Password</label><div class="password-field-wrap">
+<input id="password" type="password" autocomplete="current-password" placeholder="Masukkan password">
+<button type="button" class="password-toggle" data-toggle-password="password" aria-label="Tampilkan password" aria-pressed="false" title="Tampilkan password">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>
+</button></div></div><div class="error" id="loginError" role="status" aria-live="polite" aria-atomic="true"></div><button class="btn" id="loginBtn">Masuk ke portal</button><div class="hint">Akun awal dibuat oleh administrator melalui Google Apps Script. Jangan bagikan password kepada pengurus lain.</div></div></div>
 <div id="appView" class="app hidden">
 <aside class="sidebar"><div class="brand"><img src="/aditara-osis-portal/assets/logo-smpn2-kawali.png" alt="Logo SMP Negeri 2 Kawali"><div><b>ADITARA PORTAL</b><small>OSIS SMP Negeri 2 Kawali</small></div></div><div class="period">PERIODE AKTIF<b>2026 — 2027</b></div><nav class="nav" id="sideNav">
 <button class="active" data-page="home"><em>⌂</em>Dashboard</button><button data-page="people"><em>♙</em>Data Pengurus</button><button data-page="attendance"><em>▦</em>Absensi Pertemuan</button><button data-page="agenda"><em>▣</em>Agenda Kegiatan</button><button data-page="proker"><em>☷</em>Program Kerja</button><button data-page="meeting"><em>✎</em>Rapat & Notulen</button><button data-page="finance"><em>◈</em>Keuangan OSIS</button><button data-page="gallery"><em>▧</em>Dokumentasi</button><button data-page="settings"><em>⚙</em>Pengaturan</button></nav><div class="sidefoot">ADITARA · Aktif, Disiplin, Inovatif<br>Portal organisasi siswa</div></aside>
@@ -286,7 +317,11 @@ function renderProfileAccount(person){
   <div class="account-meta"><span>Username</span><strong>${escapeHtml(account.username||"-")}</strong></div>
   <div class="account-meta"><span>ID akun</span><strong>${escapeHtml(account.user_id||"-")}</strong></div>
   <div class="account-meta"><span>Status akun</span><span class="account-status ${statusClass}">${escapeHtml(status||"TIDAK DIKETAHUI")}</span></div>
-  <div class="field"><label for="accountPassword">${active?"Password baru":"Password yang ditetapkan pembina"}</label><input id="accountPassword" type="password" minlength="10" autocomplete="new-password" placeholder="Minimal 10 karakter"></div>
+  <div class="field"><label for="accountPassword">${active?"Password baru":"Password yang ditetapkan pembina"}</label><div class="password-field-wrap">
+<input id="accountPassword" type="password" minlength="10" autocomplete="new-password" placeholder="Minimal 10 karakter">
+<button type="button" class="password-toggle" data-toggle-password="accountPassword" aria-label="Tampilkan password" aria-pressed="false" title="Tampilkan password">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>
+</button></div></div>
   <div class="account-note">Password ditetapkan oleh pembina dan disampaikan langsung kepada pengurus. Password asli tidak ditampilkan kembali setelah disimpan.</div>
   <div class="error" id="accountActionMessage" aria-live="polite"></div>
   <div class="modalrow" style="justify-content:space-between">
@@ -325,8 +360,79 @@ function renderProfileAccount(person){
 function closeProfile(){$("profileModal").classList.remove("show")}
 $("searchPeople").addEventListener("input",renderPeople);$("filterPeople").addEventListener("change",renderPeople);
 function showApp(user){currentUser=user;const displayName=user.nama||user.nama_lengkap||user.username;$("loginView").classList.add("hidden");$("appView").classList.remove("hidden");$("userNameTop").textContent=displayName;$("userInitial").textContent=initials(displayName);$("heroName").textContent=displayName;$("heroRole").textContent=(user.jabatan||user.role)+" · SMP Negeri 2 Kawali";$("greeting").textContent="Selamat datang, "+displayName+" 👋";go("home")}
-async function api(payload){if(!API_URL)throw new Error("URL Apps Script belum dipasang. Mode demo belum mengaktifkan login.");const r=await fetch(API_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload)});const j=await r.json();if(!j.ok)throw new Error(j.message||"Permintaan gagal");return j}
-$("loginBtn").onclick=async()=>{const btn=$("loginBtn");$("loginError").textContent="";btn.disabled=true;btn.textContent="Memeriksa…";try{const result=await api({action:"login",username:$("username").value.trim(),password:$("password").value});token=result.token;showApp(result.user);localStorage.setItem("aditara_session",token);await loadPeople()}catch(e){$("loginError").textContent=e.message}finally{btn.disabled=false;btn.textContent="Masuk ke portal"}};
+async function api(payload){
+  if(!API_URL)throw new Error("URL Apps Script belum dipasang. Mode demo belum mengaktifkan login.");
+  const controller=new AbortController();
+  const timeoutId=setTimeout(()=>controller.abort(),45000);
+  try{
+    const response=await fetch(API_URL,{
+      method:"POST",
+      headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body:JSON.stringify(payload),
+      cache:"no-store",
+      redirect:"follow",
+      signal:controller.signal
+    });
+    const raw=await response.text();
+    let result;
+    try{result=JSON.parse(raw)}
+    catch(parseError){throw new Error("Jawaban server tidak terbaca. Periksa deployment Apps Script dan coba lagi.")}
+    if(!response.ok)throw new Error("Server memberi respons HTTP "+response.status+". Coba beberapa saat lagi.");
+    if(!result||result.ok!==true)throw new Error((result&&result.message)||"Permintaan tidak berhasil diproses.");
+    return result;
+  }catch(error){
+    if(error&&error.name==="AbortError")throw new Error("Verifikasi login melewati 45 detik. Periksa koneksi internet dan coba lagi.");
+    const message=String((error&&error.message)||"");
+    if(/Failed to fetch|NetworkError|Load failed|fetch failed/i.test(message)){
+      throw new Error("Tidak dapat terhubung ke server ADITARA. Periksa internet HP dan akses Web App Apps Script.");
+    }
+    throw error;
+  }finally{
+    clearTimeout(timeoutId);
+  }
+}
+
+$("loginBtn").onclick=async()=>{
+  const btn=$("loginBtn");
+  const message=$("loginError");
+  const username=$("username").value.trim();
+  const password=$("password").value;
+  message.textContent="";
+  message.dataset.state="loading";
+  message.setAttribute("role","status");
+  if(!username||!password){
+    message.dataset.state="error";
+    message.setAttribute("role","alert");
+    message.textContent="Username dan password wajib diisi.";
+    return;
+  }
+  btn.disabled=true;
+  btn.textContent="Menghubungkan…";
+  message.textContent="Menghubungkan ke server ADITARA…";
+  const slowNotice=setTimeout(()=>{
+    message.dataset.state="loading";
+    message.textContent="Server sedang memeriksa akun. Mohon tunggu dan jangan menekan tombol berulang kali.";
+    btn.textContent="Memeriksa akun…";
+  },3500);
+  try{
+    const result=await api({action:"login",username:username,password:password});
+    token=result.token;
+    localStorage.setItem("aditara_session",token);
+    message.textContent="";
+    showApp(result.user);
+    await loadPeople();
+  }catch(error){
+    message.dataset.state="error";
+    message.setAttribute("role","alert");
+    message.textContent=(error&&error.message)||"Login gagal. Periksa username, password, dan status akun.";
+    // Make the error easy to notice on a phone, without changing the login design.
+    message.scrollIntoView({block:"nearest",behavior:"smooth"});
+  }finally{
+    clearTimeout(slowNotice);
+    btn.disabled=false;
+    btn.textContent="Masuk ke portal";
+  }
+};
 $("logoutBtn").onclick=()=>{token=null;currentUser=null;localStorage.removeItem("aditara_session");$("appView").classList.add("hidden");$("loginView").classList.remove("hidden");$("password").value=""};
 async function loadAdminUsers(){
  if(!currentUser||String(currentUser.role||"").toUpperCase()!=="ADMIN"){remoteUsers=null;return;}
@@ -348,5 +454,27 @@ async function loadPeople(){
  }
 }
 $("refreshPeople").onclick=loadPeople;
+
+// Tombol mata untuk seluruh kolom password, termasuk kolom yang dibuat dinamis.
+function passwordEyeIcon(showing){
+ if(showing){
+   return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3l18 18"/><path d="M10.6 10.6a2 2 0 0 0 2.8 2.8"/><path d="M9.9 5.2A10.8 10.8 0 0 1 12 5c6.4 0 10 7 10 7a16 16 0 0 1-3.1 3.8"/><path d="M6.2 6.2C3.5 8 2 12 2 12s3.6 7 10 7c1.4 0 2.7-.3 3.8-.8"/></svg>';
+ }
+ return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>';
+}
+document.addEventListener("click",e=>{
+ const toggle=e.target.closest("[data-toggle-password]");
+ if(!toggle)return;
+ const input=$(toggle.dataset.togglePassword);
+ if(!input)return;
+ const showing=input.type==="password";
+ input.type=showing?"text":"password";
+ toggle.innerHTML=passwordEyeIcon(showing);
+ toggle.setAttribute("aria-label",showing?"Sembunyikan password":"Tampilkan password");
+ toggle.setAttribute("title",showing?"Sembunyikan password":"Tampilkan password");
+ toggle.setAttribute("aria-pressed",String(showing));
+ input.focus();
+});
+
 renderPeople();
 </script></body></html>
