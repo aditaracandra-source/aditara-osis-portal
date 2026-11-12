@@ -248,6 +248,47 @@ body{background:var(--bg);color:var(--ink)}
   background:#eaf8f1;border-color:#c9ead9;color:#176b4e
 }
 
+
+/* ===== MOBILE VIEW STATE FIX v1.0.4 ===== */
+/* Keep login and the application mutually exclusive. */
+#loginView.hidden,
+#appView.hidden {
+  display: none !important;
+}
+#appView.hidden .mobilebar {
+  display: none !important;
+}
+@media (max-width:700px) {
+  #appView:not(.hidden) {
+    display: block !important;
+    height: 100dvh;
+    min-height: 100dvh;
+    overflow: hidden;
+  }
+  #appView:not(.hidden) .main {
+    height: 100dvh;
+    min-height: 0;
+    overflow: hidden;
+  }
+  #appView:not(.hidden) .content {
+    height: calc(100dvh - 108px);
+    min-height: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 18px;
+  }
+  #appView:not(.hidden) .mobilebar {
+    display: flex !important;
+  }
+  #appView.hidden .mobilebar {
+    display: none !important;
+  }
+}
+#loginView:not(.hidden) {
+  position: relative;
+  z-index: 1;
+}
+
 </style></head><body>
 <div id="loginView" class="login-wrap"><div class="login-intro">
 <div class="eyebrow">SMP NEGERI 2 KAWALI · PERIODE 2026–2027</div>
@@ -263,7 +304,7 @@ body{background:var(--bg);color:var(--ink)}
 <aside class="sidebar"><div class="brand"><img src="/aditara-osis-portal/assets/logo-smpn2-kawali.png" alt="Logo SMP Negeri 2 Kawali"><div><b>ADITARA PORTAL</b><small>OSIS SMP Negeri 2 Kawali</small></div></div><div class="period">PERIODE AKTIF<b>2026 — 2027</b></div><nav class="nav" id="sideNav">
 <button class="active" data-page="home"><em>⌂</em>Dashboard</button><button data-page="people"><em>♙</em>Data Pengurus</button><button data-page="attendance"><em>▦</em>Absensi Pertemuan</button><button data-page="agenda"><em>▣</em>Agenda Kegiatan</button><button data-page="proker"><em>☷</em>Program Kerja</button><button data-page="meeting"><em>✎</em>Rapat & Notulen</button><button data-page="finance"><em>◈</em>Keuangan OSIS</button><button data-page="gallery"><em>▧</em>Dokumentasi</button><button data-page="settings"><em>⚙</em>Pengaturan</button></nav><div class="sidefoot">ADITARA · Aktif, Disiplin, Inovatif<br>Portal organisasi siswa</div></aside>
 <main class="main"><header class="topbar"><div class="crumb" id="crumb">Ruang organisasi / Dashboard</div><div class="topright"><button class="secondary" id="logoutBtn">Keluar</button><div class="mini-avatar" id="userInitial">AD</div><span id="userNameTop">Pengurus</span></div></header>
-<div class="content">
+<div class="content" id="content">
 <section class="page active" id="home"><div class="welcome"><div><h1 id="greeting">Selamat datang 👋</h1><p>Kelola aktivitas ADITARA dalam satu tempat.</p></div><div class="date">Periode 2026–2027</div></div>
 <div class="hero"><div><small>KARTU PENGURUS · PERIODE AKTIF</small><h2 id="heroName">Pengurus ADITARA</h2><p id="heroRole">SMP Negeri 2 Kawali</p></div><div class="heroStats"><div class="stat"><label>Profil</label><b>Aktif</b><span>Akun pribadi</span></div><div class="stat"><label>Periode</label><b>26/27</b><span>Kepengurusan</span></div></div></div>
 <div class="head"><h3>Akses cepat</h3><span>Menu organisasi</span></div><div class="tiles">
