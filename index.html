@@ -291,6 +291,24 @@ body{background:var(--bg);color:var(--ink)}
 
 
 .module-form{margin-bottom:12px}.module-form b,.card>b{font-size:12px;display:block;margin-bottom:9px}.module-form textarea{display:block;width:100%;min-height:66px;border:1px solid var(--line);border-radius:10px;padding:10px;font:inherit;font-size:11px;margin:7px 0}.module-form input,.module-form select{min-width:145px;flex:1}.record-list{margin-top:10px}.record{padding:11px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.record:last-child{border-bottom:0}.record b{font-size:11px}.record p{font-size:10px;color:var(--muted);margin:4px 0;white-space:pre-wrap}.record-actions{display:flex;gap:5px;flex-wrap:wrap;flex:none}.record-actions button{font-size:9px;padding:7px 9px}.summary-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-bottom:12px}.summary-box{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px}.summary-box small{font-size:9px;color:var(--muted)}.summary-box b{display:block;font-size:15px;margin-top:5px}.module-form .toolbar{margin:10px 0}.record a{color:var(--blue);font-size:10px}@media(max-width:700px){.summary-grid{grid-template-columns:1fr 1fr}.record{display:block}.record-actions{margin-top:8px}}
+
+/* v1.4.1: sidebar scroll mandiri, riwayat ringkas, dan kartu galeri */
+#appView:not(.hidden) .sidebar{height:100dvh;min-height:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#8794d4 transparent}
+#appView:not(.hidden) .nav{flex:0 0 auto;min-height:0}
+#appView:not(.hidden) .sidefoot{flex:0 0 auto;margin-top:8px}
+#appView:not(.hidden) .main{min-width:0;min-height:0}
+.record-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;align-items:stretch}
+.record{border:1px solid var(--line);border-radius:11px;padding:10px;background:#fff;min-width:0}
+.record p{line-height:1.5;overflow-wrap:anywhere}
+.gallery-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:12px}
+.gallery-item{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;min-width:0}
+.gallery-item img{display:block;width:100%;height:150px;object-fit:cover;background:#f0f2f8}
+.gallery-item .gallery-meta{padding:9px}
+.gallery-item b{font-size:11px;display:block}
+.gallery-item p{font-size:9px;color:var(--muted);margin:4px 0}
+.pager{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:10px}
+.pager button{font-size:10px;padding:7px 11px}
+@media(max-width:700px){.record-list{grid-template-columns:1fr}.gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.gallery-item img{height:115px}}
 </style></head><body>
 <div id="loginView" class="login-wrap"><div class="login-intro">
 <div class="eyebrow">SMP NEGERI 2 KAWALI · PERIODE 2026–2027</div>
@@ -321,7 +339,7 @@ body{background:var(--bg);color:var(--ink)}
  <textarea id="meetingAgenda" placeholder="Agenda pertemuan" maxlength="2000" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:9px;min-height:65px;font:inherit;font-size:11px"></textarea>
  <button class="btn" id="createMeetingBtn" style="margin-top:10px">Simpan Pertemuan</button><div class="error" id="meetingMessage" aria-live="polite"></div>
 </div>
-<div class="card" style="margin-bottom:12px"><b style="font-size:12px">Daftar Pertemuan</b><div id="meetingList" class="tiny" style="margin-top:12px">Silakan muat data.</div></div>
+<div class="card" style="margin-bottom:12px"><b style="font-size:12px">Daftar Pertemuan</b><div id="meetingList" class="tiny record-list" style="margin-top:12px">Silakan muat data.</div></div>
 <div class="card hidden" id="attendanceDetail">
  <div class="pagehead"><div><b id="attendanceTitle">Detail Absensi</b><p id="attendanceInfo"></p></div><button class="secondary" id="closeAttendanceDetail">Tutup</button></div>
  <div id="qrControl" style="margin-bottom:12px"><button class="btn" id="startQRBtn">Buat QR Absensi (15 menit)</button> <button class="secondary" id="closeQRBtn" disabled>Tutup QR</button><div id="qrDisplay" style="text-align:center;padding:12px"></div></div>
@@ -335,7 +353,7 @@ body{background:var(--bg);color:var(--ink)}
 <section class="page" id="proker"><div class="pagehead"><div><h2>Program Kerja</h2><p>Perencanaan dan pemantauan 10 seksi bidang.</p></div><button class="btn" onclick="loadProker()">Muat ulang</button></div><div class="card module-form" id="prokerForm"><b>Tambah Program Kerja</b><div class="toolbar"><input id="prokerName" placeholder="Nama program"><select id="prokerBidang"><option value="INTI">Pengurus Inti</option><option value="SB01">Seksi 1</option><option value="SB02">Seksi 2</option><option value="SB03">Seksi 3</option><option value="SB04">Seksi 4</option><option value="SB05">Seksi 5</option><option value="SB06">Seksi 6</option><option value="SB07">Seksi 7</option><option value="SB08">Seksi 8</option><option value="SB09">Seksi 9</option><option value="SB10">Seksi 10</option></select><input id="prokerOwner" placeholder="Penanggung jawab"><input id="prokerDate" type="date"><input id="prokerBudget" type="number" min="0" placeholder="Anggaran (Rp)"><select id="prokerStatus"><option>DIRANCANG</option><option>BERJALAN</option><option>SELESAI</option><option>DITUNDA</option></select></div><textarea id="prokerResult" placeholder="Hasil / catatan program"></textarea><button class="btn" id="saveProkerBtn">Simpan Program</button><span class="tiny" id="prokerMsg"></span></div><div class="card"><b>Daftar Program Kerja</b><div id="prokerList" class="record-list">Memuat...</div></div></section>
 <section class="page" id="meeting"><div class="pagehead"><div><h2>Rapat & Notulen</h2><p>Arsip rapat, hasil pembahasan, dan keputusan.</p></div><button class="btn" onclick="loadNotulen()">Muat ulang</button></div><div class="card"><b>Arsip Rapat</b><div id="notulenList" class="record-list">Memuat...</div></div><div class="card module-form" id="notulenForm"><b>Catat Notulen</b><div class="toolbar"><select id="notulenMeeting"><option value="">Pilih rapat</option></select><input id="notulenWriter" placeholder="Nama notulis"></div><textarea id="notulenText" placeholder="Tuliskan pembahasan, keputusan, dan tindak lanjut rapat"></textarea><button class="btn" id="saveNotulenBtn">Simpan Notulen</button><span class="tiny" id="notulenMsg"></span></div></section>
 <section class="page" id="finance"><div class="pagehead"><div><h2>Keuangan OSIS</h2><p>Pencatatan pemasukan, pengeluaran, dan saldo kas.</p></div><button class="btn" onclick="loadFinance()">Muat ulang</button></div><div class="summary-grid" id="financeSummary"></div><div class="card module-form" id="financeForm"><b>Catat Transaksi</b><div class="toolbar"><input id="financeDate" type="date"><select id="financeType"><option value="PEMASUKAN">Pemasukan</option><option value="PENGELUARAN">Pengeluaran</option></select><input id="financeAmount" type="number" min="1" placeholder="Nominal (Rp)"><input id="financeProof" placeholder="Link bukti (opsional)"></div><input id="financeDesc" placeholder="Keterangan transaksi" style="width:100%;margin-bottom:9px"><button class="btn" id="saveFinanceBtn">Simpan Transaksi</button><span class="tiny" id="financeMsg"></span></div><div class="card"><b>Riwayat Transaksi</b><div id="financeList" class="record-list">Memuat...</div></div></section>
-<section class="page" id="gallery"><div class="pagehead"><div><h2>Dokumentasi</h2><p>Galeri foto dan video melalui tautan Google Drive.</p></div><button class="btn" onclick="loadGallery()">Muat ulang</button></div><div class="card module-form" id="galleryForm"><b>Tambah Dokumentasi</b><div class="toolbar"><input id="galleryTitle" placeholder="Judul dokumentasi"><select id="galleryCategory"><option>FOTO</option><option>VIDEO</option><option>DOKUMEN</option></select><input id="galleryDate" type="date"><input id="galleryUrl" type="url" placeholder="Link Google Drive / video"></div><button class="btn" id="saveGalleryBtn">Simpan Tautan</button><span class="tiny" id="galleryMsg"></span></div><div class="card"><b>Arsip Dokumentasi</b><div id="galleryList" class="record-list">Memuat...</div></div></section>
+<section class="page" id="gallery"><div class="pagehead"><div><h2>Dokumentasi</h2><p>Unggah foto kegiatan. Foto dikompres otomatis dan ditampilkan langsung di arsip.</p></div><button class="btn" onclick="loadGallery(1)">Muat ulang</button></div><div class="card module-form" id="galleryForm"><b>Tambah Dokumentasi Foto</b><div class="toolbar"><input id="galleryTitle" placeholder="Judul dokumentasi" maxlength="140"><input id="galleryDate" type="date"><input id="galleryFile" type="file" accept="image/*"></div><div class="tiny">Foto otomatis diperkecil (maksimal 1200 piksel) dan dikompres sebelum diunggah.</div><button class="btn" id="saveGalleryBtn">Unggah Foto</button><span class="tiny" id="galleryMsg" aria-live="polite"></span></div><div class="card"><b>Arsip Dokumentasi</b><div id="galleryList" class="gallery-grid">Memuat...</div><div id="galleryPager" class="pager"></div></div></section>
 <section class="page" id="tasks"><div class="pagehead"><div><h2>Tugas Pengurus</h2><p>Penugasan dan pembaruan progres.</p></div><button class="btn" onclick="loadTasks()">Muat ulang</button></div><div class="card module-form" id="taskForm"><b>Buat Tugas</b><div class="toolbar"><input id="taskTitle" placeholder="Judul tugas"><select id="taskPerson"><option value="">Pilih pengurus</option></select><input id="taskDeadline" type="date"></div><textarea id="taskDescription" placeholder="Petunjuk / rincian tugas"></textarea><button class="btn" id="saveTaskBtn">Berikan Tugas</button><span class="tiny" id="taskMsg"></span></div><div class="card"><b>Daftar Tugas</b><div id="taskList" class="record-list">Memuat...</div></div></section>
 <section class="page" id="evaluation"><div class="pagehead"><div><h2>Evaluasi Kinerja</h2><p>Catatan evaluasi kegiatan dan rekomendasi.</p></div><button class="btn" onclick="loadEvaluation()">Muat ulang</button></div><div class="card module-form" id="evaluationForm"><b>Tambah Evaluasi</b><div class="toolbar"><input id="evalActivity" placeholder="Nama kegiatan"><input id="evalAspect" placeholder="Aspek yang dinilai"><input id="evalDate" type="date"></div><textarea id="evalResult" placeholder="Hasil evaluasi"></textarea><textarea id="evalRecommendation" placeholder="Rekomendasi tindak lanjut"></textarea><button class="btn" id="saveEvaluationBtn">Simpan Evaluasi</button><span class="tiny" id="evalMsg"></span></div><div class="card"><b>Riwayat Evaluasi</b><div id="evaluationList" class="record-list">Memuat...</div></div></section>
 <section class="page" id="settings"><div class="pagehead"><div><h2>Pengaturan</h2><p>Administrasi akun pengurus.</p></div><button class="btn" onclick="loadSettings()">Muat ulang</button></div><div class="card"><b>Manajemen Akun</b><p class="tiny">Atur status dan password melalui profil pengurus. Perubahan password akan mengakhiri sesi akun terkait.</p><div id="settingsUsers" class="record-list">Memuat...</div></div></section>
@@ -343,7 +361,7 @@ body{background:var(--bg);color:var(--ink)}
 <div class="modal" id="profileModal"><div class="modalbox"><h3 id="modalName">Profil</h3><p id="modalInfo"></p><div id="adminAccountArea" class="account-admin-area hidden"></div><div class="modalrow"><button class="secondary" onclick="closeProfile()">Tutup</button></div></div></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script><script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 <script>
-const API_URL="https://script.google.com/macros/s/AKfycbwOXCvSLPyp5kUxJLee6l9PgHcILYAU44GGBMULqWD5MNq7-Y5arhB9dLzVM8S9ferlNw/exec"; // Backend Apps Script ADITARA v1.4.0.
+const API_URL="https://script.google.com/macros/s/AKfycbwOXCvSLPyp5kUxJLee6l9PgHcILYAU44GGBMULqWD5MNq7-Y5arhB9dLzVM8S9ferlNw/exec"; // Backend Apps Script ADITARA v1.4.1.
 const periodId="PRD001";
 const people=[
 ["P001","Raffa Heri Aditya","7A","Ketua OSIS","INTI"],["P002","Salsa Syakila Zahra","8C","Wakil Ketua OSIS","INTI"],["P003","Zahira","8B","Sekretaris I","INTI"],["P004","Naura Saffa Nur Handini","","Sekretaris II","INTI"],["P005","Hilman Permana","7A","Bendahara I","INTI"],["P006","Fitya Najiyah Rahmadan","8A","Bendahara II","INTI"],
@@ -556,18 +574,21 @@ $("loginBtn").onclick=async()=>{
     btn.textContent="Masuk ke portal";
   }
 };
-$("logoutBtn").onclick=()=>{
-  if(token)api({action:"logout",token}).catch(()=>{});
-  stopQRScanner();
-  token=null;currentUser=null;remoteUsers=null;remotePeople=null;
-  accessState={role:"",pages:["home"],permissions:[]};
-  selectedMeetingId=null;activeQrId=null;currentAttendanceQR=null;attendanceData=[];
-  localStorage.removeItem("aditara_session");
-  document.querySelectorAll("[data-page]").forEach(el=>{el.classList.remove("hidden");el.classList.remove("active");});
-  $("appView").classList.add("hidden");
-  $("loginView").classList.remove("hidden");
-  $("password").value="";
-};
+function performLogout(){
+ const oldToken=token;
+ // Immediately leave the protected UI; server-side revocation runs in the background.
+ token=null;currentUser=null;remoteUsers=null;remotePeople=null;
+ accessState={role:"",pages:["home"],permissions:[]};
+ selectedMeetingId=null;activeQrId=null;currentAttendanceQR=null;attendanceData=[];
+ try{stopQRScanner();}catch(e){}
+ try{localStorage.removeItem("aditara_session");}catch(e){}
+ document.querySelectorAll("[data-page]").forEach(el=>{el.classList.remove("hidden");el.classList.remove("active");});
+ $("appView").classList.add("hidden");$("loginView").classList.remove("hidden");$("password").value="";
+ if(oldToken)api({action:"logout",token:oldToken}).catch(()=>{});
+}
+$("logoutBtn").type="button";
+$("logoutBtn").addEventListener("click",function(e){e.preventDefault();e.stopPropagation();performLogout();},true);
+
 async function loadAdminUsers(){
  if(!currentUser||!isAdmin()){remoteUsers=null;return;}
  const result=await api({action:"adminListUsers",token});
@@ -720,8 +741,33 @@ async function loadNotulen(){const box=$('notulenList');box.textContent='Memuat.
 async function saveNotulen(){const p={action:'saveNotulen',token,pertemuan_id:$('notulenMeeting').value,notulis:$('notulenWriter').value,isi:$('notulenText').value};try{const r=await api(p);setMsg('notulenMsg',r.message);await loadNotulen();}catch(e){setMsg('notulenMsg',e.message,false);}}
 async function loadFinance(){const box=$('financeList');box.textContent='Memuat...';try{const r=await api({action:'listFinance',token});const s=r.summary||{};$('financeSummary').innerHTML=[['Pemasukan',money(s.pemasukan)],['Pengeluaran',money(s.pengeluaran)],['Saldo',money(s.saldo)]].map(x=>`<div class="summary-box"><small>${x[0]}</small><b>${x[1]}</b></div>`).join('');box.innerHTML=(r.transactions||[]).map(x=>`<article class="record"><div><b>${escapeHtml(x.keterangan)}</b><p>${moduleDate(x.tanggal)} · ${escapeHtml(x.jenis)}<br>${x.pemasukan?'+ '+money(x.pemasukan):'- '+money(x.pengeluaran)} · Saldo ${money(x.saldo)}</p>${x.bukti_url?`<a href="${escapeAttr(x.bukti_url)}" target="_blank" rel="noopener">Bukti transaksi</a>`:''}</div>${moduleCan('finance.manage')?recordActions([`<button class="secondary" data-del-finance="${escapeAttr(x.id)}">Hapus</button>`]):''}</article>`).join('')||'<p class="tiny">Belum ada transaksi.</p>';}catch(e){box.textContent=e.message;}}
 async function saveFinance(){const amount=Number($('financeAmount').value)||0,type=$('financeType').value;const p={action:'saveFinance',token,tanggal:$('financeDate').value,jenis:type,keterangan:$('financeDesc').value,pemasukan:type==='PEMASUKAN'?amount:0,pengeluaran:type==='PENGELUARAN'?amount:0,bukti_url:$('financeProof').value};try{const r=await api(p);setMsg('financeMsg',r.message);['financeDate','financeAmount','financeDesc','financeProof'].forEach(id=>$(id).value='');await loadFinance();}catch(e){setMsg('financeMsg',e.message,false);}}
-async function loadGallery(){const box=$('galleryList');box.textContent='Memuat...';try{const r=await api({action:'listGallery',token});box.innerHTML=(r.items||[]).map(x=>`<article class="record"><div><b>${escapeHtml(x.judul)}</b><p>${escapeHtml(x.kategori)} · ${moduleDate(x.tanggal)} · ${escapeHtml(x.pengunggah)}</p><a href="${escapeAttr(x.file_url)}" target="_blank" rel="noopener">Buka dokumentasi</a></div>${moduleCan('gallery.manage')?recordActions([`<button class="secondary" data-del-gallery="${escapeAttr(x.id)}">Hapus</button>`]):''}</article>`).join('')||'<p class="tiny">Belum ada dokumentasi.</p>';}catch(e){box.textContent=e.message;}}
-async function saveGallery(){const p={action:'saveGallery',token,judul:$('galleryTitle').value,kategori:$('galleryCategory').value,tanggal:$('galleryDate').value,file_url:$('galleryUrl').value};try{const r=await api(p);setMsg('galleryMsg',r.message);['galleryTitle','galleryDate','galleryUrl'].forEach(id=>$(id).value='');await loadGallery();}catch(e){setMsg('galleryMsg',e.message,false);}}
+let galleryPage=1;
+async function loadGallery(page=galleryPage){
+ galleryPage=Math.max(1,Number(page)||1);const box=$('galleryList'),pager=$('galleryPager');box.textContent='Memuat dokumentasi...';pager.innerHTML='';
+ try{
+  const r=await api({action:'listGallery',token,page:galleryPage,pageSize:6});
+  const items=r.items||[];
+  box.innerHTML=items.map(x=>`<article class="gallery-item">${x.image_data?`<img src="${x.image_data}" alt="${escapeAttr(x.judul)}" loading="lazy">`:(x.file_url?`<a href="${escapeAttr(x.file_url)}" target="_blank" rel="noopener">Buka berkas lama</a>`:'<div class="gallery-placeholder">Foto tidak tersedia</div>')}<div class="gallery-meta"><b>${escapeHtml(x.judul)}</b><p>${escapeHtml(moduleDate(x.tanggal))} · ${escapeHtml(x.pengunggah)}</p>${moduleCan('gallery.manage')?`<button class="secondary" data-del-gallery="${escapeAttr(x.id)}">Hapus</button>`:''}</div></article>`).join('')||'<p class="tiny">Belum ada dokumentasi.</p>';
+  if((r.totalPages||1)>1)pager.innerHTML=`<button class="secondary" ${galleryPage<=1?'disabled':''} data-gallery-page="${galleryPage-1}">Sebelumnya</button><span class="tiny">Halaman ${galleryPage} dari ${r.totalPages} · ${r.total} foto</span><button class="secondary" ${galleryPage>=r.totalPages?'disabled':''} data-gallery-page="${galleryPage+1}">Berikutnya</button>`;
+  else if(r.total)pager.innerHTML=`<span class="tiny">${r.total} foto</span>`;
+ }catch(e){box.textContent=e.message;}
+}
+async function compressPhoto(file){
+ if(!file||!file.type.startsWith('image/'))throw new Error('Pilih file foto JPG, PNG, atau WEBP.');
+ if(file.size>15*1024*1024)throw new Error('Ukuran foto asli maksimal 15 MB.');
+ const dataUrl=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=()=>reject(new Error('Foto gagal dibaca.'));reader.readAsDataURL(file);});
+ const img=await new Promise((resolve,reject)=>{const el=new Image();el.onload=()=>resolve(el);el.onerror=()=>reject(new Error('Format foto tidak dapat dibaca.'));el.src=dataUrl;});
+ const scale=Math.min(1,1200/Math.max(img.naturalWidth,img.naturalHeight));const canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(img.naturalWidth*scale));canvas.height=Math.max(1,Math.round(img.naturalHeight*scale));
+ const ctx=canvas.getContext('2d',{alpha:false});ctx.fillStyle='#fff';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.drawImage(img,0,0,canvas.width,canvas.height);
+ let compressed=canvas.toDataURL('image/jpeg',0.68);if(compressed.length>850000)compressed=canvas.toDataURL('image/jpeg',0.52);if(compressed.length>900000)throw new Error('Foto masih terlalu besar setelah kompresi. Gunakan foto dengan resolusi lebih rendah.');return compressed;
+}
+async function saveGallery(){
+ const btn=$('saveGalleryBtn'),file=$('galleryFile').files[0];if(!$('galleryTitle').value.trim()){setMsg('galleryMsg','Judul dokumentasi wajib diisi.',false);return;}if(!file){setMsg('galleryMsg','Pilih foto terlebih dahulu.',false);return;}
+ btn.disabled=true;btn.textContent='Mengompres dan mengunggah...';
+ try{const image_data=await compressPhoto(file);const r=await api({action:'saveGallery',token,judul:$('galleryTitle').value.trim(),kategori:'FOTO',tanggal:$('galleryDate').value,image_data});setMsg('galleryMsg',r.message);$('galleryTitle').value='';$('galleryFile').value='';await loadGallery(1);}
+ catch(e){setMsg('galleryMsg',e.message,false);}finally{btn.disabled=false;btn.textContent='Unggah Foto';}
+}
+
 async function loadTasks(){const box=$('taskList');box.textContent='Memuat...';try{const r=await api({action:'listTasks',token});box.innerHTML=(r.tasks||[]).map(x=>`<article class="record"><div><b>${escapeHtml(x.judul)}</b><p>${escapeHtml(x.deskripsi)}<br>Deadline: ${moduleDate(x.deadline)} · ${escapeHtml(x.status)}</p></div>${moduleCan('tasks.manage_all')?recordActions([`<button class="secondary" data-del-task="${escapeAttr(x.id)}">Hapus</button>`]):recordActions([`<button class="secondary" data-task-status="PROSES" data-task-id="${escapeAttr(x.id)}">Proses</button>`,`<button class="secondary" data-task-status="SELESAI" data-task-id="${escapeAttr(x.id)}">Selesai</button>`])}</article>`).join('')||'<p class="tiny">Belum ada tugas.</p>';}catch(e){box.textContent=e.message;}}
 async function saveTask(){const p={action:'saveTask',token,judul:$('taskTitle').value,deskripsi:$('taskDescription').value,pengurus_id:$('taskPerson').value,deadline:$('taskDeadline').value};try{const r=await api(p);setMsg('taskMsg',r.message);['taskTitle','taskDescription','taskDeadline'].forEach(id=>$(id).value='');await loadTasks();}catch(e){setMsg('taskMsg',e.message,false);}}
 async function updateTask(id,status){try{const r=await api({action:'updateOwnTask',token,id,status});setMsg('taskMsg',r.message);await loadTasks();}catch(e){alert(e.message);}}
@@ -731,6 +777,7 @@ async function loadSettings(){const box=$('settingsUsers');box.textContent='Memu
 async function deleteByAction(action,id,loader){if(!confirm('Hapus data ini? Tindakan tidak dapat dibatalkan.'))return;try{const r=await api({action,token,id});await loader();}catch(e){alert(e.message);}}
 $('saveAgendaBtn').onclick=saveAgenda;$('saveProkerBtn').onclick=saveProker;$('saveNotulenBtn').onclick=saveNotulen;$('saveFinanceBtn').onclick=saveFinance;$('saveGalleryBtn').onclick=saveGallery;$('saveTaskBtn').onclick=saveTask;$('saveEvaluationBtn').onclick=saveEvaluation;
 document.addEventListener('click',e=>{
+ const gp=e.target.closest('[data-gallery-page]');if(gp)loadGallery(Number(gp.dataset.galleryPage));
  const ea=e.target.closest('[data-edit-agenda]');if(ea){api({action:'listAgenda',token}).then(r=>{const x=(r.agenda||[]).find(z=>z.id===ea.dataset.editAgenda);if(!x)return;editingAgendaId=x.id;$('agendaTitle').value=x.judul;$('agendaDate').value=(x.tanggal||'').slice(0,10);$('agendaBody').value=x.isi;$('agendaStatus').value=x.status||'TERBIT';$('saveAgendaBtn').textContent='Perbarui Agenda';$('agendaForm').scrollIntoView({behavior:'smooth'});}).catch(err=>alert(err.message));}
  const ep=e.target.closest('[data-edit-proker]');if(ep){api({action:'listProker',token}).then(r=>{const x=(r.programs||[]).find(z=>z.id===ep.dataset.editProker);if(!x)return;editingProkerId=x.id;$('prokerName').value=x.nama_program;$('prokerBidang').value=x.bidang;$('prokerOwner').value=x.penanggung_jawab;$('prokerDate').value=(x.tanggal||'').slice(0,10);$('prokerBudget').value=x.anggaran;$('prokerStatus').value=x.status;$('prokerResult').value=x.hasil;$('saveProkerBtn').textContent='Perbarui Program';$('prokerForm').scrollIntoView({behavior:'smooth'});}).catch(err=>alert(err.message));}
  const d=e.target.closest('[data-del-agenda]');if(d)deleteByAction('deleteAgenda',d.dataset.delAgenda,loadAgenda);
@@ -747,4 +794,21 @@ const originalGo=go;go=function(page){const ok=originalGo(page);if(ok)loadPageDa
 // Initial page visibility follows the authenticated backend policy; every write is checked again server-side.
 
 renderPeople();
+
+async function restoreSavedSession(){
+ let saved='';try{saved=localStorage.getItem('aditara_session')||'';}catch(e){}
+ if(!saved)return;
+ token=saved;
+ try{
+  const me=await api({action:'me',token});
+  const access=await api({action:'getAccess',token});
+  accessState=access.access||{role:'PENGURUS',pages:['home'],permissions:[]};
+  showApp(me.user);setupAttendanceAccess();await loadPeople();
+ }catch(e){
+  token=null;try{localStorage.removeItem('aditara_session');}catch(x){}
+  $('loginError').textContent='Sesi lama tidak dapat dipulihkan. Silakan login kembali.';
+ }
+}
+restoreSavedSession();
+
 </script></body></html>
