@@ -311,12 +311,29 @@ body{background:var(--bg);color:var(--ink)}
 <button class="tile" data-page="people"><i>♙</i><b>Data Pengurus</b><small>28 siswa</small></button><button class="tile" data-page="attendance"><i>▦</i><b>Absensi</b><small>QR & manual</small></button><button class="tile" data-page="agenda"><i>▣</i><b>Agenda</b><small>Jadwal kegiatan</small></button><button class="tile" data-page="proker"><i>☷</i><b>Program Kerja</b><small>10 seksi bidang</small></button><button class="tile" data-page="meeting"><i>✎</i><b>Rapat</b><small>Notulen</small></button><button class="tile" data-page="finance"><i>◈</i><b>Keuangan</b><small>Kas organisasi</small></button><button class="tile" data-page="gallery"><i>▧</i><b>Dokumentasi</b><small>Foto & video</small></button><button class="tile" data-page="tasks"><i>☑</i><b>Tugas</b><small>Penugasan</small></button><button class="tile" data-page="evaluation"><i>◷</i><b>Evaluasi</b><small>Kinerja</small></button></div>
 <div class="lower"><div class="panel"><div class="paneltitle">Agenda berikutnya <span>Belum terhubung</span></div><div class="event"><div class="eventdate">—<small>AGENDA</small></div><div><b>Belum ada agenda</b><p>Agenda akan muncul setelah database terhubung.</p></div></div></div><div class="panel"><div class="paneltitle">Status portal</div><b style="font-size:11px">Mode tampilan</b><div class="progress"><i style="width:100%"></i></div><div class="tiny">Frontend siap dihubungkan ke Apps Script.</div></div></div></section>
 <section class="page" id="people"><div class="pagehead"><div><h2>Galeri Pengurus</h2><p>28 pengurus siswa · Periode 2026–2027</p></div><button class="btn" id="refreshPeople">Muat ulang</button></div><div class="toolbar"><input id="searchPeople" placeholder="Cari nama pengurus…"><select id="filterPeople"><option value="">Semua bagian</option><option value="INTI">Pengurus inti</option><option value="SB01">Seksi 1</option><option value="SB02">Seksi 2</option><option value="SB03">Seksi 3</option><option value="SB04">Seksi 4</option><option value="SB05">Seksi 5</option><option value="SB06">Seksi 6</option><option value="SB07">Seksi 7</option><option value="SB08">Seksi 8</option><option value="SB09">Seksi 9</option><option value="SB10">Seksi 10</option></select></div><div class="peoplegrid" id="peopleGrid"></div></section>
-<section class="page" id="attendance"><div class="pagehead"><div><h2>Absensi Pertemuan</h2><p>Khusus rapat dan kegiatan organisasi, bukan absensi sekolah.</p></div></div><div class="card"><b style="font-size:12px">Modul absensi</b><p class="tiny">QR Code dan input manual akan diaktifkan setelah database dan deployment backend selesai.</p></div></section>
+<section class="page" id="attendance">
+<div class="pagehead"><div><h2>Absensi Pertemuan</h2><p>Presensi rapat dan kegiatan organisasi ADITARA.</p></div><button class="btn" id="refreshMeetings">Muat ulang</button></div>
+<div class="card" id="meetingForm" style="margin-bottom:12px">
+ <b style="font-size:12px">Buat Pertemuan Baru</b>
+ <div class="toolbar" style="margin-top:10px"><input id="meetingTitle" placeholder="Nama pertemuan" maxlength="150"><input id="meetingDate" type="date"><input id="meetingTime" type="time"><input id="meetingPlace" placeholder="Lokasi" maxlength="120"></div>
+ <textarea id="meetingAgenda" placeholder="Agenda pertemuan" maxlength="2000" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:9px;min-height:65px;font:inherit;font-size:11px"></textarea>
+ <button class="btn" id="createMeetingBtn" style="margin-top:10px">Simpan Pertemuan</button><div class="error" id="meetingMessage" aria-live="polite"></div>
+</div>
+<div class="card" style="margin-bottom:12px"><b style="font-size:12px">Daftar Pertemuan</b><div id="meetingList" class="tiny" style="margin-top:12px">Silakan muat data.</div></div>
+<div class="card hidden" id="attendanceDetail">
+ <div class="pagehead"><div><b id="attendanceTitle">Detail Absensi</b><p id="attendanceInfo"></p></div><button class="secondary" id="closeAttendanceDetail">Tutup</button></div>
+ <div id="qrControl" style="margin-bottom:12px"><button class="btn" id="startQRBtn">Buat QR Absensi (15 menit)</button> <button class="secondary" id="closeQRBtn" disabled>Tutup QR</button><div id="qrDisplay" style="text-align:center;padding:12px"></div></div>
+ <div id="scannerArea" style="margin:12px 0"><b style="font-size:11px">Absensi Pengurus</b><div><button class="secondary" id="scanQRBtn">Buka Kamera QR</button></div><video id="qrVideo" class="hidden" autoplay playsinline style="width:100%;max-width:320px;margin-top:8px;border-radius:12px;background:#111"></video><input id="qrManualToken" placeholder="Kode QR (otomatis saat scan)" autocomplete="off" style="width:100%;padding:10px;margin-top:8px;border:1px solid var(--line);border-radius:9px"><button class="btn" id="submitQRBtn" style="margin-top:8px">Kirim Absensi</button><div id="qrMessage" class="error" aria-live="polite"></div></div>
+ <div id="attendanceSummary" class="toolbar"></div><div id="manualAttendanceArea" class="tiny" style="margin:8px 0">Pilih status kehadiran pada tabel untuk input manual.</div>
+ <div class="tablewrap"><table class="table"><thead><tr><th>Nama</th><th>Kelas</th><th>Kehadiran</th><th>Metode</th><th>Ubah</th></tr></thead><tbody id="attendanceRows"></tbody></table></div>
+</div>
+</section>
 <section class="page" id="agenda"><div class="pagehead"><h2>Agenda Kegiatan</h2></div><div class="card tiny">Agenda organisasi akan ditampilkan di sini.</div></section><section class="page" id="proker"><div class="pagehead"><h2>Program Kerja</h2></div><div class="card tiny">Program kerja 10 seksi bidang.</div></section><section class="page" id="meeting"><div class="pagehead"><h2>Rapat & Notulen</h2></div><div class="card tiny">Arsip rapat dan keputusan organisasi.</div></section><section class="page" id="finance"><div class="pagehead"><h2>Keuangan OSIS</h2></div><div class="card tiny">Pencatatan kas dan transaksi.</div></section><section class="page" id="gallery"><div class="pagehead"><h2>Dokumentasi</h2></div><div class="card tiny">Galeri foto dan video kegiatan.</div></section><section class="page" id="settings"><div class="pagehead"><h2>Pengaturan</h2></div><div class="card tiny">Pengaturan akun dan periode.</div></section><section class="page" id="tasks"><div class="pagehead"><h2>Tugas Pengurus</h2></div><div class="card tiny">Daftar penugasan pribadi.</div></section><section class="page" id="evaluation"><div class="pagehead"><h2>Evaluasi Kinerja</h2></div><div class="card tiny">Rekap evaluasi dan catatan pembina.</div></section>
 </div></main><nav class="mobilebar"><button class="active" data-page="home"><i>⌂</i>Beranda</button><button data-page="agenda"><i>▣</i>Agenda</button><button data-page="attendance"><i>▦</i>Absensi</button><button data-page="people"><i>♙</i>Pengurus</button></nav></div>
 <div class="modal" id="profileModal"><div class="modalbox"><h3 id="modalName">Profil</h3><p id="modalInfo"></p><div id="adminAccountArea" class="account-admin-area hidden"></div><div class="modalrow"><button class="secondary" onclick="closeProfile()">Tutup</button></div></div></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
-const API_URL="https://script.google.com/macros/s/AKfycbwOXCvSLPyp5kUxJLee6l9PgHcILYAU44GGBMULqWD5MNq7-Y5arhB9dLzVM8S9ferlNw/exec"; // Backend Apps Script ADITARA v1.2.0.
+const API_URL="https://script.google.com/macros/s/AKfycbwOXCvSLPyp5kUxJLee6l9PgHcILYAU44GGBMULqWD5MNq7-Y5arhB9dLzVM8S9ferlNw/exec"; // Backend Apps Script ADITARA v1.3.0.
 const periodId="PRD001";
 const people=[
 ["P001","Raffa Heri Aditya","7A","Ketua OSIS","INTI"],["P002","Salsa Syakila Zahra","8C","Wakil Ketua OSIS","INTI"],["P003","Zahira","8B","Sekretaris I","INTI"],["P004","Naura Saffa Nur Handini","","Sekretaris II","INTI"],["P005","Hilman Permana","7A","Bendahara I","INTI"],["P006","Fitya Najiyah Rahmadan","8A","Bendahara II","INTI"],
@@ -509,6 +526,7 @@ $("loginBtn").onclick=async()=>{
     accessState=accessResult.access||{role:"PENGURUS",pages:["home"],permissions:[]};
     message.textContent="";
     showApp(result.user);
+    setupAttendanceAccess();
     await loadPeople();
   }catch(error){
     message.dataset.state="error";
@@ -523,8 +541,10 @@ $("loginBtn").onclick=async()=>{
   }
 };
 $("logoutBtn").onclick=()=>{
+  stopQRScanner();
   token=null;currentUser=null;remoteUsers=null;remotePeople=null;
   accessState={role:"",pages:["home"],permissions:[]};
+  selectedMeetingId=null;activeQrId=null;currentAttendanceQR=null;attendanceData=[];
   localStorage.removeItem("aditara_session");
   document.querySelectorAll("[data-page]").forEach(el=>{el.classList.remove("hidden");el.classList.remove("active");});
   $("appView").classList.add("hidden");
@@ -551,6 +571,99 @@ async function loadPeople(){
  }
 }
 $("refreshPeople").onclick=loadPeople;
+
+
+/* -------------------- ABSENSI PERTEMUAN v1.3.0 -------------------- */
+function canAttendanceManage(){return !!(accessState&&accessState.permissions&&accessState.permissions.includes('attendance.manage'));}
+function canAttendanceOwn(){return !!(accessState&&accessState.permissions&&accessState.permissions.includes('attendance.own'));}
+function setupAttendanceAccess(){
+ const manager=canAttendanceManage();
+ $('meetingForm').classList.toggle('hidden',!manager);
+ $('qrControl').classList.toggle('hidden',!manager);
+ $('manualAttendanceArea').classList.toggle('hidden',!manager);
+ $('scannerArea').classList.toggle('hidden',!canAttendanceOwn()||!currentUser||!currentUser.pengurus_id);
+}
+async function loadMeetings(){
+ const box=$('meetingList');box.textContent='Memuat daftar pertemuan...';
+ try{
+  const result=await api({action:'listMeetings',token});const meetings=result.meetings||[];
+  if(!meetings.length){box.textContent='Belum ada pertemuan yang dibuat.';return;}
+  box.innerHTML=meetings.map(m=>{
+   const date=m.tanggal?new Date(m.tanggal).toLocaleDateString('id-ID',{day:'2-digit',month:'long',year:'numeric'}):'-';
+   return `<article style="padding:11px 0;border-bottom:1px solid var(--line)"><b style="font-size:11px">${escapeHtml(m.judul)}</b><div class="tiny" style="margin-top:4px">${escapeHtml(date)} · ${escapeHtml(m.jam)} · ${escapeHtml(m.lokasi)}</div><div class="tiny" style="margin-top:3px">Status: ${escapeHtml(m.status||'-')}</div><button class="secondary" style="margin-top:7px" data-open-meeting="${escapeAttr(m.pertemuan_id)}" data-meeting-title="${escapeAttr(m.judul)}">Lihat Absensi</button></article>`;
+  }).join('');
+ }catch(error){box.textContent=error.message||'Gagal memuat pertemuan.';}
+}
+async function createMeeting(){
+ const button=$('createMeetingBtn'),message=$('meetingMessage');
+ const payload={action:'createMeeting',token,judul:$('meetingTitle').value.trim(),tanggal:$('meetingDate').value,jam:$('meetingTime').value,lokasi:$('meetingPlace').value.trim(),agenda:$('meetingAgenda').value.trim()};
+ if(!payload.judul||!payload.tanggal||!payload.jam||!payload.lokasi){message.textContent='Lengkapi nama, tanggal, jam, dan lokasi pertemuan.';return;}
+ button.disabled=true;message.style.color='var(--muted)';message.textContent='Menyimpan pertemuan...';
+ try{const result=await api(payload);message.style.color='var(--green)';message.textContent=result.message||'Pertemuan berhasil disimpan.';['meetingTitle','meetingDate','meetingTime','meetingPlace','meetingAgenda'].forEach(id=>$(id).value='');await loadMeetings();}
+ catch(error){message.style.color='var(--red)';message.textContent=error.message||'Gagal menyimpan pertemuan.';}
+ finally{button.disabled=false;}
+}
+async function openMeeting(id,title){
+ selectedMeetingId=id;$('attendanceDetail').classList.remove('hidden');$('attendanceTitle').textContent=title||'Detail Absensi';$('attendanceInfo').textContent='Memuat rekap kehadiran...';$('qrDisplay').innerHTML='';$('qrMessage').textContent='';$('qrManualToken').value='';currentAttendanceQR=null;activeQrId=null;$('closeQRBtn').disabled=true;setupAttendanceAccess();
+ try{await loadAttendance();}catch(error){$('attendanceInfo').textContent=error.message||'Gagal memuat rekap.';}
+ $('attendanceDetail').scrollIntoView({behavior:'smooth',block:'start'});
+}
+async function loadAttendance(){
+ if(!selectedMeetingId)return;
+ const result=await api({action:'listAttendance',token,pertemuan_id:selectedMeetingId});attendanceData=result.attendance||[];
+ const count=status=>attendanceData.filter(x=>x.status_kehadiran===status).length;
+ $('attendanceInfo').textContent=attendanceData.length+' peserta terdaftar';
+ $('attendanceSummary').innerHTML=`<span class="tag">Hadir ${count('HADIR')}</span><span class="tag">Izin ${count('IZIN')}</span><span class="tag">Sakit ${count('SAKIT')}</span><span class="tag">Alpa ${count('ALPA')}</span><span class="tag">Belum ${count('BELUM')}</span>`;
+ $('attendanceRows').innerHTML=attendanceData.map(person=>{
+  const id=escapeAttr(person.pengurus_id);const options=['HADIR','IZIN','SAKIT','ALPA'].map(status=>`<option value="${status}" ${person.status_kehadiran===status?'selected':''}>${status}</option>`).join('');
+  return `<tr><td>${escapeHtml(person.nama)}</td><td>${escapeHtml(person.kelas)}</td><td>${escapeHtml(person.status_kehadiran)}</td><td>${escapeHtml(person.metode||'-')}</td><td>${canAttendanceManage()?`<select id="att_${id}">${options}</select><button class="secondary" data-save-attendance="${id}">Simpan</button>`:'-'}</td></tr>`;
+ }).join('')||'<tr><td colspan="5">Belum ada peserta.</td></tr>';
+}
+async function startAttendanceQR(){
+ if(!selectedMeetingId)return;const button=$('startQRBtn');button.disabled=true;
+ try{
+  const result=await api({action:'startQR',token,pertemuan_id:selectedMeetingId,duration:15});activeQrId=result.qr_id;currentAttendanceQR=result.qr_token;$('closeQRBtn').disabled=false;
+  $('qrDisplay').innerHTML='<div id="qrCanvas" style="display:flex;justify-content:center;margin:8px auto"></div><b>QR ABSENSI AKTIF</b><p class="tiny">Berlaku 15 menit · Berakhir '+new Date(result.waktu_selesai).toLocaleTimeString('id-ID')+'</p>';
+  if(typeof QRCode!=='undefined')new QRCode($('qrCanvas'),{text:result.qr_token,width:210,height:210,correctLevel:QRCode.CorrectLevel.M});
+  else $('qrDisplay').insertAdjacentHTML('beforeend','<p class="tiny">Pustaka QR belum termuat. Muat ulang halaman dengan koneksi internet.</p>');
+ }catch(error){alert(error.message||'Gagal membuat QR.');}finally{button.disabled=false;}
+}
+async function closeAttendanceQR(){
+ if(!activeQrId)return;const button=$('closeQRBtn');button.disabled=true;
+ try{const result=await api({action:'closeQR',token,qr_id:activeQrId});activeQrId=null;currentAttendanceQR=null;$('qrDisplay').innerHTML='<p class="tiny">QR absensi telah ditutup.</p>';$('qrMessage').textContent=result.message||'QR ditutup.';}
+ catch(error){$('qrMessage').textContent=error.message||'Gagal menutup QR.';button.disabled=false;}
+}
+async function submitQRAttendance(){
+ const value=$('qrManualToken').value.trim(),message=$('qrMessage');if(!value){message.textContent='Silakan scan QR terlebih dahulu.';return;}
+ const button=$('submitQRBtn');button.disabled=true;message.textContent='Mengirim absensi...';
+ try{const result=await api({action:'checkinQR',token,qr_token:value});message.style.color='var(--green)';message.textContent=result.message||'Absensi berhasil.';$('qrManualToken').value='';await loadAttendance();}
+ catch(error){message.style.color='var(--red)';message.textContent=error.message||'Absensi gagal.';}
+ finally{button.disabled=false;}
+}
+async function saveManualAttendance(id){
+ const select=$('att_'+id);if(!select)return;
+ try{const result=await api({action:'manualAttendance',token,pertemuan_id:selectedMeetingId,pengurus_id:id,status:select.value,keterangan:'Input manual pembina/pengurus'});await loadAttendance();$('attendanceInfo').textContent=result.message||'Kehadiran tersimpan.';}
+ catch(error){alert(error.message||'Gagal menyimpan kehadiran.');}
+}
+async function startQRScanner(){
+ const video=$('qrVideo');
+ if(!('BarcodeDetector' in window)){$('qrMessage').textContent='Browser ini belum mendukung scan QR otomatis. Gunakan Chrome/Edge atau pemindai QR lain.';return;}
+ if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){$('qrMessage').textContent='Akses kamera tidak tersedia. Pastikan portal dibuka melalui HTTPS.';return;}
+ try{
+  const detector=new BarcodeDetector({formats:['qr_code']});qrScannerStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'}}});video.srcObject=qrScannerStream;video.classList.remove('hidden');await video.play();
+  const scan=async()=>{if(!qrScannerStream)return;try{const codes=await detector.detect(video);if(codes.length){$('qrManualToken').value=codes[0].rawValue;stopQRScanner();$('qrMessage').textContent='QR terbaca. Tekan Kirim Absensi.';return;}}catch(error){}if(qrScannerStream)requestAnimationFrame(scan);};requestAnimationFrame(scan);
+ }catch(error){$('qrMessage').textContent='Kamera tidak dapat dibuka. Izinkan akses kamera pada browser.';stopQRScanner();}
+}
+function stopQRScanner(){if(qrScannerStream){qrScannerStream.getTracks().forEach(track=>track.stop());qrScannerStream=null;}const video=$('qrVideo');if(video){video.pause();video.srcObject=null;video.classList.add('hidden');}}
+$('createMeetingBtn').addEventListener('click',createMeeting);
+$('refreshMeetings').addEventListener('click',loadMeetings);
+$('startQRBtn').addEventListener('click',startAttendanceQR);
+$('closeQRBtn').addEventListener('click',closeAttendanceQR);
+$('submitQRBtn').addEventListener('click',submitQRAttendance);
+$('scanQRBtn').addEventListener('click',startQRScanner);
+$('closeAttendanceDetail').addEventListener('click',()=>{stopQRScanner();$('attendanceDetail').classList.add('hidden');});
+document.addEventListener('click',event=>{const open=event.target.closest('[data-open-meeting]');if(open)openMeeting(open.dataset.openMeeting,open.dataset.meetingTitle);const save=event.target.closest('[data-save-attendance]');if(save)saveManualAttendance(save.dataset.saveAttendance);});
+document.querySelectorAll('[data-page="attendance"]').forEach(button=>button.addEventListener('click',()=>{if(token)loadMeetings();}));
 
 // Tombol mata untuk seluruh kolom password, termasuk kolom yang dibuat dinamis.
 function passwordEyeIcon(showing){
