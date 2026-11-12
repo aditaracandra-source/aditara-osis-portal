@@ -326,7 +326,26 @@ const $=id=>document.getElementById(id);
 function initials(n){return n.split(/\s+/).filter(Boolean).slice(0,2).map(x=>x[0]).join("").toUpperCase()}
 function renderPeople(){const q=$("searchPeople").value.toLowerCase(),f=$("filterPeople").value;const list=(remotePeople||people.map(p=>({pengurus_id:p[0],nama_lengkap:p[1],kelas:p[2],jabatan:p[3],seksi_id:p[4]}))).filter(p=>(!f||p.seksi_id===f)&&(!q||p.nama_lengkap.toLowerCase().includes(q)));$("peopleGrid").innerHTML=list.map(p=>`<article class="person"><div class="photo">${p.foto_url?`<img src="${escapeAttr(p.foto_url)}" alt="">`:initials(p.nama_lengkap)}</div><b>${escapeHtml(p.nama_lengkap)}</b><small>${escapeHtml(p.jabatan||"Pengurus")} · ${escapeHtml(p.kelas||"Kelas belum dicatat")}</small><button data-profile="${p.pengurus_id}">Lihat profil</button></article>`).join("")||'<p class="tiny">Tidak ada pengurus yang cocok.</p>'}
 function escapeHtml(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}function escapeAttr(s){return escapeHtml(s)}
-function go(page){document.querySelectorAll(".page").forEach(x=>x.classList.toggle("active",x.id===page));document.querySelectorAll("[data-page]").forEach(x=>x.classList.toggle("active",x.dataset.page===page));$("crumb").textContent="Ruang organisasi / "+page; if(innerWidth<701)$("content")?.scrollTo(0,0)}
+function isAdmin(){return !!currentUser&&String(currentUser.role||"").trim().toUpperCase()==="ADMIN";}
+function canAccessPage(page){
+  // Pengaturan hanya untuk ADMIN/Pembina. Halaman lain tetap mengikuti akses portal yang sudah ada.
+  return page!=="settings"||isAdmin();
+}
+function go(page){
+  if(!canAccessPage(page)){
+    // Tolak akses langsung melalui pemanggilan go() maupun tombol navigasi.
+    document.querySelectorAll(".page").forEach(x=>x.classList.toggle("active",x.id==="home"));
+    $("crumb").textContent="Ruang organisasi / home";
+    document.querySelectorAll("[data-page]").forEach(x=>x.classList.toggle("active",x.dataset.page==="home"));
+    if(innerWidth<701)$("content")?.scrollTo(0,0);
+    return false;
+  }
+  document.querySelectorAll(".page").forEach(x=>x.classList.toggle("active",x.id===page));
+  document.querySelectorAll("[data-page]").forEach(x=>x.classList.toggle("active",x.dataset.page===page));
+  $("crumb").textContent="Ruang organisasi / "+page;
+  if(innerWidth<701)$("content")?.scrollTo(0,0);
+  return true;
+}
 document.addEventListener("click",e=>{const b=e.target.closest("[data-page]");if(b)go(b.dataset.page);const p=e.target.closest("[data-profile]");if(p)openProfile(p.dataset.profile)});
 function openProfile(id){
  const p=(remotePeople||people.map(x=>({pengurus_id:x[0],nama_lengkap:x[1],kelas:x[2],jabatan:x[3],seksi_id:x[4]}))).find(x=>String(x.pengurus_id)===String(id));
@@ -400,7 +419,21 @@ function renderProfileAccount(person){
 }
 function closeProfile(){$("profileModal").classList.remove("show")}
 $("searchPeople").addEventListener("input",renderPeople);$("filterPeople").addEventListener("change",renderPeople);
-function showApp(user){currentUser=user;const displayName=user.nama||user.nama_lengkap||user.username;$("loginView").classList.add("hidden");$("appView").classList.remove("hidden");$("userNameTop").textContent=displayName;$("userInitial").textContent=initials(displayName);$("heroName").textContent=displayName;$("heroRole").textContent=(user.jabatan||user.role)+" · SMP Negeri 2 Kawali";$("greeting").textContent="Selamat datang, "+displayName+" 👋";go("home")}
+function showApp(user){
+  currentUser=user;
+  const displayName=user.nama||user.nama_lengkap||user.username;
+  $("loginView").classList.add("hidden");
+  $("appView").classList.remove("hidden");
+  $("userNameTop").textContent=displayName;
+  $("userInitial").textContent=initials(displayName);
+  $("heroName").textContent=displayName;
+  $("heroRole").textContent=(user.jabatan||user.role)+" · SMP Negeri 2 Kawali";
+  $("greeting").textContent="Selamat datang, "+displayName+" 👋";
+  // Sembunyikan menu Pengaturan untuk semua akun selain ADMIN.
+  const settingsNav=document.querySelector('#sideNav [data-page="settings"]');
+  if(settingsNav)settingsNav.classList.toggle("hidden",!isAdmin());
+  go("home");
+}
 async function api(payload){
   if(!API_URL)throw new Error("URL Apps Script belum dipasang. Mode demo belum mengaktifkan login.");
   const controller=new AbortController();
@@ -474,7 +507,15 @@ $("loginBtn").onclick=async()=>{
     btn.textContent="Masuk ke portal";
   }
 };
-$("logoutBtn").onclick=()=>{token=null;currentUser=null;localStorage.removeItem("aditara_session");$("appView").classList.add("hidden");$("loginView").classList.remove("hidden");$("password").value=""};
+$("logoutBtn").onclick=()=>{
+  token=null;currentUser=null;remoteUsers=null;
+  localStorage.removeItem("aditara_session");
+  const settingsNav=document.querySelector('#sideNav [data-page="settings"]');
+  if(settingsNav)settingsNav.classList.remove("hidden");
+  $("appView").classList.add("hidden");
+  $("loginView").classList.remove("hidden");
+  $("password").value="";
+};
 async function loadAdminUsers(){
  if(!currentUser||String(currentUser.role||"").toUpperCase()!=="ADMIN"){remoteUsers=null;return;}
  const result=await api({action:"adminListUsers",token});
