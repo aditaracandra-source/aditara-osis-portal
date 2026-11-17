@@ -380,7 +380,7 @@ body{background:var(--bg);color:var(--ink)}
 <div class="card" style="margin-bottom:12px"><b style="font-size:12px">Daftar Pertemuan</b><div id="meetingList" class="tiny record-list" style="margin-top:12px">Silakan muat data.</div><div id="meetingPager" class="module-pager"></div></div>
 <div class="card hidden" id="attendanceDetail">
  <div class="pagehead"><div><b id="attendanceTitle">Detail Absensi</b><p id="attendanceInfo"></p></div><button class="secondary" id="closeAttendanceDetail">Tutup</button></div>
- <div id="qrControl" style="margin-bottom:12px"><button class="btn" id="startQRBtn">Buat QR Absensi (15 menit)</button> <button class="secondary" id="closeQRBtn" disabled>Tutup QR</button><div id="qrDisplay" style="text-align:center;padding:12px"></div></div>
+ <div id="qrControl" style="margin-bottom:12px"><button class="btn" id="startQRBtn">Buat QR Absensi (15 menit)</button> <button type="button" class="secondary" id="closeQRBtn" disabled>Tutup QR</button><div id="qrDisplay" style="text-align:center;padding:12px"></div></div>
  <div id="scannerArea" style="margin:12px 0"><b style="font-size:11px">Absensi Pengurus</b><div><button class="secondary" id="scanQRBtn">Buka Kamera QR</button></div><div id="qrReader" style="width:100%;max-width:360px;margin-top:8px"></div><video id="qrVideo" class="hidden" autoplay playsinline style="width:100%;max-width:320px;margin-top:8px;border-radius:12px;background:#111"></video><input id="qrManualToken" placeholder="Kode QR (otomatis saat scan)" autocomplete="off" style="width:100%;padding:10px;margin-top:8px;border:1px solid var(--line);border-radius:9px"><button class="btn" id="submitQRBtn" style="margin-top:8px">Kirim Absensi</button><div id="qrMessage" class="error" aria-live="polite"></div></div>
  <div id="attendanceSummary" class="toolbar"></div><div id="manualAttendanceArea" class="tiny" style="margin:8px 0">Pilih status kehadiran pada tabel untuk input manual.</div>
  <div class="tablewrap"><table class="table"><thead><tr><th>Nama</th><th>Kelas</th><th>Kehadiran</th><th>Metode</th><th>Ubah</th></tr></thead><tbody id="attendanceRows"></tbody></table></div>
@@ -550,7 +550,7 @@ function showApp(user){
   $("prokerForm").classList.toggle("hidden",!moduleCan("proker.manage"));
   $("notulenForm").classList.toggle("hidden",!moduleCan("meeting.manage"));
   $("financeForm").classList.toggle("hidden",!moduleCan("finance.manage"));
-  $("galleryForm").classList.toggle("hidden",!moduleCan("gallery.manage"));
+  $("galleryForm").classList.toggle("hidden",!moduleCan("gallery.upload"));
   $("evaluationForm").classList.toggle("hidden",!moduleCan("evaluation.manage"));
 }
 let toastTimer=null;
@@ -563,7 +563,7 @@ function showToast(message,type='success'){
  box.classList.add('show');clearTimeout(toastTimer);
  toastTimer=setTimeout(()=>box.classList.remove('show'),4800);
 }
-const WRITE_ACTIONS=new Set(['adminSetPassword','adminSetStatus','checkinQR','closeQR','createMeeting','createPerson','deletePerson','kasCreatePeriod','kasSetAmount','kasSubmitPayment','kasVerifyPayment','manualAttendance','saveAgenda','saveEvaluation','saveFinance','saveGallery','saveNotulen','saveProker','saveTask','startQR','updateOwnTask','madingDelete','madingSave']);
+const WRITE_ACTIONS=new Set(['adminSetPassword','adminSetStatus','checkinQR','closeQR','createMeeting','createPerson','deletePerson','kasCreatePeriod','kasSetAmount','kasSubmitPayment','kasVerifyPayment','manualAttendance','saveAgenda','saveEvaluation','saveFinance','saveGallery','saveNotulen','saveProker','saveTask','startQR','updateOwnTask','madingDelete','madingSave','madingSetStatus']);
 async function api(payload){
   if(!API_URL)throw new Error("URL Apps Script belum dipasang. Mode demo belum mengaktifkan login.");
   const action=String(payload&&payload.action||'');
@@ -731,16 +731,19 @@ async function loadAttendance(){
 async function startAttendanceQR(){
  if(!selectedMeetingId)return;const button=$('startQRBtn');button.disabled=true;
  try{
-  const result=await api({action:'startQR',token,pertemuan_id:selectedMeetingId,duration:15});activeQrId=result.qr_id;currentAttendanceQR=result.qr_token;$('closeQRBtn').disabled=false;
+  const result=await api({action:'startQR',token,pertemuan_id:selectedMeetingId,duration:15});activeQrId=result.qr_id;currentAttendanceQR=result.qr_token;$('closeQRBtn').disabled=false;$('closeQRBtn').textContent='Tutup QR';$('qrMessage').textContent='QR aktif. Tekan Tutup QR kapan saja untuk mengakhiri sesi.';
   $('qrDisplay').innerHTML='<div id="qrCanvas" style="display:flex;justify-content:center;margin:8px auto"></div><b>QR ABSENSI AKTIF</b><p class="tiny">Berlaku 15 menit · Berakhir '+new Date(result.waktu_selesai).toLocaleTimeString('id-ID')+'</p>';
   if(typeof QRCode!=='undefined')new QRCode($('qrCanvas'),{text:result.qr_token,width:210,height:210,correctLevel:QRCode.CorrectLevel.M});
   else $('qrDisplay').insertAdjacentHTML('beforeend','<p class="tiny">Pustaka QR belum termuat. Muat ulang halaman dengan koneksi internet.</p>');
  }catch(error){alert(error.message||'Gagal membuat QR.');}finally{button.disabled=false;}
 }
 async function closeAttendanceQR(){
- if(!activeQrId)return;const button=$('closeQRBtn');button.disabled=true;
- try{const result=await api({action:'closeQR',token,qr_id:activeQrId});activeQrId=null;currentAttendanceQR=null;$('qrDisplay').innerHTML='<p class="tiny">QR absensi telah ditutup.</p>';$('qrMessage').textContent=result.message||'QR ditutup.';}
- catch(error){$('qrMessage').textContent=error.message||'Gagal menutup QR.';button.disabled=false;}
+ const button=$('closeQRBtn'),message=$('qrMessage');
+ if(!activeQrId){message.textContent='ID sesi QR belum tersedia. Tutup detail absensi, buka kembali pertemuan, lalu muat ulang sesi QR.';showToast(message.textContent,'error');return;}
+ button.disabled=true;button.textContent='Menutup QR...';message.textContent='Mengirim perintah penutupan QR...';
+ try{const result=await api({action:'closeQR',token,qr_id:activeQrId});activeQrId=null;currentAttendanceQR=null;$('qrDisplay').innerHTML='<p class="tiny">QR absensi telah ditutup.</p>';message.textContent=result.message||'QR ditutup.';showToast(message.textContent,'success');}
+ catch(error){message.textContent=error.message||'Gagal menutup QR.';showToast(message.textContent,'error');button.disabled=false;}
+ finally{button.textContent='Tutup QR';if(!activeQrId)button.disabled=true;}
 }
 async function submitQRAttendance(){
  const value=$('qrManualToken').value.trim(),message=$('qrMessage');if(!value){message.textContent='Silakan scan QR terlebih dahulu.';return;}
@@ -769,7 +772,8 @@ function stopQRScanner(){if(qrScannerStream){qrScannerStream.getTracks().forEach
 $('createMeetingBtn').addEventListener('click',createMeeting);
 $('refreshMeetings').addEventListener('click',loadMeetings);
 $('startQRBtn').addEventListener('click',startAttendanceQR);
-$('closeQRBtn').addEventListener('click',closeAttendanceQR);
+
+document.addEventListener('click',event=>{const closeButton=event.target.closest('#closeQRBtn');if(closeButton){event.preventDefault();event.stopPropagation();closeAttendanceQR();}});
 $('submitQRBtn').addEventListener('click',submitQRAttendance);
 $('scanQRBtn').addEventListener('click',startQRScanner);
 $('closeAttendanceDetail').addEventListener('click',()=>{stopQRScanner();$('attendanceDetail').classList.add('hidden');});
@@ -1015,7 +1019,7 @@ async function loadMadingAdmin(){
    return;
   }
   const r=await api({action:'madingList',token});
-  $('madingAdminList').innerHTML=(r.items||[]).map(x=>{const imgs=x.images_data||(x.image_data?[x.image_data]:[]);return `<article class="record"><div><b>${escapeHtml(x.judul)}</b><p>${escapeHtml(x.kategori)} · ${moduleDate(x.tanggal)} · ${escapeHtml(x.status)}</p>${madingPhotoButtons(imgs,x.judul,false)}</div><button class="secondary" data-mading-del="${escapeAttr(x.id)}">Hapus</button></article>`;}).join('')||'<p class="tiny">Belum ada konten.</p>';
+  $('madingAdminList').innerHTML=(r.items||[]).map(x=>{const imgs=x.images_data||(x.image_data?[x.image_data]:[]);return `<article class="record"><div style="flex:1;min-width:0"><b>${escapeHtml(x.judul)}</b><p>${escapeHtml(x.kategori)} · ${moduleDate(x.tanggal)} · ${escapeHtml(x.status)}</p>${madingPhotoButtons(imgs,x.judul,false)}<div class="toolbar" style="margin-top:8px"><select data-mading-status-select="${escapeAttr(x.id)}"><option value="DRAFT" ${x.status==='DRAFT'?'selected':''}>Draft</option><option value="TERBIT" ${x.status==='TERBIT'?'selected':''}>Terbit</option></select><button type="button" class="secondary" data-mading-status-save="${escapeAttr(x.id)}">Simpan Status</button></div></div><button type="button" class="secondary" data-mading-del="${escapeAttr(x.id)}">Hapus</button></article>`;}).join('')||'<p class="tiny">Belum ada konten.</p>';
  }catch(e){const target=moduleCan('mading.manage')?$('madingAdminList'):$('madingMemberList');target.textContent=e.message;}
 }
 $('madingSave').onclick=async()=>{
@@ -1053,6 +1057,6 @@ async function loadMadingPublic(page=1){
 }
 function showPublicMading(){ $('loginView').classList.add('hidden');$('appView').classList.add('hidden');$('madingPublic').style.display='block';$('madingPublic').classList.add('active');loadMadingPublic(1); }
 $('openPublicMading').onclick=showPublicMading;$('madingBackLogin').onclick=()=>{$('madingPublic').style.display='none';$('madingPublic').classList.remove('active');$('loginView').classList.remove('hidden');};
-document.addEventListener('click',async e=>{const mi=e.target.closest('[data-mading-src]');if(mi){e.preventDefault();openMadingImage(mi.dataset.madingSrc);return;}const kp=e.target.closest('[data-kas-page]');if(kp&&!kp.disabled){loadKasRows(Number(kp.dataset.kasPage));return;}const v=e.target.closest('[data-kas-verify]');if(v){const sel=document.querySelector('[data-kas-status-select="'+v.dataset.kasVerify+'"]');if(!sel)return;const next=sel.value;if(!confirm('Ubah status pembayaran menjadi '+next+'?'))return;v.disabled=true;try{const r=await api({action:'kasVerifyPayment',token,id:v.dataset.kasVerify,status:next});await loadKas();}catch(x){alert(x.message);}finally{v.disabled=false;}}const d=e.target.closest('[data-mading-del]');if(d&&confirm('Hapus konten mading ini?')){try{const r=await api({action:'madingDelete',token,id:d.dataset.madingDel});alert(r.message);await loadMadingAdmin();}catch(x){alert(x.message);}}});
+document.addEventListener('click',async e=>{const mi=e.target.closest('[data-mading-src]');if(mi){e.preventDefault();openMadingImage(mi.dataset.madingSrc);return;}const kp=e.target.closest('[data-kas-page]');if(kp&&!kp.disabled){loadKasRows(Number(kp.dataset.kasPage));return;}const v=e.target.closest('[data-kas-verify]');if(v){const sel=document.querySelector('[data-kas-status-select="'+v.dataset.kasVerify+'"]');if(!sel)return;const next=sel.value;if(!confirm('Ubah status pembayaran menjadi '+next+'?'))return;v.disabled=true;try{const r=await api({action:'kasVerifyPayment',token,id:v.dataset.kasVerify,status:next});await loadKas();}catch(x){alert(x.message);}finally{v.disabled=false;}}const ms=e.target.closest('[data-mading-status-save]');if(ms){const sel=document.querySelector('[data-mading-status-select="'+CSS.escape(ms.dataset.madingStatusSave)+'"]');if(!sel)return;ms.disabled=true;try{const r=await api({action:'madingSetStatus',token,id:ms.dataset.madingStatusSave,status:sel.value});showToast(r.message,'success');await loadMadingAdmin();}catch(err){showToast(err.message,'error');}finally{ms.disabled=false;}}const d=e.target.closest('[data-mading-del]');if(d&&confirm('Hapus konten mading ini?')){try{const r=await api({action:'madingDelete',token,id:d.dataset.madingDel});alert(r.message);await loadMadingAdmin();}catch(x){alert(x.message);}}});
 
 </script></body></html>
