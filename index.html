@@ -396,7 +396,7 @@ body{background:var(--bg);color:var(--ink)}
 <div class="modal" id="profileModal"><div class="modalbox"><h3 id="modalName">Profil</h3><p id="modalInfo"></p><div id="adminAccountArea" class="account-admin-area hidden"></div><div class="modalrow"><button class="secondary" onclick="closeProfile()">Tutup</button></div></div></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script><script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 <script>
-const API_URL="https://script.google.com/macros/s/AKfycbwOXCvSLPyp5kUxJLee6l9PgHcILYAU44GGBMULqWD5MNq7-Y5arhB9dLzVM8S9ferlNw/exec"; // Backend Apps Script ADITARA v1.5.1.
+const API_URL="https://script.google.com/macros/s/AKfycbwOXCvSLPyp5kUxJLee6l9PgHcILYAU44GGBMULqWD5MNq7-Y5arhB9dLzVM8S9ferlNw/exec"; // Backend Apps Script ADITARA v1.5.2.
 const periodId="PRD001";
 let remoteJabatan=[],peoplePage=1,settingsPage=1,prokerPage=1,listPages={};
 const people=[
@@ -555,10 +555,10 @@ async function api(payload){
     if(!response.ok)throw new Error("Server memberi respons HTTP "+response.status+". Coba beberapa saat lagi.");
     if(!result||result.ok!==true){
       const serverMessage=(result&&result.message)||"Permintaan tidak berhasil diproses.";
-      if(/Aksi tidak dikenal/i.test(serverMessage))throw new Error("Backend Apps Script yang aktif belum diperbarui atau deployment yang dipakai berbeda. Terapkan Versi baru dari proyek Code.gs ADITARA v1.5.0, lalu muat ulang portal.");
+      if(/Aksi tidak dikenal/i.test(serverMessage))throw new Error("Backend Apps Script yang aktif belum diperbarui atau deployment yang dipakai berbeda. Terapkan Versi baru dari proyek Code.gs ADITARA v1.5.2, lalu muat ulang portal.");
       throw new Error(serverMessage);
     }
-    if(result.version && result.version!=="1.5.0")throw new Error("Versi backend "+result.version+" tidak cocok. Portal memerlukan ADITARA backend v1.5.0. Perbarui deployment Web App yang sama.");
+    if(result.version && result.version!=="1.5.2")throw new Error("Versi backend "+result.version+" tidak cocok. Portal memerlukan ADITARA backend v1.5.2. Perbarui deployment Web App yang sama.");
     return result;
   }catch(error){
     if(error&&error.name==="AbortError")throw new Error("Verifikasi login melewati 45 detik. Periksa koneksi internet dan coba lagi.");
