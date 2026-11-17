@@ -381,11 +381,11 @@ body{background:var(--bg);color:var(--ink)}
 
 <section class="page" id="kas"><div class="pagehead"><div><h2>Kas Anggota ADITARA</h2><p>Iuran mingguan, riwayat pembayaran, dan verifikasi bendahara.</p></div><button class="btn" onclick="loadKas()">Muat ulang</button></div>
 <div class="summary-grid" id="kasSummary"></div>
-<div class="card module-form" id="kasPeriodForm"><b>Buat Periode Iuran</b><div class="toolbar"><input id="kasPeriodLabel" placeholder="Contoh: Minggu 1 · November"><input id="kasStart" type="date"><input id="kasEnd" type="date"><input id="kasNominal" type="number" min="0" placeholder="Nominal Rp"></div><button class="btn" id="kasCreatePeriod">Buat Periode</button><span class="tiny" id="kasMsg"></span></div>
+<div class="card module-form hidden" id="kasPeriodForm"><b>Buat Periode Iuran</b><div class="toolbar"><input id="kasPeriodLabel" placeholder="Contoh: Minggu 1 · November"><input id="kasStart" type="date"><input id="kasEnd" type="date"><input id="kasNominal" type="number" min="0" placeholder="Nominal Rp"></div><button class="btn" id="kasCreatePeriod">Buat Periode</button><span class="tiny" id="kasMsg"></span></div>
 <div class="card" style="margin-bottom:10px"><b>Periode Iuran</b><div class="toolbar" style="margin-top:9px"><select id="kasPeriodSelect"><option value="">Semua periode</option></select><button class="secondary" id="kasLoadRows">Tampilkan</button></div></div>
-<div class="card module-form" id="kasAmountForm"><b>Pengaturan nominal mingguan</b><div class="toolbar"><input id="kasAmountSetting" type="number" min="0" placeholder="Nominal Rp"><button class="secondary" id="kasSaveAmount">Simpan Nominal</button></div></div>
+<div class="card module-form hidden" id="kasAmountForm"><b>Pengaturan nominal mingguan</b><div class="toolbar"><input id="kasAmountSetting" type="number" min="0" placeholder="Nominal Rp"><button class="secondary" id="kasSaveAmount">Simpan Nominal</button></div></div>
 <div class="card"><b>Riwayat / Verifikasi Pembayaran</b><div id="kasRows" class="record-list">Memuat...</div></div>
-<div class="card module-form" id="kasPaymentForm"><b>Ajukan Pembayaran</b><div class="toolbar"><select id="kasPayPeriod"><option value="">Pilih periode</option></select><select id="kasMethod"><option value="TUNAI">Tunai</option><option value="TRANSFER">Transfer</option></select><input id="kasPayProof" type="file" accept="image/*"></div><input id="kasNote" placeholder="Catatan (opsional)" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:9px"><button class="btn" id="kasSubmit" style="margin-top:9px">Kirim Pembayaran</button><span class="tiny" id="kasPayMsg"></span></div></section>
+<div class="card module-form hidden" id="kasPaymentForm"><b>Ajukan Pembayaran</b><div class="toolbar"><select id="kasPayPeriod"><option value="">Pilih periode</option></select><select id="kasMethod"><option value="TUNAI">Tunai</option><option value="TRANSFER">Transfer</option></select><input id="kasPayProof" type="file" accept="image/*"></div><input id="kasNote" placeholder="Catatan (opsional)" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:9px"><button class="btn" id="kasSubmit" style="margin-top:9px">Kirim Pembayaran</button><span class="tiny" id="kasPayMsg"></span></div></section>
 <section class="page" id="mading"><div class="pagehead"><div><h2>Mading Digital ADITARA</h2><p>Majalah digital kegiatan, prestasi, dan informasi OSIS.</p></div><button class="btn" onclick="loadMadingAdmin()">Muat ulang</button></div>
 <div id="madingManagePanel"><div class="card module-form" id="madingForm"><b>Terbitkan Konten</b><div class="toolbar"><input id="madingTitle" placeholder="Judul berita / dokumentasi"><input id="madingCategory" placeholder="Kategori" value="KEGIATAN"><input id="madingDate" type="date"><select id="madingStatus"><option value="DRAFT">Draft</option><option value="TERBIT">Terbit</option></select><select id="madingFeatured"><option value="0">Konten biasa</option><option value="1">Jadikan unggulan</option></select><input id="madingFile" type="file" accept="image/*"></div><textarea id="madingCaption" placeholder="Tulis ringkasan / keterangan konten" style="width:100%;min-height:70px;padding:10px;border:1px solid var(--line);border-radius:9px"></textarea><button class="btn" id="madingSave">Simpan Konten</button><span class="tiny" id="madingMsg"></span></div><div class="card"><b>Kelola Konten</b><div id="madingAdminList" class="record-list"></div></div></div><div class="card" id="madingMemberReader"><b>Konten Mading Terbit</b><div id="madingMemberList" class="mading-grid"><p class="tiny">Memuat konten...</p></div></div></section>
 
@@ -396,7 +396,7 @@ body{background:var(--bg);color:var(--ink)}
 <div class="modal" id="profileModal"><div class="modalbox"><h3 id="modalName">Profil</h3><p id="modalInfo"></p><div id="adminAccountArea" class="account-admin-area hidden"></div><div class="modalrow"><button class="secondary" onclick="closeProfile()">Tutup</button></div></div></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script><script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 <script>
-const API_URL="https://script.google.com/macros/s/AKfycbwOXCvSLPyp5kUxJLee6l9PgHcILYAU44GGBMULqWD5MNq7-Y5arhB9dLzVM8S9ferlNw/exec"; // Backend Apps Script ADITARA v1.5.3.
+const API_URL="https://script.google.com/macros/s/AKfycbwOXCvSLPyp5kUxJLee6l9PgHcILYAU44GGBMULqWD5MNq7-Y5arhB9dLzVM8S9ferlNw/exec"; // Backend Apps Script ADITARA v1.5.4.
 const periodId="PRD001";
 let remoteJabatan=[],peoplePage=1,settingsPage=1,prokerPage=1,listPages={};
 const people=[
@@ -555,10 +555,10 @@ async function api(payload){
     if(!response.ok)throw new Error("Server memberi respons HTTP "+response.status+". Coba beberapa saat lagi.");
     if(!result||result.ok!==true){
       const serverMessage=(result&&result.message)||"Permintaan tidak berhasil diproses.";
-      if(/Aksi tidak dikenal/i.test(serverMessage))throw new Error("Backend Apps Script yang aktif belum diperbarui atau deployment yang dipakai berbeda. Terapkan Versi baru dari proyek Code.gs ADITARA v1.5.3, lalu muat ulang portal.");
+      if(/Aksi tidak dikenal/i.test(serverMessage))throw new Error("Backend Apps Script yang aktif belum diperbarui atau deployment yang dipakai berbeda. Terapkan Versi baru dari proyek Code.gs ADITARA v1.5.4, lalu muat ulang portal.");
       throw new Error(serverMessage);
     }
-    if(result.version && result.version!=="1.5.3")throw new Error("Versi backend "+result.version+" tidak cocok. Portal memerlukan ADITARA backend v1.5.3. Perbarui deployment Web App yang sama.");
+    if(result.version && result.version!=="1.5.4")throw new Error("Versi backend "+result.version+" tidak cocok. Portal memerlukan ADITARA backend v1.5.4. Perbarui deployment Web App yang sama.");
     return result;
   }catch(error){
     if(error&&error.name==="AbortError")throw new Error("Verifikasi login melewati 45 detik. Periksa koneksi internet dan coba lagi.");
@@ -875,7 +875,7 @@ document.addEventListener('click',e=>{
 });
 function loadPageData(page){if(!token)return;const map={home:async()=>{try{const r=await api({action:'getDashboard',token});const u=r.upcoming||[];const event=document.querySelector('#home .event');if(event)event.innerHTML=u.length?`<div class="eventdate">${moduleDate(u[0].tanggal)}<small>AGENDA</small></div><div><b>${escapeHtml(u[0].judul)}</b><p>${escapeHtml(u[0].jam||'')} · ${escapeHtml(u[0].lokasi||'')}</p></div>`:'<div class="eventdate">—<small>AGENDA</small></div><div><b>Belum ada agenda</b><p>Agenda akan muncul setelah data tersedia.</p></div>'; }catch(e){console.warn(e.message);}},people:loadPeople,attendance:loadMeetings,agenda:loadAgenda,proker:loadProker,meeting:loadNotulen,finance:loadFinance,gallery:loadGallery,tasks:async()=>{const peopleResult=await api({action:'listPeople',token,periode_id:periodId});$('taskPerson').innerHTML='<option value="">Pilih pengurus</option>'+(peopleResult.people||[]).map(x=>`<option value="${escapeAttr(x.pengurus_id)}">${escapeHtml(x.nama)}</option>`).join('');$('taskForm').classList.toggle('hidden',!moduleCan('tasks.manage_all'));await loadTasks();},evaluation:loadEvaluation,settings:loadSettings,kas:loadKas,mading:loadMadingAdmin};if(map[page])map[page]();}
 // Nav visibility mengikuti permission dari backend.
-function applyNewModuleAccess(){document.querySelectorAll('[data-page="kas"]').forEach(x=>x.classList.toggle('hidden',!moduleCan('kas.own')));document.querySelectorAll('[data-page="mading"]').forEach(x=>x.classList.toggle('hidden',!moduleCan('mading.view')));$('kasPaymentForm').classList.toggle('hidden',kasCanManage()||!currentUser?.pengurus_id);$('madingManagePanel').classList.toggle('hidden',!moduleCan('mading.manage'));$('madingMemberReader').classList.toggle('hidden',moduleCan('mading.manage'));}
+function applyNewModuleAccess(){document.querySelectorAll('[data-page="kas"]').forEach(x=>x.classList.toggle('hidden',!moduleCan('kas.own')));document.querySelectorAll('[data-page="mading"]').forEach(x=>x.classList.toggle('hidden',!moduleCan('mading.view')));$('kasPeriodForm').classList.toggle('hidden',!kasCanManage());$('kasAmountForm').classList.toggle('hidden',!kasCanSet());$('kasPaymentForm').classList.toggle('hidden',!currentUser?.pengurus_id);$('madingManagePanel').classList.toggle('hidden',!moduleCan('mading.manage'));$('madingMemberReader').classList.toggle('hidden',moduleCan('mading.manage'));}
 const originalGo=go;go=function(page){const ok=originalGo(page);if(ok)loadPageData(page);return ok;};
 // Initial page visibility follows the authenticated backend policy; every write is checked again server-side.
 
@@ -903,14 +903,41 @@ function kasCanManage(){return moduleCan('kas.manage')}
 function kasCanSet(){return moduleCan('kas.settings')}
 function fmtMoney(n){return 'Rp '+(Number(n)||0).toLocaleString('id-ID')}
 async function loadKas(){
- try{
-  const [s,pr]=await Promise.all([api({action:'kasSummary',token}),api({action:'kasListPeriods',token})]);
-  $('kasSummary').innerHTML=[['Nominal mingguan',fmtMoney(s.nominal)],['Total terverifikasi',fmtMoney(s.total_terverifikasi)],['Menunggu verifikasi',s.menunggu],['Riwayat pembayaran',s.riwayat]].map(x=>`<div class="summary-box"><small>${x[0]}</small><b>${x[1]}</b></div>`).join('');
-  const options=(pr.periods||[]).map(x=>`<option value="${escapeAttr(x.id)}">${escapeHtml(x.label)} · ${fmtMoney(x.nominal)}</option>`).join('');
-  $('kasPeriodSelect').innerHTML='<option value="">Semua periode</option>'+options;$('kasPayPeriod').innerHTML='<option value="">Pilih periode</option>'+options;
-  $('kasPeriodForm').classList.toggle('hidden',!kasCanManage());$('kasAmountForm').classList.toggle('hidden',!kasCanSet());$('kasPaymentForm').classList.toggle('hidden',kasCanManage()||!currentUser?.pengurus_id);$('kasAmountSetting').value=s.nominal;
-  await loadKasRows();
- }catch(e){$('kasRows').textContent=e.message;}
+ // Terapkan izin dari backend terlebih dahulu, jangan menunggu API data.
+ const manager=kasCanManage();
+ $('kasPeriodForm').classList.toggle('hidden',!manager);
+ $('kasAmountForm').classList.toggle('hidden',!kasCanSet());
+ $('kasPaymentForm').classList.toggle('hidden',!currentUser?.pengurus_id);
+ $('kasRows').textContent='Memuat riwayat pembayaran...';
+ $('kasSummary').innerHTML='<div class="summary-box"><small>Status</small><b>Memuat...</b></div>';
+ // Permintaan ringkasan, periode, dan riwayat dipisahkan agar kegagalan satu API
+ // tidak menghentikan pemuatan riwayat anggota.
+ const results=await Promise.allSettled([
+   api({action:'kasSummary',token}),
+   api({action:'kasListPeriods',token})
+ ]);
+ const summaryResult=results[0],periodResult=results[1];
+ if(summaryResult.status==='fulfilled'){
+   const s=summaryResult.value;
+   $('kasSummary').innerHTML=[['Nominal mingguan',fmtMoney(s.nominal)],['Total terverifikasi',fmtMoney(s.total_terverifikasi)],['Menunggu verifikasi',s.menunggu],['Riwayat pembayaran',s.riwayat]].map(x=>`<div class="summary-box"><small>${x[0]}</small><b>${x[1]}</b></div>`).join('');
+   if($('kasAmountSetting'))$('kasAmountSetting').value=s.nominal;
+ }else{
+   $('kasSummary').innerHTML='<div class="summary-box"><small>Ringkasan</small><b>Belum tersedia</b></div>';
+   console.warn('kasSummary:',summaryResult.reason?.message||summaryResult.reason);
+ }
+ if(periodResult.status==='fulfilled'){
+   const options=(periodResult.value.periods||[]).map(x=>`<option value="${escapeAttr(x.id)}">${escapeHtml(x.label)} · ${fmtMoney(x.nominal)}</option>`).join('');
+   $('kasPeriodSelect').innerHTML='<option value="">Semua periode</option>'+options;
+   $('kasPayPeriod').innerHTML='<option value="">Pilih periode</option>'+options;
+ }else{
+   $('kasPeriodSelect').innerHTML='<option value="">Semua periode</option>';
+   $('kasPayPeriod').innerHTML='<option value="">Periode belum tersedia</option>';
+   console.warn('kasListPeriods:',periodResult.reason?.message||periodResult.reason);
+ }
+ await loadKasRows();
+ if(summaryResult.status==='rejected'&&periodResult.status==='rejected'&&$('kasRows').textContent.includes('Memuat')){
+   $('kasRows').textContent='Data Kas belum dapat dimuat. Tekan Muat ulang atau periksa koneksi Apps Script.';
+ }
 }
 async function loadKasRows(){try{const r=await api({action:'kasListPayments',token,periode_id:$('kasPeriodSelect').value});$('kasRows').innerHTML=(r.items||[]).map(x=>`<article class="record"><div><b>${escapeHtml(x.nama)} · ${fmtMoney(x.nominal)}</b><p>Periode: ${escapeHtml(x.periode_id)} · ${escapeHtml(x.metode)} · ${moduleDate(x.tanggal_bayar)}<br>Status: <strong>${escapeHtml(x.status)}</strong>${x.catatan?' · '+escapeHtml(x.catatan):''}</p>${x.bukti?`<img src="${x.bukti}" alt="Bukti pembayaran" style="width:120px;border-radius:8px;margin-top:5px">`:''}</div>${kasCanManage()?`<div class="mading-actions"><select data-kas-status-select="${escapeAttr(x.id)}"><option value="MENUNGGU" ${x.status==='MENUNGGU'?'selected':''}>Menunggu</option><option value="TERVERIFIKASI" ${x.status==='TERVERIFIKASI'?'selected':''}>Terverifikasi / Lunas</option><option value="DITOLAK" ${x.status==='DITOLAK'?'selected':''}>Ditolak</option></select><button class="secondary" data-kas-verify="${escapeAttr(x.id)}">Ubah Status</button></div>`:''}</article>`).join('')||'<p class="tiny">Belum ada pembayaran.</p>';}catch(e){$('kasRows').textContent=e.message;}}
 $('kasCreatePeriod').onclick=async()=>{try{const r=await api({action:'kasCreatePeriod',token,label:$('kasPeriodLabel').value,tanggal_mulai:$('kasStart').value,tanggal_selesai:$('kasEnd').value,nominal:$('kasNominal').value});$('kasMsg').textContent=r.message;await loadKas();}catch(e){$('kasMsg').textContent=e.message;}};
