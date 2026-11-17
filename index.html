@@ -13,6 +13,11 @@
 .pagehead{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px}.pagehead h2{font-size:18px;margin:0}.pagehead p{font-size:10px;color:var(--muted);margin:4px 0 0}.peoplegrid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:10px}.person{background:white;border:1px solid var(--line);border-radius:13px;padding:8px;text-align:center;min-width:0}.photo{width:100%;aspect-ratio:1;border-radius:9px;background:linear-gradient(145deg,#e7f2ff,#c5dcf4);display:grid;place-items:center;color:#205989;font-size:23px;font-weight:800;overflow:hidden;position:relative}.photo img{width:100%;height:100%;object-fit:cover}.person b{font-size:9px;display:block;margin-top:7px;line-height:1.3}.person small{font-size:8px;color:var(--muted);display:block;margin-top:3px}.person button{margin-top:6px;background:#edf4fc;color:#175e9d;border-radius:7px;padding:5px 8px;font-size:8px}
 .toolbar{display:flex;gap:8px;align-items:center;margin-bottom:12px;flex-wrap:wrap}.toolbar input,.toolbar select{border:1px solid var(--line);border-radius:9px;padding:9px 10px;font-size:10px;background:white}.tablewrap{overflow:auto;background:#fff;border:1px solid var(--line);border-radius:13px}.table{width:100%;border-collapse:collapse;font-size:10px}.table th,.table td{padding:10px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}.table th{background:#f8fafd;color:#73839a;font-size:9px}.tag{display:inline-block;background:#e9f7f1;color:#16845e;border-radius:20px;padding:4px 7px;font-size:8px}.secondary{background:#edf4fc;color:#185c98;border-radius:9px;padding:9px 12px;font-size:10px;font-weight:700}
 .mobilebar{display:none}.modal{position:fixed;inset:0;background:#091b30a8;display:none;align-items:center;justify-content:center;padding:18px;z-index:20}.modal.show{display:flex}.modalbox{width:min(440px,100%);background:white;border-radius:17px;padding:19px}.modalbox h3{font-size:15px;margin:0}.modalbox p{font-size:11px;color:var(--muted);line-height:1.5}.modalrow{display:flex;justify-content:flex-end;gap:8px;margin-top:15px}
+/* Global action feedback: one consistent confirmation layer for every module. */
+#globalToast{position:fixed;right:22px;bottom:22px;z-index:1000;max-width:min(420px,calc(100vw - 28px));padding:13px 16px;border-radius:13px;background:#17213f;color:#fff;box-shadow:0 12px 34px #101b3b35;font-size:12px;line-height:1.45;display:flex;align-items:flex-start;gap:10px;opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity .18s ease,transform .18s ease}
+#globalToast.show{opacity:1;transform:translateY(0)}#globalToast.success{border-left:4px solid #27b37e}#globalToast.error{border-left:4px solid #e05b65}#globalToast.info{border-left:4px solid #6b8cff}#globalToastIcon{font-size:17px;line-height:1}#globalToastText{flex:1;overflow-wrap:anywhere}
+.kas-pager{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:12px;padding-top:10px;border-top:1px solid var(--line)}.kas-pager .tiny{font-size:10px}.kas-pager button:disabled{opacity:.4;cursor:not-allowed}
+@media(max-width:700px){#globalToast{left:12px;right:12px;bottom:68px;max-width:none}.kas-pager{justify-content:center}}
 @media(max-width:1050px){.tiles{grid-template-columns:repeat(4,1fr)}.peoplegrid{grid-template-columns:repeat(5,1fr)}}
 @media(max-width:700px){.app{display:block;height:100dvh}.sidebar{display:none}.topbar{height:52px;padding:0 13px}.content{height:calc(100dvh - 108px);padding:13px 12px 16px}.welcome h1{font-size:17px}.date{display:none}.hero{padding:14px;min-height:105px}.hero h2{font-size:18px}.heroStats{gap:12px}.stat b{font-size:18px}.stat:last-child{display:none}.tiles{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.tile{min-height:76px;padding:9px 8px}.tile b{font-size:9px}.tile small{font-size:8px}.lower{grid-template-columns:1fr;gap:8px;margin-top:10px}.head{margin:13px 0 8px}.peoplegrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.person{padding:6px}.person b{font-size:8px}.pagehead h2{font-size:16px}.mobilebar{position:fixed;display:flex;bottom:0;left:0;right:0;height:56px;background:white;border-top:1px solid var(--line);justify-content:space-around;align-items:center;z-index:10}.mobilebar button{background:transparent;color:#8291a5;font-size:8px;display:grid;justify-items:center;gap:2px}.mobilebar button.active{color:var(--blue)}.mobilebar i{font-style:normal;font-size:18px}}
 
@@ -394,7 +399,7 @@ body{background:var(--bg);color:var(--ink)}
 <div class="card module-form hidden" id="kasPeriodForm"><b>Buat Periode Iuran</b><div class="toolbar"><input id="kasPeriodLabel" placeholder="Contoh: Minggu 1 · November"><input id="kasStart" type="date"><input id="kasEnd" type="date"><input id="kasNominal" type="number" min="0" placeholder="Nominal Rp"></div><button class="btn" id="kasCreatePeriod">Buat Periode</button><span class="tiny" id="kasMsg"></span></div>
 <div class="card" style="margin-bottom:10px"><b>Periode Iuran</b><div class="toolbar" style="margin-top:9px"><select id="kasPeriodSelect"><option value="">Semua periode</option></select><button class="secondary" id="kasLoadRows">Tampilkan</button></div></div>
 <div class="card module-form hidden" id="kasAmountForm"><b>Pengaturan nominal mingguan</b><div class="toolbar"><input id="kasAmountSetting" type="number" min="0" placeholder="Nominal Rp"><button class="secondary" id="kasSaveAmount">Simpan Nominal</button></div></div>
-<div class="card"><b>Riwayat / Verifikasi Pembayaran</b><div id="kasRows" class="record-list">Memuat...</div></div>
+<div class="card"><b>Riwayat / Verifikasi Pembayaran</b><div id="kasRows" class="record-list">Memuat...</div><div id="kasPager" class="kas-pager"></div></div>
 <div class="card module-form hidden" id="kasPaymentForm"><b>Ajukan Pembayaran</b><div class="toolbar"><select id="kasPayPeriod"><option value="">Pilih periode</option></select><select id="kasMethod"><option value="TUNAI">Tunai</option><option value="TRANSFER">Transfer</option></select><input id="kasPayProof" type="file" accept="image/*"></div><input id="kasNote" placeholder="Catatan (opsional)" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:9px"><button class="btn" id="kasSubmit" style="margin-top:9px">Kirim Pembayaran</button><span class="tiny" id="kasPayMsg"></span></div></section>
 <section class="page" id="mading"><div class="pagehead"><div><h2>Mading Digital ADITARA</h2><p>Majalah digital kegiatan, prestasi, dan informasi OSIS.</p></div><button class="btn" onclick="loadMadingAdmin()">Muat ulang</button></div>
 <div id="madingManagePanel"><div class="card module-form" id="madingForm"><b>Terbitkan Konten</b><div class="toolbar"><input id="madingTitle" placeholder="Judul berita / dokumentasi"><input id="madingCategory" placeholder="Kategori" value="KEGIATAN"><input id="madingDate" type="date"><select id="madingStatus"><option value="DRAFT">Draft</option><option value="TERBIT">Terbit</option></select><select id="madingFeatured"><option value="0">Konten biasa</option><option value="1">Jadikan unggulan</option></select><input id="madingFile" type="file" accept="image/*"></div><textarea id="madingCaption" placeholder="Tulis ringkasan / keterangan konten" style="width:100%;min-height:70px;padding:10px;border:1px solid var(--line);border-radius:9px"></textarea><button class="btn" id="madingSave">Simpan Konten</button><span class="tiny" id="madingMsg"></span></div><div class="card"><b>Kelola Konten</b><div id="madingAdminList" class="record-list"></div></div></div><div class="card" id="madingMemberReader"><b>Konten Mading Terbit</b><div id="madingMemberList" class="mading-grid"><p class="tiny">Memuat konten...</p></div></div></section>
@@ -403,6 +408,7 @@ body{background:var(--bg);color:var(--ink)}
 <section class="page" id="settings"><div class="pagehead"><div><h2>Pengaturan</h2><p>Kelola akun masuk pengurus: status, password, dan aktivasi.</p></div><button class="btn" onclick="loadSettings(1)">Muat ulang</button></div><div class="card"><b>Manajemen Akun Pengurus</b><p class="tiny">Gunakan Atur Password untuk membuat atau mengganti password. Akun hanya bisa masuk setelah berstatus AKTIF. Nonaktifkan akses tanpa menghapus riwayat kegiatan.</p><div id="settingsUsers" class="record-list">Memuat...</div><div id="settingsPager" class="module-pager"></div></div></section>
 </div></main><nav class="mobilebar"><button class="active" data-page="home"><i>⌂</i>Beranda</button><button data-page="agenda"><i>▣</i>Agenda</button><button data-page="attendance"><i>▦</i>Absensi</button><button data-page="people"><i>♙</i>Pengurus</button></nav></div>
 <section class="page" id="madingPublic" style="display:none;min-height:100dvh;padding:22px;max-width:1200px;margin:0 auto"><div class="pagehead"><div><h2>Mading Digital <span style="color:var(--violet)">ADITARA</span></h2><p>Informasi, cerita, dan dokumentasi kegiatan OSIS SMP Negeri 2 Kawali.</p></div><button class="secondary" id="madingBackLogin">Masuk Pengurus</button></div><div id="madingPublicList" class="gallery-grid">Memuat mading...</div><div id="madingPublicPager" class="pager"></div></section>
+<div id="globalToast" role="status" aria-live="polite"><span id="globalToastIcon">✓</span><span id="globalToastText"></span></div>
 <div class="modal" id="profileModal"><div class="modalbox"><h3 id="modalName">Profil</h3><p id="modalInfo"></p><div id="adminAccountArea" class="account-admin-area hidden"></div><div class="modalrow"><button class="secondary" onclick="closeProfile()">Tutup</button></div></div></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script><script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 <script>
@@ -545,41 +551,47 @@ function showApp(user){
   $("galleryForm").classList.toggle("hidden",!moduleCan("gallery.manage"));
   $("evaluationForm").classList.toggle("hidden",!moduleCan("evaluation.manage"));
 }
+let toastTimer=null;
+function showToast(message,type='success'){
+ const box=$('globalToast'),txt=$('globalToastText'),ico=$('globalToastIcon');
+ if(!box||!txt)return;
+ const kind=['success','error','info'].includes(type)?type:'info';
+ box.className=kind;txt.textContent=String(message||'Proses selesai.');
+ ico.textContent=kind==='success'?'✓':kind==='error'?'!':'i';
+ box.classList.add('show');clearTimeout(toastTimer);
+ toastTimer=setTimeout(()=>box.classList.remove('show'),4800);
+}
+const WRITE_ACTIONS=new Set(['adminSetPassword','adminSetStatus','checkinQR','closeQR','createMeeting','createPerson','deletePerson','kasCreatePeriod','kasSetAmount','kasSubmitPayment','kasVerifyPayment','manualAttendance','saveAgenda','saveEvaluation','saveFinance','saveGallery','saveNotulen','saveProker','saveTask','startQR','updateOwnTask','madingDelete','madingSave']);
 async function api(payload){
   if(!API_URL)throw new Error("URL Apps Script belum dipasang. Mode demo belum mengaktifkan login.");
+  const action=String(payload&&payload.action||'');
+  const isWrite=WRITE_ACTIONS.has(action);
   const controller=new AbortController();
   const timeoutId=setTimeout(()=>controller.abort(),45000);
   try{
     const response=await fetch(API_URL,{
-      method:"POST",
-      headers:{"Content-Type":"text/plain;charset=utf-8"},
-      body:JSON.stringify(payload),
-      cache:"no-store",
-      redirect:"follow",
-      signal:controller.signal
+      method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body:JSON.stringify(payload),cache:"no-store",redirect:"follow",signal:controller.signal
     });
-    const raw=await response.text();
-    let result;
-    try{result=JSON.parse(raw)}
-    catch(parseError){throw new Error("Jawaban server tidak terbaca. Periksa deployment Apps Script dan coba lagi.")}
+    const raw=await response.text();let result;
+    try{result=JSON.parse(raw)}catch(parseError){throw new Error("Jawaban server tidak terbaca. Periksa deployment Apps Script dan coba lagi.")}
     if(!response.ok)throw new Error("Server memberi respons HTTP "+response.status+". Coba beberapa saat lagi.");
     if(!result||result.ok!==true){
       const serverMessage=(result&&result.message)||"Permintaan tidak berhasil diproses.";
-      if(/Aksi tidak dikenal/i.test(serverMessage))throw new Error("Backend Apps Script yang aktif belum diperbarui atau deployment yang dipakai berbeda. Terapkan Versi baru dari proyek Code.gs ADITARA v1.5.5, lalu muat ulang portal.");
+      if(/Aksi tidak dikenal/i.test(serverMessage))throw new Error("Backend Apps Script yang aktif belum diperbarui atau deployment yang dipakai berbeda. Terapkan Versi baru dari proyek Code.gs ADITARA v1.5.6, lalu muat ulang portal.");
       throw new Error(serverMessage);
     }
-    if(result.version && result.version!=="1.5.5")throw new Error("Versi backend "+result.version+" tidak cocok. Portal memerlukan ADITARA backend v1.5.5. Periksa deployment Web App yang sama.");
+    if(result.version && result.version!=="1.5.6")throw new Error("Versi backend "+result.version+" tidak cocok. Portal memerlukan ADITARA backend v1.5.6. Perbarui deployment Web App yang sama.");
+    if(isWrite)showToast(result.message||'Perubahan berhasil disimpan.','success');
     return result;
   }catch(error){
-    if(error&&error.name==="AbortError")throw new Error("Verifikasi login melewati 45 detik. Periksa koneksi internet dan coba lagi.");
-    const message=String((error&&error.message)||"");
-    if(/Failed to fetch|NetworkError|Load failed|fetch failed/i.test(message)){
-      throw new Error("Tidak dapat terhubung ke server ADITARA. Periksa internet HP dan akses Web App Apps Script.");
-    }
-    throw error;
-  }finally{
-    clearTimeout(timeoutId);
-  }
+    let err=error;
+    if(error&&error.name==="AbortError")err=new Error("Permintaan melewati 45 detik. Periksa koneksi internet dan coba lagi.");
+    const message=String((err&&err.message)||"");
+    if(/Failed to fetch|NetworkError|Load failed|fetch failed/i.test(message))err=new Error("Tidak dapat terhubung ke server ADITARA. Periksa internet dan akses Web App Apps Script.");
+    if(isWrite)showToast(err.message||'Tindakan belum berhasil. Silakan coba kembali.','error');
+    throw err;
+  }finally{clearTimeout(timeoutId);}
 }
 
 $("loginBtn").onclick=async()=>{
@@ -968,17 +980,27 @@ async function loadKas(){
    $('kasRows').textContent='Data Kas belum dapat dimuat. Tekan Muat ulang atau periksa koneksi Apps Script.';
  }
 }
-async function loadKasRows(){try{const r=await api({action:'kasListPayments',token,periode_id:$('kasPeriodSelect').value});$('kasRows').innerHTML=(r.items||[]).map(x=>`<article class="record"><div><b>${escapeHtml(x.nama)} · ${fmtMoney(x.nominal)}</b><p>Periode: ${escapeHtml(x.periode_id)} · ${escapeHtml(x.metode)} · ${moduleDate(x.tanggal_bayar)}<br>Status: <strong>${escapeHtml(x.status)}</strong>${x.catatan?' · '+escapeHtml(x.catatan):''}</p>${x.bukti?`<img src="${x.bukti}" alt="Bukti pembayaran" style="width:120px;border-radius:8px;margin-top:5px">`:''}</div>${kasCanManage()?`<div class="mading-actions"><select data-kas-status-select="${escapeAttr(x.id)}"><option value="MENUNGGU" ${x.status==='MENUNGGU'?'selected':''}>Menunggu</option><option value="TERVERIFIKASI" ${x.status==='TERVERIFIKASI'?'selected':''}>Terverifikasi / Lunas</option><option value="DITOLAK" ${x.status==='DITOLAK'?'selected':''}>Ditolak</option></select><button class="secondary" data-kas-verify="${escapeAttr(x.id)}">Ubah Status</button></div>`:''}</article>`).join('')||'<p class="tiny">Belum ada pembayaran.</p>';}catch(e){$('kasRows').textContent=e.message;}}
+let kasPage=1;
+async function loadKasRows(page=kasPage){
+ kasPage=Math.max(1,Number(page)||1);$('kasRows').textContent='Memuat riwayat pembayaran...';$('kasPager').innerHTML='';
+ try{
+  const r=await api({action:'kasListPayments',token,periode_id:$('kasPeriodSelect').value,page:kasPage,pageSize:5});
+  kasPage=Number(r.page)||1;
+  $('kasRows').innerHTML=(r.items||[]).map(x=>`<article class="record"><div><b>${escapeHtml(x.nama)} · ${fmtMoney(x.nominal)}</b><p>Periode: ${escapeHtml(x.periode_id)} · ${escapeHtml(x.metode)} · ${moduleDate(x.tanggal_bayar)}<br>Status: <strong>${escapeHtml(x.status==='TERVERIFIKASI'?'Terverifikasi / Lunas':x.status==='MENUNGGU'?'Menunggu verifikasi':x.status==='DITOLAK'?'Ditolak':x.status)}</strong>${x.catatan?' · '+escapeHtml(x.catatan):''}${x.verified_by?'<br>Diverifikasi oleh: '+escapeHtml(x.verified_by):''}</p>${x.bukti?`<img src="${x.bukti}" alt="Bukti pembayaran" style="width:120px;border-radius:8px;margin-top:5px">`:''}</div>${kasCanManage()?`<div class="mading-actions"><select data-kas-status-select="${escapeAttr(x.id)}"><option value="MENUNGGU" ${x.status==='MENUNGGU'?'selected':''}>Menunggu</option><option value="TERVERIFIKASI" ${x.status==='TERVERIFIKASI'?'selected':''}>Terverifikasi / Lunas</option><option value="DITOLAK" ${x.status==='DITOLAK'?'selected':''}>Ditolak</option></select><button class="secondary" data-kas-verify="${escapeAttr(x.id)}">Ubah Status</button></div>`:''}</article>`).join('')||'<p class="tiny">Belum ada pembayaran.</p>';
+  const pages=Number(r.totalPages)||1,total=Number(r.total)||0;
+  $('kasPager').innerHTML=pages>1?`<button class="secondary" data-kas-page="${kasPage-1}" ${kasPage<=1?'disabled':''}>Sebelumnya</button><span class="tiny">Halaman ${kasPage} dari ${pages} · ${total} transaksi</span><button class="secondary" data-kas-page="${kasPage+1}" ${kasPage>=pages?'disabled':''}>Berikutnya</button>`:`<span class="tiny">${total} transaksi</span>`;
+ }catch(e){$('kasRows').textContent=e.message;$('kasPager').innerHTML='';}
+}
 $('kasCreatePeriod').onclick=async()=>{try{const r=await api({action:'kasCreatePeriod',token,label:$('kasPeriodLabel').value,tanggal_mulai:$('kasStart').value,tanggal_selesai:$('kasEnd').value,nominal:$('kasNominal').value});$('kasMsg').textContent=r.message;await loadKas();}catch(e){$('kasMsg').textContent=e.message;}};
 $('kasSaveAmount').onclick=async()=>{try{const r=await api({action:'kasSetAmount',token,nominal:$('kasAmountSetting').value});$('kasMsg').textContent=r.message;await loadKas();}catch(e){$('kasMsg').textContent=e.message;}};
-$('kasLoadRows').onclick=loadKasRows;
-$('kasSubmit').onclick=async()=>{const f=$('kasPayProof').files[0],p={action:'kasSubmitPayment',token,periode_id:$('kasPayPeriod').value,metode:$('kasMethod').value,catatan:$('kasNote').value};try{if(!p.periode_id)throw Error('Pilih periode iuran.');if(f)p.image_data=await compressPhoto(f);const r=await api(p);$('kasPayMsg').textContent=r.message;$('kasNote').value='';$('kasPayProof').value='';await loadKas();}catch(e){$('kasPayMsg').textContent=e.message;}};
+$('kasLoadRows').onclick=()=>{kasPage=1;loadKasRows(1);};
+$('kasSubmit').onclick=async()=>{const btn=$('kasSubmit'),f=$('kasPayProof').files[0],p={action:'kasSubmitPayment',token,periode_id:$('kasPayPeriod').value,metode:$('kasMethod').value,catatan:$('kasNote').value};try{if(!p.periode_id)throw Error('Pilih periode iuran terlebih dahulu.');if(f)p.image_data=await compressPhoto(f);btn.disabled=true;const r=await api(p);$('kasPayMsg').textContent=r.message||'Pembayaran berhasil diajukan.';$('kasNote').value='';$('kasPayProof').value='';kasPage=1;await loadKas();if(typeof loadKasDashboardStatus==='function')loadKasDashboardStatus();}catch(e){$('kasPayMsg').textContent=e.message;showToast(e.message,'error');}finally{btn.disabled=false;}};
 async function loadMadingAdmin(){try{if(!moduleCan('mading.manage')){const r=await api({action:'madingPublicList',page:1,pageSize:12});$('madingMemberList').innerHTML=(r.items||[]).map(x=>`<article class="mading-card">${x.image_data?`<img src="${x.image_data}" alt="${escapeAttr(x.judul)}" loading="lazy">`:''}<div class="body"><small class="tiny">${escapeHtml(x.kategori)} · ${moduleDate(x.tanggal)}</small><b>${escapeHtml(x.judul)}</b><p>${escapeHtml(x.caption)}</p></div></article>`).join('')||'<p class="tiny">Belum ada konten yang diterbitkan.</p>';return;}const r=await api({action:'madingList',token});$('madingAdminList').innerHTML=(r.items||[]).map(x=>`<article class="record"><div><b>${escapeHtml(x.judul)}</b><p>${escapeHtml(x.kategori)} · ${moduleDate(x.tanggal)} · ${escapeHtml(x.status)}</p>${x.image_data?`<img src="${x.image_data}" style="width:110px;border-radius:8px">`:''}</div><button class="secondary" data-mading-del="${escapeAttr(x.id)}">Hapus</button></article>`).join('')||'<p class="tiny">Belum ada konten.</p>';}catch(e){const target=moduleCan('mading.manage')?$('madingAdminList'):$('madingMemberList');target.textContent=e.message;}}
 $('madingSave').onclick=async()=>{const f=$('madingFile').files[0];try{if(!f)throw Error('Pilih foto terlebih dahulu.');const p={action:'madingSave',token,judul:$('madingTitle').value,kategori:$('madingCategory').value,caption:$('madingCaption').value,tanggal:$('madingDate').value,status:$('madingStatus').value,unggulan:$('madingFeatured').value==='1',image_data:await compressPhoto(f)};const r=await api(p);$('madingMsg').textContent=r.message;['madingTitle','madingCaption','madingDate','madingFile'].forEach(id=>$(id).value='');await loadMadingAdmin();}catch(e){$('madingMsg').textContent=e.message;}};
 let madingPublicPage=1;
 async function loadMadingPublic(page=1){madingPublicPage=page;$('madingPublicList').innerHTML='Memuat mading...';try{const r=await api({action:'madingPublicList',page,pageSize:8});const items=r.items||[];$('madingPublicList').className='mading-grid';$('madingPublicList').innerHTML=items.map((x,i)=>`<article class="mading-card ${x.unggulan&&i===0?'mading-feature':''}">${x.image_data?`<img src="${x.image_data}" alt="${escapeAttr(x.judul)}" loading="lazy">`:''}<div class="body"><small class="tiny">${escapeHtml(x.kategori)} · ${moduleDate(x.tanggal)}</small><b>${escapeHtml(x.judul)}</b><p>${escapeHtml(x.caption)}</p></div></article>`).join('')||'<p class="tiny">Belum ada konten yang diterbitkan.</p>';$('madingPublicPager').innerHTML=r.totalPages>1?`<button class="secondary" ${page<=1?'disabled':''} onclick="loadMadingPublic(${page-1})">Sebelumnya</button> <span class="tiny">Halaman ${page}/${r.totalPages}</span> <button class="secondary" ${page>=r.totalPages?'disabled':''} onclick="loadMadingPublic(${page+1})">Berikutnya</button>`:'';}catch(e){$('madingPublicList').textContent=e.message;}}
 function showPublicMading(){ $('loginView').classList.add('hidden');$('appView').classList.add('hidden');$('madingPublic').style.display='block';$('madingPublic').classList.add('active');loadMadingPublic(1); }
 $('openPublicMading').onclick=showPublicMading;$('madingBackLogin').onclick=()=>{$('madingPublic').style.display='none';$('madingPublic').classList.remove('active');$('loginView').classList.remove('hidden');};
-document.addEventListener('click',async e=>{const v=e.target.closest('[data-kas-verify]');if(v){const sel=document.querySelector('[data-kas-status-select="'+v.dataset.kasVerify+'"]');if(!sel)return;const next=sel.value;if(!confirm('Ubah status pembayaran menjadi '+next+'?'))return;v.disabled=true;try{const r=await api({action:'kasVerifyPayment',token,id:v.dataset.kasVerify,status:next});alert(r.message);await loadKas();}catch(x){alert(x.message);}finally{v.disabled=false;}}const d=e.target.closest('[data-mading-del]');if(d&&confirm('Hapus konten mading ini?')){try{const r=await api({action:'madingDelete',token,id:d.dataset.madingDel});alert(r.message);await loadMadingAdmin();}catch(x){alert(x.message);}}});
+document.addEventListener('click',async e=>{const kp=e.target.closest('[data-kas-page]');if(kp&&!kp.disabled){loadKasRows(Number(kp.dataset.kasPage));return;}const v=e.target.closest('[data-kas-verify]');if(v){const sel=document.querySelector('[data-kas-status-select="'+v.dataset.kasVerify+'"]');if(!sel)return;const next=sel.value;if(!confirm('Ubah status pembayaran menjadi '+next+'?'))return;v.disabled=true;try{const r=await api({action:'kasVerifyPayment',token,id:v.dataset.kasVerify,status:next});await loadKas();}catch(x){alert(x.message);}finally{v.disabled=false;}}const d=e.target.closest('[data-mading-del]');if(d&&confirm('Hapus konten mading ini?')){try{const r=await api({action:'madingDelete',token,id:d.dataset.madingDel});alert(r.message);await loadMadingAdmin();}catch(x){alert(x.message);}}});
 
 </script></body></html>
