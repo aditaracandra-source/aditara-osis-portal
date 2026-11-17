@@ -568,7 +568,7 @@ async function api(payload){
       if(/Aksi tidak dikenal/i.test(serverMessage))throw new Error("Backend Apps Script yang aktif belum diperbarui atau deployment yang dipakai berbeda. Terapkan Versi baru dari proyek Code.gs ADITARA v1.5.5, lalu muat ulang portal.");
       throw new Error(serverMessage);
     }
-    if(result.version && result.version!=="1.5.4")throw new Error("Versi backend "+result.version+" tidak cocok. Portal memerlukan ADITARA backend v1.5.4. Perbarui deployment Web App yang sama.");
+    if(result.version && result.version!=="1.5.5")throw new Error("Versi backend "+result.version+" tidak cocok. Portal memerlukan ADITARA backend v1.5.5. Periksa deployment Web App yang sama.");
     return result;
   }catch(error){
     if(error&&error.name==="AbortError")throw new Error("Verifikasi login melewati 45 detik. Periksa koneksi internet dan coba lagi.");
