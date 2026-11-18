@@ -356,6 +356,19 @@ body{background:var(--bg);color:var(--ink)}
 #madingPublicList .mading-card:hover .mading-public-photos img{transform:scale(1.025)}
 #madingPublicList .mading-card .body{padding:17px 18px 19px;display:flex;flex-direction:column;gap:8px;flex:1}
 #madingPublicList .mading-card .body small{font-size:10px;color:#53739b;letter-spacing:.35px;text-transform:uppercase;font-weight:700}
+#madingPublicList .mading-card .body small{display:block;line-height:1.45;margin:0 0 2px}
+#madingPublicList .mading-card .body b{display:block;margin:0;overflow-wrap:anywhere}
+#madingPublicList .mading-card .body p{margin-top:3px}
+#madingMemberList .mading-card .body small{display:block;line-height:1.45;margin:0 0 3px}
+#madingMemberList .mading-card .body b{display:block;line-height:1.35;margin:0;overflow-wrap:anywhere}
+#madingMemberList .mading-card .body p{margin-top:4px}
+#madingMemberList.mading-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;align-items:stretch}
+#madingMemberList .mading-card{min-width:0;display:flex;flex-direction:column}
+#madingMemberList .mading-card .body{display:flex;flex-direction:column;gap:7px;padding:15px}
+#madingMemberList .mading-card .body small{font-size:10px;color:#53739b;letter-spacing:.25px;text-transform:uppercase;font-weight:700}
+#madingMemberList .mading-card .body b{font-size:16px;color:#172b49}
+#madingMemberList .mading-card .body p{font-size:12px;line-height:1.65;color:#687b95;margin:0}
+
 #madingPublicList .mading-card .body b{font-size:17px;line-height:1.35;color:#172b49}
 #madingPublicList .mading-card .body p{font-size:12px;line-height:1.7;color:#687b95;margin:0;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 #madingPublicList .mading-feature{grid-column:span 2;display:grid;grid-template-columns:1.2fr 1fr;min-height:270px}
@@ -1120,6 +1133,13 @@ $('kasSaveAmount').onclick=async()=>{try{const r=await api({action:'kasSetAmount
 $('kasLoadRows').onclick=()=>{kasPage=1;loadKasRows(1);};
 ['kasPeriodSelect','kasStatusFilter','kasMonthFilter','kasYearFilter'].forEach(id=>$(id)?.addEventListener('change',()=>{kasPage=1;loadKasRows(1);}));
 $('kasSubmit').onclick=async()=>{const btn=$('kasSubmit'),f=$('kasPayProof').files[0],p={action:'kasSubmitPayment',token,periode_id:$('kasPayPeriod').value,metode:$('kasMethod').value,catatan:$('kasNote').value};if(btn.dataset.busy==='1')return;try{if(!p.periode_id)throw Error('Pilih periode iuran terlebih dahulu.');if(p.metode==='TRANSFER'&&!f)throw Error('Bukti transfer wajib dilampirkan.');btn.dataset.busy='1';btn.disabled=true;btn.textContent='Mengirim...';if(f)p.image_data=await compressPhoto(f);const r=await api(p);$('kasPayMsg').textContent=r.message||'Pembayaran berhasil diajukan.';showToast(r.message||'Pembayaran berhasil diajukan.','success');$('kasNote').value='';$('kasPayProof').value='';kasPage=1;await loadKas();if(typeof loadKasDashboardStatus==='function')loadKasDashboardStatus();}catch(e){$('kasPayMsg').textContent=e.message;showToast(e.message,'error');}finally{btn.dataset.busy='0';btn.disabled=false;btn.textContent='Kirim Pembayaran';}};
+function madingDisplayCaption(item){
+ const caption=String(item&&item.caption||'').trim();
+ if(String(item&&item.status||'').toUpperCase()==='TERBIT' && /menunggu pemeriksaan|menunggu.*admin|menunggu.*pembina/i.test(caption)){
+  return 'Dokumentasi kegiatan OSIS SMP Negeri 2 Kawali.';
+ }
+ return caption||'Dokumentasi kegiatan OSIS SMP Negeri 2 Kawali.';
+}
 function madingPhotoButtons(images,title,publicMode=false){
  const list=(Array.isArray(images)?images:[]).filter(Boolean).slice(0,3);
  if(!list.length)return '';
@@ -1134,7 +1154,7 @@ async function loadMadingPublishedPreview(){
  const target=$('madingMemberList');if(!target)return;
  target.innerHTML='<p class="tiny">Memuat konten terbit...</p>';
  try{const r=await api({action:'madingPublicList',page:1,pageSize:6});const items=r.items||[];
-  target.innerHTML=items.map(x=>{const imgs=x.images_data||(x.image_data?[x.image_data]:[]);return `<article class="mading-card">${madingPhotoButtons(imgs,x.judul,true)}<div class="body"><small class="tiny">${escapeHtml(x.kategori)} · ${moduleDate(x.tanggal)}</small><b>${escapeHtml(x.judul)}</b><p>${escapeHtml(x.caption)}</p></div></article>`;}).join('')||'<p class="tiny">Belum ada konten yang diterbitkan.</p>';
+  target.innerHTML=items.map(x=>{const imgs=x.images_data||(x.image_data?[x.image_data]:[]);return `<article class="mading-card">${madingPhotoButtons(imgs,x.judul,true)}<div class="body"><small class="tiny">${escapeHtml(x.kategori)} · ${moduleDate(x.tanggal)}</small><b>${escapeHtml(x.judul)}</b><p>${escapeHtml(madingDisplayCaption(x))}</p></div></article>`;}).join('')||'<p class="tiny">Belum ada konten yang diterbitkan.</p>';
  }catch(e){target.textContent='Pratinjau konten terbit gagal dimuat: '+e.message;}
 }
 async function loadMadingAdmin(){
@@ -1179,7 +1199,7 @@ function renderMadingPublic(){
  const q=String($('madingPublicSearch')?.value||'').trim().toLocaleLowerCase('id-ID');
  const items=madingPublicItems.filter(x=>!q||(String(x.judul)+' '+String(x.kategori)+' '+String(x.caption)).toLocaleLowerCase('id-ID').includes(q));
  $('madingPublicCount').textContent=items.length+' konten ditampilkan';
- $('madingPublicList').innerHTML=items.map((x,i)=>{const imgs=x.images_data||(x.image_data?[x.image_data]:[]);return `<article class="mading-card ${x.unggulan&&i===0?'mading-feature':''}">${madingPhotoButtons(imgs,x.judul,true)}<div class="body"><small>${escapeHtml(x.kategori)} · ${moduleDate(x.tanggal)}</small><b>${escapeHtml(x.judul)}</b><p>${escapeHtml(x.caption||'Dokumentasi kegiatan OSIS SMP Negeri 2 Kawali.')}</p></div></article>`;}).join('')||'<p class="tiny">Tidak ada konten yang cocok. Coba kata kunci lain.</p>';
+ $('madingPublicList').innerHTML=items.map((x,i)=>{const imgs=x.images_data||(x.image_data?[x.image_data]:[]);return `<article class="mading-card ${x.unggulan&&i===0?'mading-feature':''}">${madingPhotoButtons(imgs,x.judul,true)}<div class="body"><small>${escapeHtml(x.kategori)} · ${moduleDate(x.tanggal)}</small><b>${escapeHtml(x.judul)}</b><p>${escapeHtml(madingDisplayCaption(x))}</p></div></article>`;}).join('')||'<p class="tiny">Tidak ada konten yang cocok. Coba kata kunci lain.</p>';
 }
 async function loadMadingPublic(page=1){
  madingPublicPage=page;$('madingPublicList').innerHTML='Memuat mading...';
