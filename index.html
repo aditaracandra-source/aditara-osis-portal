@@ -15,7 +15,9 @@
 .mobilebar{display:none}.modal{position:fixed;inset:0;background:#091b30a8;display:none;align-items:center;justify-content:center;padding:18px;z-index:20}.modal.show{display:flex}.modalbox{width:min(440px,100%);background:white;border-radius:17px;padding:19px}.modalbox h3{font-size:15px;margin:0}.modalbox p{font-size:11px;color:var(--muted);line-height:1.5}.modalrow{display:flex;justify-content:flex-end;gap:8px;margin-top:15px}
 /* Global action feedback: one consistent confirmation layer for every module. */
 #globalToast{position:fixed;right:22px;bottom:22px;z-index:1000;max-width:min(420px,calc(100vw - 28px));padding:13px 16px;border-radius:13px;background:#17213f;color:#fff;box-shadow:0 12px 34px #101b3b35;font-size:12px;line-height:1.45;display:flex;align-items:flex-start;gap:10px;opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity .18s ease,transform .18s ease}
-#globalToast.show{opacity:1;transform:translateY(0)}#globalToast.success{border-left:4px solid #27b37e}#globalToast.error{border-left:4px solid #e05b65}#globalToast.info{border-left:4px solid #6b8cff}#globalToastIcon{font-size:17px;line-height:1}#globalToastText{flex:1;overflow-wrap:anywhere}
+#globalToast.show{opacity:1;transform:translateY(0)}
+button:disabled,[aria-busy="true"]{cursor:wait!important}button:disabled{filter:saturate(.72)}
+@media(prefers-reduced-motion:reduce){#globalToast{transition:none}}#globalToast.success{border-left:4px solid #27b37e}#globalToast.error{border-left:4px solid #e05b65}#globalToast.info{border-left:4px solid #6b8cff}#globalToastIcon{font-size:17px;line-height:1}#globalToastText{flex:1;overflow-wrap:anywhere}
 .kas-pager{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:12px;padding-top:10px;border-top:1px solid var(--line)}.kas-pager .tiny{font-size:10px}.kas-pager button:disabled{opacity:.4;cursor:not-allowed}
 @media(max-width:700px){#globalToast{left:12px;right:12px;bottom:68px;max-width:none}.kas-pager{justify-content:center}}
 @media(max-width:1050px){.tiles{grid-template-columns:repeat(4,1fr)}.peoplegrid{grid-template-columns:repeat(5,1fr)}}
@@ -333,6 +335,7 @@ body{background:var(--bg);color:var(--ink)}
 .mading-card{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}.mading-card img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block}.mading-card .body{padding:11px}.mading-card b{font-size:12px}.mading-card p{font-size:10px;color:var(--muted);line-height:1.55}.mading-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.mading-feature{grid-column:span 2}.mading-feature img{aspect-ratio:16/8}.mading-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
 .mading-photo-list{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}.mading-photo-open{border:0;padding:0;background:transparent;cursor:zoom-in;border-radius:9px;overflow:hidden}.mading-photo-open img{width:92px;height:76px;object-fit:cover;border-radius:9px;border:1px solid var(--line)}.mading-public-photos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}.mading-public-photos .mading-photo-open{width:100%}.mading-public-photos .mading-photo-open img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}.mading-lightbox{position:fixed;inset:0;background:rgba(8,12,30,.88);display:none;align-items:center;justify-content:center;padding:18px;z-index:10000}.mading-lightbox.show{display:flex}.mading-lightbox img{max-width:min(100%,1100px);max-height:82dvh;object-fit:contain;border-radius:12px}.mading-lightbox-close{position:absolute;top:14px;right:14px;background:#fff;color:#111;border:0;border-radius:999px;padding:10px 14px;font-weight:700;cursor:pointer}.mading-upload-hint{display:block;margin-top:5px}
 @media(max-width:700px){#kasSummary{grid-template-columns:repeat(2,1fr)}.mading-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.mading-feature{grid-column:span 2}.mading-card .body{padding:8px}}
+.aditara-filterbar select{min-width:112px;max-width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:9px;background:var(--card);font-size:12px}.aditara-filterbar button{padding:8px 12px;font-size:12px}
 </style><style>
 .finance-proof{display:inline-flex;align-items:center;gap:8px;margin-top:6px;text-decoration:none;color:var(--primary);font-size:12px}
 .finance-proof img{width:64px;height:64px;object-fit:cover;border-radius:9px;border:1px solid var(--line)}
@@ -391,19 +394,19 @@ body{background:var(--bg);color:var(--ink)}
 <section class="page" id="proker"><div class="pagehead"><div><h2>Program Kerja</h2><p>Perencanaan dan pemantauan 10 seksi bidang.</p></div><button class="btn" onclick="loadProker()">Muat ulang</button></div><div class="card module-form" id="prokerForm"><b>Tambah Program Kerja</b><div class="toolbar"><input id="prokerName" placeholder="Nama program"><select id="prokerBidang"><option value="INTI">Pengurus Inti</option><option value="SB01">Seksi 1</option><option value="SB02">Seksi 2</option><option value="SB03">Seksi 3</option><option value="SB04">Seksi 4</option><option value="SB05">Seksi 5</option><option value="SB06">Seksi 6</option><option value="SB07">Seksi 7</option><option value="SB08">Seksi 8</option><option value="SB09">Seksi 9</option><option value="SB10">Seksi 10</option></select><select id="prokerOwner"><option value="">Pilih penanggung jawab</option></select><input id="prokerDate" type="date"><input id="prokerBudget" type="number" min="0" placeholder="Anggaran (Rp)"><select id="prokerStatus"><option>DIRANCANG</option><option>BERJALAN</option><option>SELESAI</option><option>DITUNDA</option></select></div><textarea id="prokerResult" placeholder="Hasil / catatan program"></textarea><button class="btn" id="saveProkerBtn">Simpan Program</button><span class="tiny" id="prokerMsg"></span></div><div class="card"><b>Daftar Program Kerja</b><div id="prokerList" class="record-list">Memuat...</div><div id="prokerPager" class="module-pager"></div></div></section>
 <section class="page" id="meeting"><div class="pagehead"><div><h2>Rapat & Notulen</h2><p>Arsip rapat, hasil pembahasan, dan keputusan.</p></div><button class="btn" onclick="loadNotulen()">Muat ulang</button></div><div class="card"><b>Arsip Rapat</b><div id="notulenList" class="record-list">Memuat...</div><div id="notulenPager" class="module-pager"></div></div><div class="card module-form" id="notulenForm"><b>Catat Notulen</b><div class="toolbar"><select id="notulenMeeting"><option value="">Pilih rapat</option></select><input id="notulenWriter" placeholder="Nama notulis"></div><textarea id="notulenText" placeholder="Tuliskan pembahasan, keputusan, dan tindak lanjut rapat"></textarea><button class="btn" id="saveNotulenBtn">Simpan Notulen</button><span class="tiny" id="notulenMsg"></span></div></section>
 <section class="page" id="finance"><div class="pagehead"><div><h2>Keuangan OSIS</h2><p>Pencatatan pemasukan, pengeluaran, dan saldo kas.</p></div><button class="btn" onclick="loadFinance()">Muat ulang</button></div><div class="summary-grid" id="financeSummary"></div><div class="card module-form" id="financeForm"><b>Catat Transaksi</b><div class="toolbar"><input id="financeDate" type="date"><select id="financeType"><option value="PEMASUKAN">Pemasukan</option><option value="PENGELUARAN">Pengeluaran</option></select><input id="financeAmount" type="number" min="1" placeholder="Nominal (Rp)"><input id="financeProof" type="file" accept="image/*" aria-label="Foto bukti transaksi (opsional)"></div><input id="financeDesc" placeholder="Keterangan transaksi" style="width:100%;margin-bottom:9px"><button class="btn" id="saveFinanceBtn">Simpan Transaksi</button><span class="tiny" id="financeMsg"></span></div><div class="card"><b>Riwayat Transaksi</b><div id="financeList" class="record-list">Memuat...</div><div id="financePager" class="pager"></div></div></section>
-<section class="page" id="gallery"><div class="pagehead"><div><h2>Dokumentasi</h2><p>Unggah foto kegiatan. Foto dikompres otomatis dan ditampilkan langsung di arsip.</p></div><button class="btn" onclick="loadGallery(1)">Muat ulang</button></div><div class="card module-form" id="galleryForm"><b>Tambah Dokumentasi Foto</b><div class="toolbar"><input id="galleryTitle" placeholder="Judul dokumentasi" maxlength="140"><input id="galleryDate" type="date"><input id="galleryFile" type="file" accept="image/*"></div><div class="tiny">Foto otomatis diperkecil (maksimal 1200 piksel) dan dikompres sebelum diunggah.</div><button class="btn" id="saveGalleryBtn">Unggah Foto</button><span class="tiny" id="galleryMsg" aria-live="polite"></span></div><div class="card"><b>Arsip Dokumentasi</b><div id="galleryList" class="gallery-grid">Memuat...</div><div id="galleryPager" class="pager"></div></div></section>
+<section class="page" id="gallery"><div class="pagehead"><div><h2>Dokumentasi</h2><p>Unggah foto kegiatan. Foto dikompres otomatis dan ditampilkan langsung di arsip.</p></div><button class="btn" onclick="loadGallery(1)">Muat ulang</button></div><div class="card module-form" id="galleryForm"><b>Tambah Dokumentasi Foto</b><div class="toolbar"><input id="galleryTitle" placeholder="Judul dokumentasi" maxlength="140"><input id="galleryDate" type="date"><input id="galleryFile" type="file" accept="image/*" multiple><small class="tiny">Pilih maksimal 3 foto untuk satu kegiatan. Foto otomatis dikompres dan langsung masuk antrean Mading sebagai DRAFT.</small></div><div class="tiny">Foto otomatis diperkecil (maksimal 1200 piksel) dan dikompres sebelum diunggah.</div><button class="btn" id="saveGalleryBtn">Unggah Foto</button><span class="tiny" id="galleryMsg" aria-live="polite"></span></div><div class="card"><b>Arsip Dokumentasi</b><div id="galleryList" class="gallery-grid">Memuat...</div><div id="galleryPager" class="pager"></div></div></section>
 <section class="page" id="tasks"><div class="pagehead"><div><h2>Tugas Pengurus</h2><p>Penugasan dan pembaruan progres.</p></div><button class="btn" onclick="loadTasks()">Muat ulang</button></div><div class="card module-form" id="taskForm"><b>Buat Tugas</b><div class="toolbar"><input id="taskTitle" placeholder="Judul tugas"><select id="taskPerson"><option value="">Pilih pengurus</option></select><input id="taskDeadline" type="date"></div><textarea id="taskDescription" placeholder="Petunjuk / rincian tugas"></textarea><button class="btn" id="saveTaskBtn">Berikan Tugas</button><span class="tiny" id="taskMsg"></span></div><div class="card"><b>Daftar Tugas</b><div id="taskList" class="record-list">Memuat...</div><div id="taskPager" class="module-pager"></div></div></section>
 <section class="page" id="evaluation"><div class="pagehead"><div><h2>Evaluasi Kinerja</h2><p>Catatan evaluasi kegiatan dan rekomendasi.</p></div><button class="btn" onclick="loadEvaluation()">Muat ulang</button></div><div class="card module-form" id="evaluationForm"><b>Tambah Evaluasi</b><div class="toolbar"><input id="evalActivity" placeholder="Nama kegiatan"><input id="evalAspect" placeholder="Aspek yang dinilai"><input id="evalDate" type="date"></div><textarea id="evalResult" placeholder="Hasil evaluasi"></textarea><textarea id="evalRecommendation" placeholder="Rekomendasi tindak lanjut"></textarea><button class="btn" id="saveEvaluationBtn">Simpan Evaluasi</button><span class="tiny" id="evalMsg"></span></div><div class="card"><b>Riwayat Evaluasi</b><div id="evaluationList" class="record-list">Memuat...</div><div id="evaluationPager" class="module-pager"></div></div></section>
 
 <section class="page" id="kas"><div class="pagehead"><div><h2>Kas Anggota ADITARA</h2><p>Iuran mingguan, riwayat pembayaran, dan verifikasi bendahara.</p></div><button class="btn" onclick="loadKas()">Muat ulang</button></div>
-<div class="summary-grid" id="kasSummary"></div>
+<div class="summary-grid" id="kasSummary"></div><div id="kasSummaryDetail" class="card hidden" style="margin-bottom:10px"></div>
 <div class="card module-form hidden" id="kasPeriodForm"><b>Buat Periode Iuran</b><div class="toolbar"><input id="kasPeriodLabel" placeholder="Contoh: Minggu 1 · November"><input id="kasStart" type="date"><input id="kasEnd" type="date"><input id="kasNominal" type="number" min="0" placeholder="Nominal Rp"></div><button class="btn" id="kasCreatePeriod">Buat Periode</button><span class="tiny" id="kasMsg"></span></div>
-<div class="card" style="margin-bottom:10px"><b>Periode Iuran</b><div class="toolbar" style="margin-top:9px"><select id="kasPeriodSelect"><option value="">Semua periode</option></select><button class="secondary" id="kasLoadRows">Tampilkan</button></div></div>
+<div class="card" style="margin-bottom:10px"><b>Periode Iuran</b><div class="toolbar" style="margin-top:9px"><select id="kasPeriodSelect"><option value="">Semua periode</option></select><select id="kasStatusFilter"><option value="">Semua status</option><option value="MENUNGGU">Menunggu</option><option value="TERVERIFIKASI">Lunas</option><option value="DITOLAK">Ditolak</option></select><select id="kasMonthFilter"><option value="">Semua bulan</option><option value="01">Januari</option><option value="02">Februari</option><option value="03">Maret</option><option value="04">April</option><option value="05">Mei</option><option value="06">Juni</option><option value="07">Juli</option><option value="08">Agustus</option><option value="09">September</option><option value="10">Oktober</option><option value="11">November</option><option value="12">Desember</option></select><select id="kasYearFilter"><option value="">Semua tahun</option></select><button class="secondary" id="kasLoadRows">Tampilkan</button><div id="kasPeriodPager" class="kas-pager"></div></div></div>
 <div class="card module-form hidden" id="kasAmountForm"><b>Pengaturan nominal mingguan</b><div class="toolbar"><input id="kasAmountSetting" type="number" min="0" placeholder="Nominal Rp"><button class="secondary" id="kasSaveAmount">Simpan Nominal</button></div></div>
-<div class="card"><b>Riwayat / Verifikasi Pembayaran</b><div id="kasRows" class="record-list">Memuat...</div><div id="kasPager" class="kas-pager"></div></div>
+<div class="card"><b id="kasRowsHeading">Riwayat / Verifikasi Pembayaran</b><div id="kasRows" class="record-list">Memuat...</div><div id="kasPager" class="kas-pager"></div></div>
 <div class="card module-form hidden" id="kasPaymentForm"><b>Ajukan Pembayaran</b><div class="toolbar"><select id="kasPayPeriod"><option value="">Pilih periode</option></select><select id="kasMethod"><option value="TUNAI">Tunai</option><option value="TRANSFER">Transfer</option></select><input id="kasPayProof" type="file" accept="image/*"></div><input id="kasNote" placeholder="Catatan (opsional)" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:9px"><button class="btn" id="kasSubmit" style="margin-top:9px">Kirim Pembayaran</button><span class="tiny" id="kasPayMsg"></span></div></section>
 <section class="page" id="mading"><div class="pagehead"><div><h2>Mading Digital ADITARA</h2><p>Majalah digital kegiatan, prestasi, dan informasi OSIS.</p></div><button class="btn" onclick="loadMadingAdmin()">Muat ulang</button></div>
-<div id="madingManagePanel"><div class="card module-form" id="madingForm"><b>Terbitkan Konten</b><div class="toolbar"><input id="madingTitle" placeholder="Judul berita / dokumentasi"><input id="madingCategory" placeholder="Kategori" value="KEGIATAN"><input id="madingDate" type="date"><select id="madingStatus"><option value="DRAFT">Draft</option><option value="TERBIT">Terbit</option></select><select id="madingFeatured"><option value="0">Konten biasa</option><option value="1">Jadikan unggulan</option></select><input id="madingFile" type="file" accept="image/*" multiple><small class="tiny mading-upload-hint">Pilih maksimal 3 foto untuk satu kegiatan. Foto otomatis dikompres sebelum diunggah.</small></div><textarea id="madingCaption" placeholder="Tulis ringkasan / keterangan konten" style="width:100%;min-height:70px;padding:10px;border:1px solid var(--line);border-radius:9px"></textarea><button class="btn" id="madingSave">Simpan Konten</button><span class="tiny" id="madingMsg"></span></div><div class="card"><b>Kelola Konten</b><div id="madingAdminList" class="record-list"></div></div></div><div class="card" id="madingMemberReader"><b>Konten Mading Terbit</b><div id="madingMemberList" class="mading-grid"><p class="tiny">Memuat konten...</p></div></div></section>
+<div id="madingManagePanel"><div class="card module-form" id="madingForm"><b>Terbitkan Konten</b><div class="toolbar"><input id="madingTitle" placeholder="Judul berita / dokumentasi"><input id="madingCategory" placeholder="Kategori" value="KEGIATAN"><input id="madingDate" type="date"><select id="madingStatus"><option value="DRAFT">Draft</option><option value="TERBIT">Terbit</option></select><select id="madingFeatured"><option value="0">Konten biasa</option><option value="1">Jadikan unggulan</option></select><input id="madingFile" type="file" accept="image/*" multiple><small class="tiny mading-upload-hint">Pilih maksimal 3 foto. Jika dokumentasi sudah diunggah melalui menu Dokumentasi, tidak perlu mengunggah ulang di sini.</small></div><textarea id="madingCaption" placeholder="Tulis ringkasan / keterangan konten" style="width:100%;min-height:70px;padding:10px;border:1px solid var(--line);border-radius:9px"></textarea><button class="btn" id="madingSave">Simpan Konten</button><span class="tiny" id="madingMsg"></span></div><div class="card"><b>Kelola Konten</b><div id="madingAdminList" class="record-list"></div></div></div><div class="card" id="madingMemberReader"><b>Konten Mading Terbit</b><div id="madingMemberList" class="mading-grid"><p class="tiny">Memuat konten...</p></div></div></section>
 
 
 <section class="page" id="settings"><div class="pagehead"><div><h2>Pengaturan</h2><p>Kelola akun masuk pengurus: status, password, dan aktivasi.</p></div><button class="btn" onclick="loadSettings(1)">Muat ulang</button></div><div class="card"><b>Manajemen Akun Pengurus</b><p class="tiny">Gunakan Atur Password untuk membuat atau mengganti password. Akun hanya bisa masuk setelah berstatus AKTIF. Nonaktifkan akses tanpa menghapus riwayat kegiatan.</p><div id="settingsUsers" class="record-list">Memuat...</div><div id="settingsPager" class="module-pager"></div></div></section>
@@ -414,7 +417,7 @@ body{background:var(--bg);color:var(--ink)}
 <div class="modal" id="profileModal"><div class="modalbox"><h3 id="modalName">Profil</h3><p id="modalInfo"></p><div id="adminAccountArea" class="account-admin-area hidden"></div><div class="modalrow"><button class="secondary" onclick="closeProfile()">Tutup</button></div></div></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script><script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 <script>
-const API_URL="https://script.google.com/macros/s/AKfycbwOXCvSLPyp5kUxJLee6l9PgHcILYAU44GGBMULqWD5MNq7-Y5arhB9dLzVM8S9ferlNw/exec"; // Backend Apps Script ADITARA v1.5.8.
+const API_URL="https://script.google.com/macros/s/AKfycbwOXCvSLPyp5kUxJLee6l9PgHcILYAU44GGBMULqWD5MNq7-Y5arhB9dLzVM8S9ferlNw/exec"; // Backend Apps Script ADITARA v1.7.1.
 const periodId="PRD001";
 let remoteJabatan=[],peoplePage=1,settingsPage=1,prokerPage=1,listPages={};
 const people=[
@@ -560,30 +563,44 @@ function showToast(message,type='success'){
  const kind=['success','error','info'].includes(type)?type:'info';
  box.className=kind;txt.textContent=String(message||'Proses selesai.');
  ico.textContent=kind==='success'?'✓':kind==='error'?'!':'i';
- box.classList.add('show');clearTimeout(toastTimer);
+ box.classList.add('show');box.setAttribute('role',kind==='error'?'alert':'status');box.setAttribute('aria-live',kind==='error'?'assertive':'polite');clearTimeout(toastTimer);
  toastTimer=setTimeout(()=>box.classList.remove('show'),4800);
 }
+async function withButtonBusy(button,busyLabel,normalLabel,work){
+ if(!button) return work();
+ if(button.dataset.busy==='1') return;
+ button.dataset.busy='1';button.disabled=true;button.setAttribute('aria-busy','true');
+ const oldLabel=button.textContent;button.textContent=busyLabel||'Memproses...';
+ try{return await work();}
+ finally{button.dataset.busy='0';button.disabled=false;button.removeAttribute('aria-busy');button.textContent=normalLabel||oldLabel;}
+}
+const activeWriteRequests=new Set();
 const WRITE_ACTIONS=new Set(['adminSetPassword','adminSetStatus','checkinQR','closeQR','createMeeting','createPerson','deletePerson','kasCreatePeriod','kasSetAmount','kasSubmitPayment','kasVerifyPayment','manualAttendance','saveAgenda','saveEvaluation','saveFinance','saveGallery','saveNotulen','saveProker','saveTask','startQR','updateOwnTask','madingDelete','madingSave','madingSetStatus']);
 async function api(payload){
   if(!API_URL)throw new Error("URL Apps Script belum dipasang. Mode demo belum mengaktifkan login.");
   const action=String(payload&&payload.action||'');
   const isWrite=WRITE_ACTIONS.has(action);
+  const writeKey=isWrite?action+'|'+String(payload&&payload.token||'')+'|'+String(payload&&payload.id||payload&&payload.periode_id||'') : '';
+  if(isWrite&&activeWriteRequests.has(writeKey))throw new Error('Permintaan yang sama sedang diproses. Mohon tunggu hingga selesai.');
+  if(isWrite)activeWriteRequests.add(writeKey);
   const controller=new AbortController();
+  const requestBody=JSON.stringify(payload);
+  if(requestBody.length>1400000)throw new Error('Data terlalu besar untuk dikirim. Kompres atau kurangi foto terlebih dahulu.');
   const timeoutId=setTimeout(()=>controller.abort(),45000);
   try{
     const response=await fetch(API_URL,{
       method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},
-      body:JSON.stringify(payload),cache:"no-store",redirect:"follow",signal:controller.signal
+      body:requestBody,cache:"no-store",redirect:"follow",signal:controller.signal
     });
     const raw=await response.text();let result;
     try{result=JSON.parse(raw)}catch(parseError){throw new Error("Jawaban server tidak terbaca. Periksa deployment Apps Script dan coba lagi.")}
     if(!response.ok)throw new Error("Server memberi respons HTTP "+response.status+". Coba beberapa saat lagi.");
     if(!result||result.ok!==true){
       const serverMessage=(result&&result.message)||"Permintaan tidak berhasil diproses.";
-      if(/Aksi tidak dikenal/i.test(serverMessage))throw new Error("Backend Apps Script yang aktif belum diperbarui atau deployment yang dipakai berbeda. Terapkan Versi baru dari proyek Code.gs ADITARA v1.5.6, lalu muat ulang portal.");
+      if(/Aksi tidak dikenal/i.test(serverMessage))throw new Error("Backend Apps Script yang aktif belum diperbarui atau deployment yang dipakai berbeda. Terapkan Versi baru dari proyek Code.gs ADITARA v1.7.1, lalu muat ulang portal.");
       throw new Error(serverMessage);
     }
-    if(result.version && result.version!=="1.5.8")throw new Error("Versi backend "+result.version+" tidak cocok. Portal memerlukan ADITARA backend v1.5.8. Perbarui deployment Web App yang sama.");
+    if(result.version && result.version!=="1.7.1")throw new Error("Versi backend "+result.version+" tidak cocok. Portal memerlukan ADITARA backend v1.7.1. Perbarui deployment Web App yang sama.");
     if(isWrite)showToast(result.message||'Perubahan berhasil disimpan.','success');
     return result;
   }catch(error){
@@ -593,7 +610,7 @@ async function api(payload){
     if(/Failed to fetch|NetworkError|Load failed|fetch failed/i.test(message))err=new Error("Tidak dapat terhubung ke server ADITARA. Periksa internet dan akses Web App Apps Script.");
     if(isWrite)showToast(err.message||'Tindakan belum berhasil. Silakan coba kembali.','error');
     throw err;
-  }finally{clearTimeout(timeoutId);}
+  }finally{clearTimeout(timeoutId);if(isWrite)activeWriteRequests.delete(writeKey);}
 }
 
 $("loginBtn").onclick=async()=>{
@@ -696,8 +713,8 @@ function setupAttendanceAccess(){
 async function loadMeetings(){
  const box=$('meetingList');box.textContent='Memuat daftar pertemuan...';
  try{
-  const result=await api({action:'listMeetings',token});const meetings=result.meetings||[];
-  paintPagedList('meetingList','meetingPager',meetings,'meetings',5,m=>{
+  const result=await api({action:'listMeetings',token,page:listPages.meetings||1,pageSize:10});const meetings=result.items||[];
+  paintRemotePagedList('meetingList','meetingPager',meetings,'meetings',result,m=>{
    const date=m.tanggal?new Date(m.tanggal).toLocaleDateString('id-ID',{day:'2-digit',month:'long',year:'numeric'}):'-';
    return `<article style="padding:11px 0;border-bottom:1px solid var(--line)"><b style="font-size:11px">${escapeHtml(m.judul)}</b><div class="tiny" style="margin-top:4px">${escapeHtml(date)} · ${escapeHtml(m.jam)} · ${escapeHtml(m.lokasi)}</div><div class="tiny" style="margin-top:3px">Status: ${escapeHtml(m.status||'-')}</div><div class="record-actions"><button class="secondary" data-open-meeting="${escapeAttr(m.pertemuan_id)}" data-meeting-title="${escapeAttr(m.judul)}">Lihat Absensi</button>${canAttendanceManage()?`<button class="secondary danger" data-del-meeting="${escapeAttr(m.pertemuan_id)}">Hapus Pertemuan</button>`:''}</div></article>`;
   });
@@ -713,20 +730,21 @@ async function createMeeting(){
  finally{button.disabled=false;}
 }
 async function openMeeting(id,title){
- selectedMeetingId=id;$('attendanceDetail').classList.remove('hidden');$('attendanceTitle').textContent=title||'Detail Absensi';$('attendanceInfo').textContent='Memuat rekap kehadiran...';$('qrDisplay').innerHTML='';$('qrMessage').textContent='';$('qrManualToken').value='';currentAttendanceQR=null;activeQrId=null;$('closeQRBtn').disabled=true;setupAttendanceAccess();
+ selectedMeetingId=id;window.attendancePage=1;$('attendanceDetail').classList.remove('hidden');$('attendanceTitle').textContent=title||'Detail Absensi';$('attendanceInfo').textContent='Memuat rekap kehadiran...';$('qrDisplay').innerHTML='';$('qrMessage').textContent='';$('qrManualToken').value='';currentAttendanceQR=null;activeQrId=null;$('closeQRBtn').disabled=true;setupAttendanceAccess();
  try{await loadAttendance();}catch(error){$('attendanceInfo').textContent=error.message||'Gagal memuat rekap.';}
  $('attendanceDetail').scrollIntoView({behavior:'smooth',block:'start'});
 }
-async function loadAttendance(){
- if(!selectedMeetingId)return;
- const result=await api({action:'listAttendance',token,pertemuan_id:selectedMeetingId});attendanceData=result.attendance||[];
- const count=status=>attendanceData.filter(x=>x.status_kehadiran===status).length;
- $('attendanceInfo').textContent=attendanceData.length+' peserta terdaftar';
- $('attendanceSummary').innerHTML=`<span class="tag">Hadir ${count('HADIR')}</span><span class="tag">Izin ${count('IZIN')}</span><span class="tag">Sakit ${count('SAKIT')}</span><span class="tag">Alpa ${count('ALPA')}</span><span class="tag">Belum ${count('BELUM')}</span>`;
- $('attendanceRows').innerHTML=attendanceData.map(person=>{
+async function loadAttendance(page=window.attendancePage||1){
+ ensureAditaraFilters('attendance');if(!selectedMeetingId)return;window.attendancePage=Math.max(1,Number(page)||1);
+ const result=await api({action:'listAttendance',token,pertemuan_id:selectedMeetingId,page:window.attendancePage,pageSize:10,...aditaraFilterPayload('attendance')});attendanceData=result.attendance||[];
+ const summary=result.summary||{};
+ $('attendanceInfo').textContent=(result.total||0)+' peserta terdaftar';
+ $('attendanceSummary').innerHTML=`<span class="tag">Hadir ${summary.HADIR||0}</span><span class="tag">Izin ${summary.IZIN||0}</span><span class="tag">Sakit ${summary.SAKIT||0}</span><span class="tag">Alpa ${summary.ALPA||0}</span><span class="tag">Belum ${summary.BELUM||0}</span>`;
+ const visibleAttendance=attendanceData;$('attendanceRows').innerHTML=visibleAttendance.map(person=>{
   const id=escapeAttr(person.pengurus_id);const options=['HADIR','IZIN','SAKIT','ALPA'].map(status=>`<option value="${status}" ${person.status_kehadiran===status?'selected':''}>${status}</option>`).join('');
   return `<tr><td>${escapeHtml(person.nama)}</td><td>${escapeHtml(person.kelas)}</td><td>${escapeHtml(person.status_kehadiran)}</td><td>${escapeHtml(person.metode||'-')}</td><td>${canAttendanceManage()?`<select id="att_${id}">${options}</select><button class="secondary" data-save-attendance="${id}">Simpan</button>`:'-'}</td></tr>`;
  }).join('')||'<tr><td colspan="5">Belum ada peserta.</td></tr>';
+ let attPager=$('attendancePager');if(!attPager){attPager=document.createElement('div');attPager.id='attendancePager';attPager.className='module-pager';$('attendanceRows').closest('table')?.after(attPager);}const attPages=Number(result.totalPages)||1;if(attPager)attPager.innerHTML=attPages>1?`<button class="secondary" data-att-page="${window.attendancePage-1}" ${window.attendancePage<=1?'disabled':''}>Sebelumnya</button><span class="tiny">Halaman ${window.attendancePage} dari ${attPages} · ${result.total||0} peserta</span><button class="secondary" data-att-page="${window.attendancePage+1}" ${window.attendancePage>=attPages?'disabled':''}>Berikutnya</button>`:`<span class="tiny">${result.total||0} peserta</span>`;
 }
 async function startAttendanceQR(){
  if(!selectedMeetingId)return;const button=$('startQRBtn');button.disabled=true;
@@ -808,8 +826,32 @@ const moduleDate=v=>{if(!v)return '-';const d=new Date(v);return isNaN(d)?String
 const money=v=>'Rp '+(Number(v)||0).toLocaleString('id-ID');
 const setMsg=(id,msg,ok=true)=>{const el=$(id);if(el){el.textContent=msg;el.style.color=ok?'var(--green)':'var(--red)';}};
 const recordActions=(buttons)=>'<div class="record-actions">'+buttons.join('')+'</div>';
+function paintRemotePagedList(boxId,pagerId,rows,key,meta,renderRow){const box=$(boxId),pager=$(pagerId),page=Number(meta.page)||1,pages=Number(meta.totalPages)||1,total=Number(meta.total)||0;listPages[key]=page;box.innerHTML=(rows||[]).map(renderRow).join('')||'<p class="tiny">Belum ada data.</p>';pager.innerHTML=pages>1?`<button class="secondary" ${page<=1?'disabled':''} data-remote-list-key="${key}" data-remote-list-page="${page-1}">Sebelumnya</button><span class="tiny">Halaman ${page} dari ${pages} · ${total} data</span><button class="secondary" ${page>=pages?'disabled':''} data-remote-list-key="${key}" data-remote-list-page="${page+1}">Berikutnya</button>`:`<span class="tiny">${total} data</span>`;}
 function paintPagedList(boxId,pagerId,rows,key,pageSize,renderRow){const box=$(boxId),pager=$(pagerId);const page=Math.max(1,Number(listPages[key]||1)),pages=Math.max(1,Math.ceil(rows.length/pageSize));listPages[key]=Math.min(page,pages);const current=listPages[key],slice=rows.slice((current-1)*pageSize,current*pageSize);box.innerHTML=slice.map(renderRow).join('')||'<p class="tiny">Belum ada data.</p>';pager.innerHTML=pages>1?`<button class="secondary" ${current<=1?'disabled':''} data-list-key="${key}" data-list-page="${current-1}">Sebelumnya</button><span class="tiny">Halaman ${current} dari ${pages} · ${rows.length} data</span><button class="secondary" ${current>=pages?'disabled':''} data-list-key="${key}" data-list-page="${current+1}">Berikutnya</button>`:`<span class="tiny">${rows.length} data</span>`;}
-async function loadAgenda(){const box=$('agendaList');box.textContent='Memuat...';try{const r=await api({action:'listAgenda',token});const rows=r.agenda||[];paintPagedList('agendaList','agendaPager',rows,'agenda',6,x=>`<article class="record"><div><b>${escapeHtml(x.judul)}</b><p>${escapeHtml(moduleDate(x.tanggal))} · ${escapeHtml(x.status)}<br>${escapeHtml(x.isi)}</p></div>${moduleCan('agenda.manage')?recordActions([`<button class="secondary" data-edit-agenda="${escapeAttr(x.id)}">Ubah</button>`,`<button class="secondary" data-del-agenda="${escapeAttr(x.id)}">Hapus</button>`]):''}</article>`);}catch(e){box.textContent=e.message;}}
+/* Filter lintas modul: kontrol dibuat ringkas dan parameter dikirim ke server. */
+const ADITARA_FILTERS={
+ agenda:{target:'agendaList',extra:[['status','Semua status',[['TERBIT','Terbit'],['DRAFT','Draft']]]]},
+ finance:{target:'financeList',extra:[['jenis','Semua transaksi',[['PEMASUKAN','Pemasukan'],['PENGELUARAN','Pengeluaran']]]]},
+ gallery:{target:'galleryList',extra:[['kategori','Semua kategori',[]]]},
+ tasks:{target:'taskList',extra:[['status','Semua status',[['MENUNGGU','Menunggu'],['PROSES','Proses'],['SELESAI','Selesai']]]]},
+ evaluation:{target:'evaluationList',extra:[['aspek','Semua aspek',[]]]},
+ attendance:{target:'attendanceRows',extra:[['status','Semua kehadiran',[['HADIR','Hadir'],['IZIN','Izin'],['SAKIT','Sakit'],['ALPA','Alpa'],['BELUM','Belum']]]]},
+ mading:{target:'madingAdminList',extra:[['status','Semua status',[['DRAFT','Draft'],['TERBIT','Terbit']]] ,['kategori','Semua kategori',[]]]}
+};
+function ensureAditaraFilters(key){
+ const cfg=ADITARA_FILTERS[key],target=$(cfg.target);if(!cfg||!target)return;
+ let bar=$('filter_'+key);if(bar)return bar;
+ bar=document.createElement('div');bar.id='filter_'+key;bar.className='toolbar aditara-filterbar';bar.style.cssText='display:flex;gap:7px;flex-wrap:wrap;margin:8px 0 12px;align-items:center';
+ const month=document.createElement('select');month.dataset.filter='month';month.setAttribute('aria-label','Filter bulan');month.innerHTML='<option value="">Semua bulan</option>'+['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'].map((n,i)=>`<option value="${String(i+1).padStart(2,'0')}">${n}</option>`).join('');bar.append(month);
+ const year=document.createElement('select');year.dataset.filter='year';year.setAttribute('aria-label','Filter tahun');const y=new Date().getFullYear();year.innerHTML='<option value="">Semua tahun</option>'+Array.from({length:9},(_,i)=>y-4+i).map(v=>`<option value="${v}" ${v===y?'selected':''}>${v}</option>`).join('');bar.append(year);
+ cfg.extra.forEach(([name,label,opts])=>{let el;if(opts&&opts.length){el=document.createElement('select');el.innerHTML=`<option value="">${label}</option>`+opts.map(([v,t])=>`<option value="${v}">${t}</option>`).join('');}else{el=document.createElement('input');el.type='search';el.placeholder=label;el.style.cssText='max-width:150px;padding:8px 10px;border:1px solid var(--line);border-radius:9px;font-size:12px';}el.dataset.filter=name;el.setAttribute('aria-label',label);bar.append(el);});
+ const reset=document.createElement('button');reset.type='button';reset.className='secondary';reset.textContent='Reset';reset.addEventListener('click',()=>{bar.querySelectorAll('select,input').forEach(x=>x.value='');const yr=bar.querySelector('[data-filter="year"]');if(yr)yr.value=String(y);runAditaraFilter(key);});bar.append(reset);
+ target.parentNode.insertBefore(bar,target);bar.addEventListener('change',()=>runAditaraFilter(key));bar.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.matches('input'))runAditaraFilter(key);});bar.addEventListener('input',e=>{if(e.target.matches('input')){clearTimeout(e.target._filterTimer);e.target._filterTimer=setTimeout(()=>runAditaraFilter(key),450);}});return bar;
+}
+function aditaraFilterPayload(key){const bar=ensureAditaraFilters(key),out={};if(!bar)return out;bar.querySelectorAll('select,input').forEach(x=>{if(x.value)out[x.dataset.filter]=x.value;});return out;}
+function runAditaraFilter(key){const loaders={agenda:()=>loadAgenda(1),finance:()=>loadFinance(1),gallery:()=>loadGallery(1),tasks:()=>loadTasks(1),evaluation:()=>loadEvaluation(1),attendance:()=>loadAttendance(1),mading:()=>{madingAdminPage=1;loadMadingAdmin();}};if(key==='attendance')window.attendancePage=1;if(key==='tasks'||key==='evaluation'||key==='agenda')listPages[key]=1;if(loaders[key])loaders[key]();}
+
+async function loadAgenda(){ensureAditaraFilters('agenda');const box=$('agendaList');box.textContent='Memuat...';try{const r=await api({action:'listAgenda',token,page:listPages.agenda||1,pageSize:6,...aditaraFilterPayload('agenda')});const rows=r.items||[];paintRemotePagedList('agendaList','agendaPager',rows,'agenda',r,x=>`<article class="record"><div><b>${escapeHtml(x.judul)}</b><p>${escapeHtml(moduleDate(x.tanggal))} · ${escapeHtml(x.status)}<br>${escapeHtml(x.isi)}</p></div>${moduleCan('agenda.manage')?recordActions([`<button class="secondary" data-edit-agenda="${escapeAttr(x.id)}">Ubah</button>`,`<button class="secondary" data-del-agenda="${escapeAttr(x.id)}">Hapus</button>`]):''}</article>`);}catch(e){box.textContent=e.message;}}
 async function saveAgenda(){const p={action:'saveAgenda',token,id:editingAgendaId,judul:$('agendaTitle').value.trim(),tanggal:$('agendaDate').value,isi:$('agendaBody').value,status:$('agendaStatus').value};if(!p.judul||!p.tanggal){setMsg('agendaMsg','Nama dan tanggal agenda wajib diisi.',false);return;}try{const r=await api(p);setMsg('agendaMsg',r.message);['agendaTitle','agendaDate','agendaBody'].forEach(id=>$(id).value='');editingAgendaId='';$('saveAgendaBtn').textContent='Simpan Agenda';await loadAgenda();}catch(e){setMsg('agendaMsg',e.message,false);}}
 async function loadProker(){const box=$('prokerList');box.textContent='Memuat...';try{const r=await api({action:'listProker',token});const rows=r.programs||[];paintPagedList('prokerList','prokerPager',rows,'proker',6,x=>`<article class="record"><div><b>${escapeHtml(x.nama_program)}</b><p>${escapeHtml(x.bidang)} · PIC: ${escapeHtml(x.penanggung_jawab||'-')}<br>${moduleDate(x.tanggal)} · ${escapeHtml(x.status)} · Anggaran ${money(x.anggaran)}<br>${escapeHtml(x.hasil)}</p></div>${moduleCan('proker.manage')?recordActions([`<button class="secondary" data-edit-proker="${escapeAttr(x.id)}">Ubah</button>`,`<button class="secondary" data-del-proker="${escapeAttr(x.id)}">Hapus</button>`]):''}</article>`);}catch(e){box.textContent=e.message;}}
 async function saveProker(){const p={action:'saveProker',token,id:editingProkerId,nama_program:$('prokerName').value.trim(),bidang:$('prokerBidang').value,penanggung_jawab:$('prokerOwner').value,tanggal:$('prokerDate').value,anggaran:$('prokerBudget').value,status:$('prokerStatus').value,hasil:$('prokerResult').value};try{const r=await api(p);setMsg('prokerMsg',r.message);['prokerName','prokerOwner','prokerDate','prokerBudget','prokerResult'].forEach(id=>$(id).value='');editingProkerId='';$('saveProkerBtn').textContent='Simpan Program';await loadProker();}catch(e){setMsg('prokerMsg',e.message,false);}}
@@ -817,16 +859,16 @@ async function loadNotulen(){const box=$('notulenList');box.textContent='Memuat.
 async function saveNotulen(){const p={action:'saveNotulen',token,pertemuan_id:$('notulenMeeting').value,notulis:$('notulenWriter').value,isi:$('notulenText').value};try{const r=await api(p);setMsg('notulenMsg',r.message);await loadNotulen();}catch(e){setMsg('notulenMsg',e.message,false);}}
 let financePage=1;
 async function loadFinance(page=financePage){
- financePage=Math.max(1,Number(page)||1);
+ ensureAditaraFilters('finance');financePage=Math.max(1,Number(page)||1);
  const box=$('financeList'),pager=$('financePager');box.textContent='Memuat...';pager.innerHTML='';
  try{
-  const r=await api({action:'listFinance',token,page:financePage,pageSize:6});
+  const r=await api({action:'listFinance',token,page:financePage,pageSize:10,...aditaraFilterPayload('finance')});
   const s=r.summary||{};
   $('financeSummary').innerHTML=[['Pemasukan',money(s.pemasukan)],['Pengeluaran',money(s.pengeluaran)],['Saldo',money(s.saldo)]].map(x=>`<div class="summary-box"><small>${x[0]}</small><b>${x[1]}</b></div>`).join('');
   box.innerHTML=(r.transactions||[]).map(x=>`<article class="record"><div><b>${escapeHtml(x.keterangan)}</b><p>${moduleDate(x.tanggal)} · ${escapeHtml(x.jenis)}<br>${x.pemasukan?'+ '+money(x.pemasukan):'- '+money(x.pengeluaran)} · Saldo ${money(x.saldo)}</p>${x.image_data?`<a class="finance-proof" href="${x.image_data}" target="_blank" rel="noopener"><img src="${x.image_data}" alt="Bukti transaksi" loading="lazy"><span>Lihat foto bukti</span></a>`:(x.bukti_url?`<a href="${escapeAttr(x.bukti_url)}" target="_blank" rel="noopener">Bukti transaksi lama</a>`:'')}</div>${moduleCan('finance.manage')?recordActions([`<button class="secondary" data-del-finance="${escapeAttr(x.id)}">Hapus</button>`]):''}</article>`).join('')||'<p class="tiny">Belum ada transaksi.</p>';
   if((r.totalPages||1)>1)pager.innerHTML=`<button class="secondary" ${financePage<=1?'disabled':''} data-finance-page="${financePage-1}">Sebelumnya</button><span class="tiny">Halaman ${financePage} dari ${r.totalPages} · ${r.total} transaksi</span><button class="secondary" ${financePage>=r.totalPages?'disabled':''} data-finance-page="${financePage+1}">Berikutnya</button>`;
   else if(r.total)pager.innerHTML=`<span class="tiny">${r.total} transaksi</span>`;
- }catch(e){box.textContent=e.message;}
+ }catch(e){box.textContent=e.message;showToast('Keuangan gagal dimuat: '+e.message,'error');}
 }
 async function saveFinance(){
  const amount=Number($('financeAmount').value)||0,type=$('financeType').value,file=$('financeProof').files[0];
@@ -845,11 +887,11 @@ async function saveFinance(){
 }
 let galleryPage=1;
 async function loadGallery(page=galleryPage){
- galleryPage=Math.max(1,Number(page)||1);const box=$('galleryList'),pager=$('galleryPager');box.textContent='Memuat dokumentasi...';pager.innerHTML='';
+ ensureAditaraFilters('gallery');galleryPage=Math.max(1,Number(page)||1);const box=$('galleryList'),pager=$('galleryPager');box.textContent='Memuat dokumentasi...';pager.innerHTML='';
  try{
-  const r=await api({action:'listGallery',token,page:galleryPage,pageSize:6});
+  const r=await api({action:'listGallery',token,page:galleryPage,pageSize:6,...aditaraFilterPayload('gallery')});
   const items=r.items||[];
-  box.innerHTML=items.map(x=>`<article class="gallery-item">${x.image_data?`<img src="${x.image_data}" alt="${escapeAttr(x.judul)}" loading="lazy">`:(x.file_url?`<a href="${escapeAttr(x.file_url)}" target="_blank" rel="noopener">Buka berkas lama</a>`:'<div class="gallery-placeholder">Foto tidak tersedia</div>')}<div class="gallery-meta"><b>${escapeHtml(x.judul)}</b><p>${escapeHtml(moduleDate(x.tanggal))} · ${escapeHtml(x.pengunggah)}</p>${moduleCan('gallery.manage')?`<button class="secondary" data-del-gallery="${escapeAttr(x.id)}">Hapus</button>`:''}</div></article>`).join('')||'<p class="tiny">Belum ada dokumentasi.</p>';
+  box.innerHTML=items.map(x=>`<article class="gallery-item">${x.images_data&&x.images_data.length?madingPhotoButtons(x.images_data,x.judul,true):(x.image_data?madingPhotoButtons([x.image_data],x.judul,true):(x.file_url?`<a href="${escapeAttr(x.file_url)}" target="_blank" rel="noopener">Buka berkas lama</a>`:'<div class="gallery-placeholder">Foto tidak tersedia</div>'))}<div class="gallery-meta"><b>${escapeHtml(x.judul)}</b><p>${moduleDate(x.tanggal)} · ${escapeHtml(x.pengunggah)}</p>${moduleCan('gallery.manage')?`<button class="secondary" data-del-gallery="${escapeAttr(x.id)}">Hapus</button>`:''}</div></article>`).join('')||'<p class="tiny">Belum ada dokumentasi.</p>';
   if((r.totalPages||1)>1)pager.innerHTML=`<button class="secondary" ${galleryPage<=1?'disabled':''} data-gallery-page="${galleryPage-1}">Sebelumnya</button><span class="tiny">Halaman ${galleryPage} dari ${r.totalPages} · ${r.total} foto</span><button class="secondary" ${galleryPage>=r.totalPages?'disabled':''} data-gallery-page="${galleryPage+1}">Berikutnya</button>`;
   else if(r.total)pager.innerHTML=`<span class="tiny">${r.total} foto</span>`;
  }catch(e){box.textContent=e.message;}
@@ -864,31 +906,41 @@ async function compressPhoto(file){
  let compressed=canvas.toDataURL('image/jpeg',0.68);if(compressed.length>850000)compressed=canvas.toDataURL('image/jpeg',0.52);if(compressed.length>900000)throw new Error('Foto masih terlalu besar setelah kompresi. Gunakan foto dengan resolusi lebih rendah.');return compressed;
 }
 async function saveGallery(){
- const btn=$('saveGalleryBtn'),file=$('galleryFile').files[0];if(!$('galleryTitle').value.trim()){setMsg('galleryMsg','Judul dokumentasi wajib diisi.',false);return;}if(!file){setMsg('galleryMsg','Pilih foto terlebih dahulu.',false);return;}
- btn.disabled=true;btn.textContent='Mengompres dan mengunggah...';
- try{const image_data=await compressPhoto(file);const r=await api({action:'saveGallery',token,judul:$('galleryTitle').value.trim(),kategori:'FOTO',tanggal:$('galleryDate').value,image_data});setMsg('galleryMsg',r.message);$('galleryTitle').value='';$('galleryFile').value='';await loadGallery(1);}
- catch(e){setMsg('galleryMsg',e.message,false);}finally{btn.disabled=false;btn.textContent='Unggah Foto';}
+ const btn=$('saveGalleryBtn'),files=Array.from($('galleryFile').files||[]);
+ if(!$('galleryTitle').value.trim()){setMsg('galleryMsg','Judul dokumentasi wajib diisi.',false);return;}
+ if(!files.length){setMsg('galleryMsg','Pilih minimal 1 foto.',false);return;}
+ if(files.length>3){setMsg('galleryMsg','Satu kegiatan maksimal 3 foto. Kurangi pilihan foto.',false);return;}
+ btn.disabled=true;btn.textContent='Mengompres foto...';
+ try{
+  const images_data=[];
+  for(const file of files)images_data.push(await compressPhoto(file));
+  btn.textContent='Mengunggah dokumentasi dan membuat DRAFT Mading...';
+  const r=await api({action:'saveGallery',token,judul:$('galleryTitle').value.trim(),kategori:'FOTO',tanggal:$('galleryDate').value,images_data});
+  setMsg('galleryMsg',r.message);$('galleryTitle').value='';$('galleryFile').value='';await loadGallery(1);
+  if(typeof loadMadingAdmin==='function')await loadMadingAdmin();
+ }catch(e){setMsg('galleryMsg',e.message,false);}
+ finally{btn.disabled=false;btn.textContent='Unggah Foto';}
 }
 
-async function loadTasks(){const box=$('taskList');box.textContent='Memuat...';try{const r=await api({action:'listTasks',token});const rows=r.tasks||[];paintPagedList('taskList','taskPager',rows,'tasks',6,x=>`<article class="record"><div><b>${escapeHtml(x.judul)}</b><p>${escapeHtml(x.deskripsi)}<br>Deadline: ${moduleDate(x.deadline)} · ${escapeHtml(x.status)}</p></div>${moduleCan('tasks.manage_all')?recordActions([`<button class="secondary" data-del-task="${escapeAttr(x.id)}">Hapus</button>`]):recordActions([`<button class="secondary" data-task-status="PROSES" data-task-id="${escapeAttr(x.id)}">Proses</button>`,`<button class="secondary" data-task-status="SELESAI" data-task-id="${escapeAttr(x.id)}">Selesai</button>`])}</article>`);}catch(e){box.textContent=e.message;}}
+async function loadTasks(){ensureAditaraFilters('tasks');const box=$('taskList');box.textContent='Memuat...';try{const r=await api({action:'listTasks',token,page:listPages.tasks||1,pageSize:10,...aditaraFilterPayload('tasks')});const rows=r.items||[];paintRemotePagedList('taskList','taskPager',rows,'tasks',r,x=>`<article class="record"><div><b>${escapeHtml(x.judul)}</b><p>${escapeHtml(x.deskripsi)}<br>Deadline: ${moduleDate(x.deadline)} · ${escapeHtml(x.status)}</p></div>${moduleCan('tasks.manage_all')?recordActions([`<button class="secondary" data-del-task="${escapeAttr(x.id)}">Hapus</button>`]):recordActions([`<button class="secondary" data-task-status="PROSES" data-task-id="${escapeAttr(x.id)}">Proses</button>`,`<button class="secondary" data-task-status="SELESAI" data-task-id="${escapeAttr(x.id)}">Selesai</button>`])}</article>`);}catch(e){box.textContent=e.message;showToast('Tugas gagal dimuat: '+e.message,'error');}}
 async function saveTask(){const p={action:'saveTask',token,judul:$('taskTitle').value,deskripsi:$('taskDescription').value,pengurus_id:$('taskPerson').value,deadline:$('taskDeadline').value};try{const r=await api(p);setMsg('taskMsg',r.message);['taskTitle','taskDescription','taskDeadline'].forEach(id=>$(id).value='');await loadTasks();}catch(e){setMsg('taskMsg',e.message,false);}}
-async function updateTask(id,status){try{const r=await api({action:'updateOwnTask',token,id,status});setMsg('taskMsg',r.message);await loadTasks();}catch(e){alert(e.message);}}
-async function loadEvaluation(){const box=$('evaluationList');box.textContent='Memuat...';try{const r=await api({action:'listEvaluation',token});const rows=r.items||[];paintPagedList('evaluationList','evaluationPager',rows,'evaluation',5,x=>`<article class="record"><div><b>${escapeHtml(x.kegiatan)} · ${escapeHtml(x.aspek)}</b><p>${moduleDate(x.tanggal)}<br>Hasil: ${escapeHtml(x.hasil_evaluasi)}<br>Rekomendasi: ${escapeHtml(x.rekomendasi)}</p></div>${moduleCan('evaluation.manage')?recordActions([`<button class="secondary" data-del-eval="${escapeAttr(x.id)}">Hapus</button>`]):''}</article>`);}catch(e){box.textContent=e.message;}}
+async function updateTask(id,status){try{const r=await api({action:'updateOwnTask',token,id,status});setMsg('taskMsg',r.message);showToast(r.message||'Status tugas diperbarui.','success');await loadTasks();}catch(e){setMsg('taskMsg',e.message,false);showToast(e.message||'Status tugas gagal diperbarui.','error');}}
+async function loadEvaluation(){ensureAditaraFilters('evaluation');const box=$('evaluationList');box.textContent='Memuat...';try{const r=await api({action:'listEvaluation',token,page:listPages.evaluation||1,pageSize:10,...aditaraFilterPayload('evaluation')});const rows=r.items||[];paintRemotePagedList('evaluationList','evaluationPager',rows,'evaluation',r,x=>`<article class="record"><div><b>${escapeHtml(x.kegiatan)} · ${escapeHtml(x.aspek)}</b><p>${moduleDate(x.tanggal)}<br>Hasil: ${escapeHtml(x.hasil_evaluasi)}<br>Rekomendasi: ${escapeHtml(x.rekomendasi)}</p></div>${moduleCan('evaluation.manage')?recordActions([`<button class="secondary" data-del-eval="${escapeAttr(x.id)}">Hapus</button>`]):''}</article>`);}catch(e){box.textContent=e.message;showToast('Evaluasi gagal dimuat: '+e.message,'error');}}
 async function saveEvaluation(){const p={action:'saveEvaluation',token,kegiatan:$('evalActivity').value,aspek:$('evalAspect').value,tanggal:$('evalDate').value,hasil_evaluasi:$('evalResult').value,rekomendasi:$('evalRecommendation').value};try{const r=await api(p);setMsg('evalMsg',r.message);['evalActivity','evalAspect','evalDate','evalResult','evalRecommendation'].forEach(id=>$(id).value='');await loadEvaluation();}catch(e){setMsg('evalMsg',e.message,false);}}
 async function loadSettings(page=1){settingsPage=Math.max(1,Number(page)||1);const box=$('settingsUsers'),pager=$('settingsPager');box.textContent='Memuat...';pager.innerHTML='';try{const r=await api({action:'adminListUsers',token});const all=r.users||[],size=8,pages=Math.max(1,Math.ceil(all.length/size));settingsPage=Math.min(settingsPage,pages);const rows=all.slice((settingsPage-1)*size,settingsPage*size);box.innerHTML=rows.map(x=>{const status=String(x.status||'').toUpperCase(),admin=String(x.role).toUpperCase()==='ADMIN';return `<article class="record"><div style="flex:1;min-width:0"><b>${escapeHtml(x.nama)} · ${escapeHtml(x.role)}</b><p>Username: ${escapeHtml(x.username)} · Status: <strong>${escapeHtml(status)}</strong> · Terakhir login: ${moduleDate(x.last_login)}</p>${!admin?`<div class="toolbar" style="margin:6px 0 0"><input type="password" minlength="10" autocomplete="new-password" placeholder="Password baru (min. 10 karakter)" data-setting-password="${escapeAttr(x.user_id)}"><button class="secondary" data-setting-save="${escapeAttr(x.user_id)}">Atur Password</button>${status==='AKTIF'?`<button class="secondary" data-setting-status="NONAKTIF" data-setting-user="${escapeAttr(x.user_id)}">Nonaktifkan</button>`:(x.has_password?`<button class="secondary" data-setting-status="AKTIF" data-setting-user="${escapeAttr(x.user_id)}">Aktifkan</button>`:`<span class="tiny">Atur password untuk mengaktifkan</span>`)}</div>`:''}</div></article>`;}).join('')||'<p class="tiny">Belum ada akun.</p>';if(pages>1)pager.innerHTML=`<button class="secondary" ${settingsPage<=1?'disabled':''} data-settings-page="${settingsPage-1}">Sebelumnya</button><span class="tiny">Halaman ${settingsPage} dari ${pages} · ${all.length} akun</span><button class="secondary" ${settingsPage>=pages?'disabled':''} data-settings-page="${settingsPage+1}">Berikutnya</button>`;else pager.innerHTML=`<span class="tiny">${all.length} akun terdaftar</span>`;}catch(e){box.textContent=e.message;}}
 
-async function deleteByAction(action,id,loader){if(!confirm('Hapus data ini? Tindakan tidak dapat dibatalkan.'))return;try{const r=await api({action,token,id});await loader();}catch(e){alert(e.message);}}
+async function deleteByAction(action,id,loader){if(!confirm('Hapus data ini? Tindakan tidak dapat dibatalkan.'))return;try{const r=await api({action,token,id});showToast(r.message||'Data berhasil dihapus.','success');await loader();}catch(e){showToast(e.message||'Data gagal dihapus.','error');}}
 $('saveAgendaBtn').onclick=saveAgenda;$('saveProkerBtn').onclick=saveProker;$('saveNotulenBtn').onclick=saveNotulen;$('saveFinanceBtn').onclick=saveFinance;$('saveGalleryBtn').onclick=saveGallery;$('saveTaskBtn').onclick=saveTask;$('saveEvaluationBtn').onclick=saveEvaluation;
 document.addEventListener('click',e=>{
- const pp=e.target.closest('[data-people-page]');if(pp){peoplePage=Number(pp.dataset.peoplePage);renderPeople();}
- const lp=e.target.closest('[data-list-key]');if(lp){listPages[lp.dataset.listKey]=Number(lp.dataset.listPage);({agenda:loadAgenda,proker:loadProker,notulen:loadNotulen,tasks:loadTasks,evaluation:loadEvaluation,meetings:loadMeetings}[lp.dataset.listKey]||(()=>{}))();}
+ const map=e.target.closest('[data-mading-admin-page]');if(map&&!map.disabled){madingAdminPage=Number(map.dataset.madingAdminPage)||1;loadMadingAdmin();return;}const ap=e.target.closest('[data-att-page]');if(ap&&!ap.disabled){loadAttendance(Number(ap.dataset.attPage)||1);return;}const pp=e.target.closest('[data-people-page]');if(pp){peoplePage=Number(pp.dataset.peoplePage);renderPeople();}
+ const rlp=e.target.closest('[data-remote-list-key]');if(rlp&&!rlp.disabled){listPages[rlp.dataset.remoteListKey]=Number(rlp.dataset.remoteListPage)||1;({agenda:loadAgenda,tasks:loadTasks,evaluation:loadEvaluation,meetings:loadMeetings}[rlp.dataset.remoteListKey]||(()=>{}))();return;}const lp=e.target.closest('[data-list-key]');if(lp){listPages[lp.dataset.listKey]=Number(lp.dataset.listPage);({proker:loadProker,notulen:loadNotulen}[lp.dataset.listKey]||(()=>{}))();}
  const sp=e.target.closest('[data-settings-page]');if(sp)loadSettings(Number(sp.dataset.settingsPage));
  const dp=e.target.closest('[data-del-person]');if(dp){const person=(remotePeople||[]).find(x=>String(x.pengurus_id)===String(dp.dataset.delPerson));if(person&&confirm('Nonaktifkan pengurus '+person.nama_lengkap+'? Akun terkait ikut dinonaktifkan, riwayat tetap disimpan.')){api({action:'deletePerson',token,id:dp.dataset.delPerson}).then(async r=>{alert(r.message);await loadPeople();await loadSettings(settingsPage);}).catch(e=>alert(e.message));}}
  const ss=e.target.closest('[data-setting-save]');if(ss){const id=ss.dataset.settingSave,input=document.querySelector(`[data-setting-password="${CSS.escape(id)}"]`);const password=input?.value||'';if(password.length<10){alert('Password minimal 10 karakter.');return;}ss.disabled=true;api({action:'adminSetPassword',token,user_id:id,password}).then(async r=>{alert(r.message);await loadSettings(settingsPage);}).catch(e=>{alert(e.message);ss.disabled=false;});}
  const st=e.target.closest('[data-setting-status]');if(st){if(!confirm('Ubah status akun menjadi '+st.dataset.settingStatus+'?'))return;api({action:'adminSetStatus',token,user_id:st.dataset.settingUser,status:st.dataset.settingStatus}).then(async r=>{alert(r.message);await loadSettings(settingsPage);}).catch(e=>alert(e.message));}
  const gp=e.target.closest('[data-gallery-page]');if(gp)loadGallery(Number(gp.dataset.galleryPage));
  const fp=e.target.closest('[data-finance-page]');if(fp)loadFinance(Number(fp.dataset.financePage));
- const ea=e.target.closest('[data-edit-agenda]');if(ea){api({action:'listAgenda',token}).then(r=>{const x=(r.agenda||[]).find(z=>z.id===ea.dataset.editAgenda);if(!x)return;editingAgendaId=x.id;$('agendaTitle').value=x.judul;$('agendaDate').value=(x.tanggal||'').slice(0,10);$('agendaBody').value=x.isi;$('agendaStatus').value=x.status||'TERBIT';$('saveAgendaBtn').textContent='Perbarui Agenda';$('agendaForm').scrollIntoView({behavior:'smooth'});}).catch(err=>alert(err.message));}
+ const ea=e.target.closest('[data-edit-agenda]');if(ea){api({action:'listAgenda',token,id:ea.dataset.editAgenda,page:1,pageSize:6}).then(r=>{const x=(r.items||[]).find(z=>z.id===ea.dataset.editAgenda);if(!x)return;editingAgendaId=x.id;$('agendaTitle').value=x.judul;$('agendaDate').value=(x.tanggal||'').slice(0,10);$('agendaBody').value=x.isi;$('agendaStatus').value=x.status||'TERBIT';$('saveAgendaBtn').textContent='Perbarui Agenda';$('agendaForm').scrollIntoView({behavior:'smooth'});}).catch(err=>alert(err.message));}
  const ep=e.target.closest('[data-edit-proker]');if(ep){api({action:'listProker',token}).then(r=>{const x=(r.programs||[]).find(z=>z.id===ep.dataset.editProker);if(!x)return;editingProkerId=x.id;$('prokerName').value=x.nama_program;$('prokerBidang').value=x.bidang;populateProkerOwners(x.penanggung_jawab);$('prokerOwner').value=x.penanggung_jawab;$('prokerDate').value=(x.tanggal||'').slice(0,10);$('prokerBudget').value=x.anggaran;$('prokerStatus').value=x.status;$('prokerResult').value=x.hasil;$('saveProkerBtn').textContent='Perbarui Program';$('prokerForm').scrollIntoView({behavior:'smooth'});}).catch(err=>alert(err.message));}
  const d=e.target.closest('[data-del-agenda]');if(d)deleteByAction('deleteAgenda',d.dataset.delAgenda,loadAgenda);
  const p=e.target.closest('[data-del-proker]');if(p)deleteByAction('deleteProker',p.dataset.delProker,loadProker);
@@ -922,7 +974,7 @@ async function loadKasDashboardStatus(){
 }
 function loadPageData(page){if(!token)return;const map={home:async()=>{loadKasDashboardStatus();try{const r=await api({action:'getDashboard',token});const u=r.upcoming||[];const event=document.querySelector('#home .event');if(event)event.innerHTML=u.length?`<div class="eventdate">${moduleDate(u[0].tanggal)}<small>AGENDA</small></div><div><b>${escapeHtml(u[0].judul)}</b><p>${escapeHtml(u[0].jam||'')} · ${escapeHtml(u[0].lokasi||'')}</p></div>`:'<div class="eventdate">—<small>AGENDA</small></div><div><b>Belum ada agenda</b><p>Agenda akan muncul setelah data tersedia.</p></div>'; }catch(e){console.warn(e.message);}},people:loadPeople,attendance:loadMeetings,agenda:loadAgenda,proker:loadProker,meeting:loadNotulen,finance:loadFinance,gallery:loadGallery,tasks:async()=>{const peopleResult=await api({action:'listPeople',token,periode_id:periodId});$('taskPerson').innerHTML='<option value="">Pilih pengurus</option>'+(peopleResult.people||[]).map(x=>`<option value="${escapeAttr(x.pengurus_id)}">${escapeHtml(x.nama)}</option>`).join('');$('taskForm').classList.toggle('hidden',!moduleCan('tasks.manage_all'));await loadTasks();},evaluation:loadEvaluation,settings:loadSettings,kas:loadKas,mading:loadMadingAdmin};if(map[page])map[page]();}
 // Nav visibility mengikuti permission dari backend.
-function applyNewModuleAccess(){document.querySelectorAll('[data-page="kas"]').forEach(x=>x.classList.toggle('hidden',!moduleCan('kas.own')));document.querySelectorAll('[data-page="mading"]').forEach(x=>x.classList.toggle('hidden',!moduleCan('mading.view')));$('kasPeriodForm').classList.toggle('hidden',!kasCanManage());$('kasAmountForm').classList.toggle('hidden',!kasCanSet());$('kasPaymentForm').classList.toggle('hidden',!currentUser?.pengurus_id);$('madingManagePanel').classList.toggle('hidden',!moduleCan('mading.manage'));$('madingMemberReader').classList.toggle('hidden',moduleCan('mading.manage'));}
+function applyNewModuleAccess(){document.querySelectorAll('[data-page="kas"]').forEach(x=>x.classList.toggle('hidden',!moduleCan('kas.own')));document.querySelectorAll('[data-page="mading"]').forEach(x=>x.classList.toggle('hidden',!moduleCan('mading.view')));$('kasPeriodForm').classList.toggle('hidden',!kasCanManage());$('kasAmountForm').classList.toggle('hidden',!kasCanSet());$('kasPaymentForm').classList.toggle('hidden',!currentUser?.pengurus_id||kasCanViewAll()||kasCanManage());$('madingManagePanel').classList.toggle('hidden',!(moduleCan('mading.upload')||moduleCan('mading.manage')));$('madingMemberReader').classList.remove('hidden');$('madingStatus').closest('select').classList.toggle('hidden',!moduleCan('mading.publish'));$('madingFeatured').classList.toggle('hidden',!moduleCan('mading.publish'));}
 const originalGo=go;go=function(page){const ok=originalGo(page);if(ok)loadPageData(page);return ok;};
 // Initial page visibility follows the authenticated backend policy; every write is checked again server-side.
 
@@ -947,6 +999,7 @@ restoreSavedSession();
 
 /* ================= KAS ANGGOTA + MADING DIGITAL ================= */
 function kasCanManage(){return moduleCan('kas.manage')}
+function kasCanViewAll(){return moduleCan('kas.view_all')}
 function kasCanSet(){return moduleCan('kas.settings')}
 function fmtMoney(n){return 'Rp '+(Number(n)||0).toLocaleString('id-ID')}
 async function loadKas(){
@@ -954,30 +1007,46 @@ async function loadKas(){
  const manager=kasCanManage();
  $('kasPeriodForm').classList.toggle('hidden',!manager);
  $('kasAmountForm').classList.toggle('hidden',!kasCanSet());
- $('kasPaymentForm').classList.toggle('hidden',!currentUser?.pengurus_id);
+ $('kasPaymentForm').classList.toggle('hidden',!currentUser?.pengurus_id||kasCanViewAll()||kasCanManage());
  $('kasRows').textContent='Memuat riwayat pembayaran...';
+ const kasTitle=$('kasRowsHeading');if(kasTitle)kasTitle.textContent=manager?'Riwayat / Verifikasi Pembayaran':(kasCanViewAll()?'Seluruh Riwayat Pembayaran · Baca Saja':'Riwayat Pembayaran Pribadi');
  $('kasSummary').innerHTML='<div class="summary-box"><small>Status</small><b>Memuat...</b></div>';
  // Permintaan ringkasan, periode, dan riwayat dipisahkan agar kegagalan satu API
  // tidak menghentikan pemuatan riwayat anggota.
  const results=await Promise.allSettled([
    api({action:'kasSummary',token}),
-   api({action:'kasListPeriods',token})
+   api({action:'kasListPeriods',token,page:kasPeriodPage||1,pageSize:3})
  ]);
  const summaryResult=results[0],periodResult=results[1];
  if(summaryResult.status==='fulfilled'){
    const s=summaryResult.value;
-   $('kasSummary').innerHTML=[['Nominal mingguan',fmtMoney(s.nominal)],['Total terverifikasi',fmtMoney(s.total_terverifikasi)],['Menunggu verifikasi',s.menunggu],['Riwayat pembayaran',s.riwayat]].map(x=>`<div class="summary-box"><small>${x[0]}</small><b>${x[1]}</b></div>`).join('');
+   $('kasSummary').innerHTML=[['Nominal mingguan',fmtMoney(s.nominal)],['Total terverifikasi',fmtMoney(s.total_terverifikasi)],['Menunggu verifikasi',s.menunggu],['Riwayat pembayaran',s.riwayat],...(kasCanViewAll()?[['Rekap bulan terakhir',s.rekap_bulanan?.[0]?fmtMoney(s.rekap_bulanan[0].total):'Rp 0'],['Rekap tahun terakhir',s.rekap_tahunan?.[0]?fmtMoney(s.rekap_tahunan[0].total):'Rp 0']]:[])].map(x=>`<div class="summary-box"><small>${x[0]}</small><b>${x[1]}</b></div>`).join('');
+   const detail=$('kasSummaryDetail');
+   if(detail){
+     if(kasCanViewAll()){
+       const months=(s.rekap_bulanan||[]).slice(0,12),years=(s.rekap_tahunan||[]);
+       detail.classList.remove('hidden');
+       detail.innerHTML='<div class="toolbar" style="align-items:flex-start"><div style="flex:1;min-width:220px"><b>Rekap Bulanan (12 bulan terakhir)</b><div class="record-list">'+(months.map(x=>`<div class="record"><b>${escapeHtml(x.periode)}</b><span>${fmtMoney(x.total)} · ${x.jumlah} pembayaran</span></div>`).join('')||'<p class="tiny">Belum ada pembayaran terverifikasi.</p>')+'</div></div><div style="flex:1;min-width:220px"><b>Rekap Tahunan</b><div class="record-list">'+(years.map(x=>`<div class="record"><b>${escapeHtml(x.tahun)}</b><span>${fmtMoney(x.total)} · ${x.jumlah} pembayaran</span></div>`).join('')||'<p class="tiny">Belum ada pembayaran terverifikasi.</p>')+'</div></div></div>';
+     }else{detail.classList.add('hidden');detail.innerHTML='';}
+   }
    if($('kasAmountSetting'))$('kasAmountSetting').value=s.nominal;
  }else{
    $('kasSummary').innerHTML='<div class="summary-box"><small>Ringkasan</small><b>Belum tersedia</b></div>';
    console.warn('kasSummary:',summaryResult.reason?.message||summaryResult.reason);
  }
  if(periodResult.status==='fulfilled'){
-   const options=(periodResult.value.periods||[]).map(x=>`<option value="${escapeAttr(x.id)}">${escapeHtml(x.label)} · ${fmtMoney(x.nominal)}</option>`).join('');
+   kasPeriodRows=periodResult.value.periods||[];
+   const allPeriodOptions=periodResult.value.allPeriods||kasPeriodRows;
+   const options=allPeriodOptions.map(x=>`<option value="${escapeAttr(x.id)}">${escapeHtml(x.label)} · ${fmtMoney(x.nominal)}</option>`).join('');
    $('kasPeriodSelect').innerHTML='<option value="">Semua periode</option>'+options;
-   $('kasPayPeriod').innerHTML='<option value="">Pilih periode</option>'+options;
+   $('kasPayPeriod').innerHTML='<option value="">Pilih periode</option>'+allPeriodOptions.filter(x=>String(x.status).toUpperCase()==='AKTIF').map(x=>`<option value="${escapeAttr(x.id)}">${escapeHtml(x.label)} · ${fmtMoney(x.nominal)}</option>`).join('');
+   const yrs=[...new Set(allPeriodOptions.map(x=>(x.mulai||'').slice(0,4)).filter(x=>/^20\d{2}$/.test(x)))].sort().reverse();
+   $('kasYearFilter').innerHTML='<option value="">Semua tahun</option>'+yrs.map(y=>`<option value="${y}">${y}</option>`).join('');
+   const tp=Number(periodResult.value.totalPages)||1,cp=Number(periodResult.value.page)||1;
+   $('kasPeriodPager').innerHTML=tp>1?`<button class="secondary" data-kas-period-page="${cp-1}" ${cp<=1?'disabled':''}>Periode sebelumnya</button><span class="tiny">Halaman ${cp}/${tp}</span><button class="secondary" data-kas-period-page="${cp+1}" ${cp>=tp?'disabled':''}>Periode berikutnya</button>`:'';
  }else{
    $('kasPeriodSelect').innerHTML='<option value="">Semua periode</option>';
+   $('kasPeriodPager').innerHTML='';
    $('kasPayPeriod').innerHTML='<option value="">Periode belum tersedia</option>';
    console.warn('kasListPeriods:',periodResult.reason?.message||periodResult.reason);
  }
@@ -986,11 +1055,11 @@ async function loadKas(){
    $('kasRows').textContent='Data Kas belum dapat dimuat. Tekan Muat ulang atau periksa koneksi Apps Script.';
  }
 }
-let kasPage=1;
+let kasPage=1,kasPeriodPage=1,kasPeriodRows=[];
 async function loadKasRows(page=kasPage){
  kasPage=Math.max(1,Number(page)||1);$('kasRows').textContent='Memuat riwayat pembayaran...';$('kasPager').innerHTML='';
  try{
-  const r=await api({action:'kasListPayments',token,periode_id:$('kasPeriodSelect').value,page:kasPage,pageSize:5});
+  const r=await api({action:'kasListPayments',token,periode_id:$('kasPeriodSelect').value,status:$('kasStatusFilter')?.value||'',bulan:$('kasMonthFilter')?.value||'',tahun:$('kasYearFilter')?.value||'',page:kasPage,pageSize:6});
   kasPage=Number(r.page)||1;
   $('kasRows').innerHTML=(r.items||[]).map(x=>`<article class="record"><div><b>${escapeHtml(x.nama)} · ${fmtMoney(x.nominal)}</b><p>Periode: ${escapeHtml(x.periode_label||x.periode_id)} · ${escapeHtml(x.metode)} · ${moduleDate(x.tanggal_bayar)}<br>Status: <strong>${escapeHtml(x.status==='TERVERIFIKASI'?'Terverifikasi / Lunas':x.status==='MENUNGGU'?'Menunggu verifikasi':x.status==='DITOLAK'?'Ditolak':x.status)}</strong>${x.catatan?' · '+escapeHtml(x.catatan):''}${x.verified_by?'<br>Diverifikasi oleh: '+escapeHtml(x.verified_by):''}</p>${x.bukti?`<img src="${x.bukti}" alt="Bukti pembayaran" style="width:120px;border-radius:8px;margin-top:5px">`:''}</div>${kasCanManage()?`<div class="mading-actions"><select data-kas-status-select="${escapeAttr(x.id)}"><option value="MENUNGGU" ${x.status==='MENUNGGU'?'selected':''}>Menunggu</option><option value="TERVERIFIKASI" ${x.status==='TERVERIFIKASI'?'selected':''}>Terverifikasi / Lunas</option><option value="DITOLAK" ${x.status==='DITOLAK'?'selected':''}>Ditolak</option></select><button class="secondary" data-kas-verify="${escapeAttr(x.id)}">Ubah Status</button></div>`:''}</article>`).join('')||'<p class="tiny">Belum ada pembayaran.</p>';
   const pages=Number(r.totalPages)||1,total=Number(r.total)||0;
@@ -1013,7 +1082,8 @@ $('kasCreatePeriod').onclick=async()=>{
 };
 $('kasSaveAmount').onclick=async()=>{try{const r=await api({action:'kasSetAmount',token,nominal:$('kasAmountSetting').value});$('kasMsg').textContent=r.message;await loadKas();}catch(e){$('kasMsg').textContent=e.message;}};
 $('kasLoadRows').onclick=()=>{kasPage=1;loadKasRows(1);};
-$('kasSubmit').onclick=async()=>{const btn=$('kasSubmit'),f=$('kasPayProof').files[0],p={action:'kasSubmitPayment',token,periode_id:$('kasPayPeriod').value,metode:$('kasMethod').value,catatan:$('kasNote').value};try{if(!p.periode_id)throw Error('Pilih periode iuran terlebih dahulu.');if(f)p.image_data=await compressPhoto(f);btn.disabled=true;const r=await api(p);$('kasPayMsg').textContent=r.message||'Pembayaran berhasil diajukan.';$('kasNote').value='';$('kasPayProof').value='';kasPage=1;await loadKas();if(typeof loadKasDashboardStatus==='function')loadKasDashboardStatus();}catch(e){$('kasPayMsg').textContent=e.message;showToast(e.message,'error');}finally{btn.disabled=false;}};
+['kasPeriodSelect','kasStatusFilter','kasMonthFilter','kasYearFilter'].forEach(id=>$(id)?.addEventListener('change',()=>{kasPage=1;loadKasRows(1);}));
+$('kasSubmit').onclick=async()=>{const btn=$('kasSubmit'),f=$('kasPayProof').files[0],p={action:'kasSubmitPayment',token,periode_id:$('kasPayPeriod').value,metode:$('kasMethod').value,catatan:$('kasNote').value};if(btn.dataset.busy==='1')return;try{if(!p.periode_id)throw Error('Pilih periode iuran terlebih dahulu.');if(p.metode==='TRANSFER'&&!f)throw Error('Bukti transfer wajib dilampirkan.');btn.dataset.busy='1';btn.disabled=true;btn.textContent='Mengirim...';if(f)p.image_data=await compressPhoto(f);const r=await api(p);$('kasPayMsg').textContent=r.message||'Pembayaran berhasil diajukan.';showToast(r.message||'Pembayaran berhasil diajukan.','success');$('kasNote').value='';$('kasPayProof').value='';kasPage=1;await loadKas();if(typeof loadKasDashboardStatus==='function')loadKasDashboardStatus();}catch(e){$('kasPayMsg').textContent=e.message;showToast(e.message,'error');}finally{btn.dataset.busy='0';btn.disabled=false;btn.textContent='Kirim Pembayaran';}};
 function madingPhotoButtons(images,title,publicMode=false){
  const list=(Array.isArray(images)?images:[]).filter(Boolean).slice(0,3);
  if(!list.length)return '';
@@ -1025,15 +1095,16 @@ $('madingLightboxClose').onclick=closeMadingImage;
 $('madingLightbox').addEventListener('click',e=>{if(e.target===$('madingLightbox'))closeMadingImage();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMadingImage();});
 async function loadMadingAdmin(){
- try{
-  if(!moduleCan('mading.manage')){
-   const r=await api({action:'madingPublicList',page:1,pageSize:12});
+ ensureAditaraFilters('mading');try{
+  if(!moduleCan('mading.upload')&&!moduleCan('mading.manage')){
+   const r=await api({action:'madingPublicList',page:1,pageSize:6});
    $('madingMemberList').innerHTML=(r.items||[]).map(x=>{const imgs=x.images_data||(x.image_data?[x.image_data]:[]);return `<article class="mading-card">${madingPhotoButtons(imgs,x.judul,true)}<div class="body"><small class="tiny">${escapeHtml(x.kategori)} · ${moduleDate(x.tanggal)}</small><b>${escapeHtml(x.judul)}</b><p>${escapeHtml(x.caption)}</p></div></article>`;}).join('')||'<p class="tiny">Belum ada konten yang diterbitkan.</p>';
    return;
   }
-  const r=await api({action:'madingList',token});
-  $('madingAdminList').innerHTML=(r.items||[]).map(x=>{const imgs=x.images_data||(x.image_data?[x.image_data]:[]);return `<article class="record"><div style="flex:1;min-width:0"><b>${escapeHtml(x.judul)}</b><p>${escapeHtml(x.kategori)} · ${moduleDate(x.tanggal)} · ${escapeHtml(x.status)}</p>${madingPhotoButtons(imgs,x.judul,false)}<div class="toolbar" style="margin-top:8px"><select data-mading-status-select="${escapeAttr(x.id)}"><option value="DRAFT" ${x.status==='DRAFT'?'selected':''}>Draft</option><option value="TERBIT" ${x.status==='TERBIT'?'selected':''}>Terbit</option></select><button type="button" class="secondary" data-mading-status-save="${escapeAttr(x.id)}">Simpan Status</button></div></div><button type="button" class="secondary" data-mading-del="${escapeAttr(x.id)}">Hapus</button></article>`;}).join('')||'<p class="tiny">Belum ada konten.</p>';
- }catch(e){const target=moduleCan('mading.manage')?$('madingAdminList'):$('madingMemberList');target.textContent=e.message;}
+  const r=await api({action:'madingList',token,page:madingAdminPage,pageSize:6,...aditaraFilterPayload('mading')});
+  $('madingAdminList').innerHTML=(r.items||[]).map(x=>{const imgs=x.images_data||(x.image_data?[x.image_data]:[]);const canPublish=moduleCan('mading.publish')&&(moduleCan('mading.manage')||x.own);const canDelete=moduleCan('mading.manage');return `<article class="record"><div style="flex:1;min-width:0"><b>${escapeHtml(x.judul)}</b><p>${escapeHtml(x.kategori)} · ${moduleDate(x.tanggal)} · ${escapeHtml(x.status)}${x.own?' · Konten Anda':''}</p>${madingPhotoButtons(imgs,x.judul,false)}${canPublish?`<div class="toolbar" style="margin-top:8px"><select data-mading-status-select="${escapeAttr(x.id)}"><option value="DRAFT" ${x.status==='DRAFT'?'selected':''}>Draft</option><option value="TERBIT" ${x.status==='TERBIT'?'selected':''}>Terbit</option></select><button type="button" class="secondary" data-mading-status-save="${escapeAttr(x.id)}">Simpan Status</button></div>`:''}</div>${canDelete?`<button type="button" class="secondary" data-mading-del="${escapeAttr(x.id)}">Hapus</button>`:''}</article>`;}).join('')||'<p class="tiny">Belum ada konten.</p>';
+  let pager=$('madingAdminPager');if(!pager){pager=document.createElement('div');pager.id='madingAdminPager';pager.className='module-pager';$('madingAdminList').after(pager);}const tp=Number(r.totalPages)||1;pager.innerHTML=tp>1?`<button class="secondary" data-mading-admin-page="${madingAdminPage-1}" ${madingAdminPage<=1?'disabled':''}>Sebelumnya</button><span class="tiny">Halaman ${madingAdminPage} dari ${tp} · ${r.total||0} konten</span><button class="secondary" data-mading-admin-page="${madingAdminPage+1}" ${madingAdminPage>=tp?'disabled':''}>Berikutnya</button>`:`<span class="tiny">${r.total||0} konten</span>`;
+ }catch(e){const target=(moduleCan('mading.upload')||moduleCan('mading.manage'))?$('madingAdminList'):$('madingMemberList');target.textContent=e.message;}
 }
 $('madingSave').onclick=async()=>{
  const btn=$('madingSave'),files=Array.from($('madingFile').files||[]);
@@ -1047,7 +1118,7 @@ $('madingSave').onclick=async()=>{
   btn.textContent='Menyimpan kegiatan...';
   const p={action:'madingSave',token,judul:$('madingTitle').value.trim(),kategori:$('madingCategory').value,caption:$('madingCaption').value,tanggal:$('madingDate').value,status:$('madingStatus').value,unggulan:$('madingFeatured').value==='1',images_data};
   const r=await api(p);$('madingMsg').textContent=r.message;showToast(r.message,'success');
-  ['madingTitle','madingCaption','madingDate','madingFile'].forEach(id=>$(id).value='');await loadMadingAdmin();
+  ['madingTitle','madingCaption','madingDate','madingFile'].forEach(id=>$(id).value='');madingAdminPage=1;await loadMadingAdmin();
  }catch(e){$('madingMsg').textContent=e.message;showToast(e.message,'error');}
  finally{btn.disabled=false;btn.textContent='Simpan Konten';}
 };
@@ -1060,16 +1131,16 @@ async function compressMadingPhoto(file){
  const ctx=canvas.getContext('2d',{alpha:false});ctx.fillStyle='#fff';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.drawImage(img,0,0,canvas.width,canvas.height);
  let out=canvas.toDataURL('image/jpeg',.62);if(out.length>820000)out=canvas.toDataURL('image/jpeg',.48);if(out.length>870000)throw new Error('Foto masih terlalu besar setelah kompresi. Pilih foto dengan resolusi lebih kecil.');return out;
 }
-let madingPublicPage=1;
+let madingPublicPage=1, madingAdminPage=1;
 async function loadMadingPublic(page=1){
  madingPublicPage=page;$('madingPublicList').innerHTML='Memuat mading...';
- try{const r=await api({action:'madingPublicList',page,pageSize:8});const items=r.items||[];$('madingPublicList').className='mading-grid';
+ try{const r=await api({action:'madingPublicList',page,pageSize:6});const items=r.items||[];$('madingPublicList').className='mading-grid';
   $('madingPublicList').innerHTML=items.map((x,i)=>{const imgs=x.images_data||(x.image_data?[x.image_data]:[]);return `<article class="mading-card ${x.unggulan&&i===0?'mading-feature':''}">${madingPhotoButtons(imgs,x.judul,true)}<div class="body"><small class="tiny">${escapeHtml(x.kategori)} · ${moduleDate(x.tanggal)}</small><b>${escapeHtml(x.judul)}</b><p>${escapeHtml(x.caption)}</p></div></article>`;}).join('')||'<p class="tiny">Belum ada konten yang diterbitkan.</p>';
   $('madingPublicPager').innerHTML=r.totalPages>1?`<button class="secondary" ${page<=1?'disabled':''} onclick="loadMadingPublic(${page-1})">Sebelumnya</button> <span class="tiny">Halaman ${page}/${r.totalPages}</span> <button class="secondary" ${page>=r.totalPages?'disabled':''} onclick="loadMadingPublic(${page+1})">Berikutnya</button>`:'';
  }catch(e){$('madingPublicList').textContent=e.message;}
 }
 function showPublicMading(){ $('loginView').classList.add('hidden');$('appView').classList.add('hidden');$('madingPublic').style.display='block';$('madingPublic').classList.add('active');loadMadingPublic(1); }
 $('openPublicMading').onclick=showPublicMading;$('madingBackLogin').onclick=()=>{$('madingPublic').style.display='none';$('madingPublic').classList.remove('active');$('loginView').classList.remove('hidden');};
-document.addEventListener('click',async e=>{const mi=e.target.closest('[data-mading-src]');if(mi){e.preventDefault();openMadingImage(mi.dataset.madingSrc);return;}const kp=e.target.closest('[data-kas-page]');if(kp&&!kp.disabled){loadKasRows(Number(kp.dataset.kasPage));return;}const v=e.target.closest('[data-kas-verify]');if(v){const sel=document.querySelector('[data-kas-status-select="'+v.dataset.kasVerify+'"]');if(!sel)return;const next=sel.value;if(!confirm('Ubah status pembayaran menjadi '+next+'?'))return;v.disabled=true;try{const r=await api({action:'kasVerifyPayment',token,id:v.dataset.kasVerify,status:next});await loadKas();}catch(x){alert(x.message);}finally{v.disabled=false;}}const ms=e.target.closest('[data-mading-status-save]');if(ms){const sel=document.querySelector('[data-mading-status-select="'+CSS.escape(ms.dataset.madingStatusSave)+'"]');if(!sel)return;ms.disabled=true;try{const r=await api({action:'madingSetStatus',token,id:ms.dataset.madingStatusSave,status:sel.value});showToast(r.message,'success');await loadMadingAdmin();}catch(err){showToast(err.message,'error');}finally{ms.disabled=false;}}const d=e.target.closest('[data-mading-del]');if(d&&confirm('Hapus konten mading ini?')){try{const r=await api({action:'madingDelete',token,id:d.dataset.madingDel});alert(r.message);await loadMadingAdmin();}catch(x){alert(x.message);}}});
+document.addEventListener('click',async e=>{const mi=e.target.closest('[data-mading-src]');if(mi){e.preventDefault();openMadingImage(mi.dataset.madingSrc);return;}const kpp=e.target.closest('[data-kas-period-page]');if(kpp&&!kpp.disabled){kasPeriodPage=Number(kpp.dataset.kasPeriodPage)||1;loadKas();return;}const kp=e.target.closest('[data-kas-page]');if(kp&&!kp.disabled){loadKasRows(Number(kp.dataset.kasPage));return;}const v=e.target.closest('[data-kas-verify]');if(v){const sel=document.querySelector('[data-kas-status-select="'+v.dataset.kasVerify+'"]');if(!sel)return;const next=sel.value;if(!confirm('Ubah status pembayaran menjadi '+next+'?'))return;v.disabled=true;try{const r=await api({action:'kasVerifyPayment',token,id:v.dataset.kasVerify,status:next});await loadKas();}catch(x){alert(x.message);}finally{v.disabled=false;}}const map=e.target.closest('[data-mading-admin-page]');if(map&&!map.disabled){madingAdminPage=Number(map.dataset.madingAdminPage)||1;loadMadingAdmin();return;}const ms=e.target.closest('[data-mading-status-save]');if(ms){const sel=document.querySelector('[data-mading-status-select="'+CSS.escape(ms.dataset.madingStatusSave)+'"]');if(!sel)return;ms.disabled=true;try{const r=await api({action:'madingSetStatus',token,id:ms.dataset.madingStatusSave,status:sel.value});showToast(r.message,'success');await loadMadingAdmin();}catch(err){showToast(err.message,'error');}finally{ms.disabled=false;}}const d=e.target.closest('[data-mading-del]');if(d&&confirm('Hapus konten mading ini?')){try{const r=await api({action:'madingDelete',token,id:d.dataset.madingDel});alert(r.message);await loadMadingAdmin();}catch(x){alert(x.message);}}});
 
 </script></body></html>
