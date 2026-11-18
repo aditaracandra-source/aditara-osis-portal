@@ -997,7 +997,20 @@ async function loadKasRows(page=kasPage){
   $('kasPager').innerHTML=pages>1?`<button class="secondary" data-kas-page="${kasPage-1}" ${kasPage<=1?'disabled':''}>Sebelumnya</button><span class="tiny">Halaman ${kasPage} dari ${pages} · ${total} transaksi</span><button class="secondary" data-kas-page="${kasPage+1}" ${kasPage>=pages?'disabled':''}>Berikutnya</button>`:`<span class="tiny">${total} transaksi</span>`;
  }catch(e){$('kasRows').textContent=e.message;$('kasPager').innerHTML='';}
 }
-$('kasCreatePeriod').onclick=async()=>{try{const r=await api({action:'kasCreatePeriod',token,label:$('kasPeriodLabel').value,tanggal_mulai:$('kasStart').value,tanggal_selesai:$('kasEnd').value,nominal:$('kasNominal').value});$('kasMsg').textContent=r.message;await loadKas();}catch(e){$('kasMsg').textContent=e.message;}};
+$('kasCreatePeriod').onclick=async()=>{
+ const btn=$('kasCreatePeriod'),msg=$('kasMsg');
+ if(btn.dataset.busy==='1')return;
+ const payload={action:'kasCreatePeriod',token,label:$('kasPeriodLabel').value,tanggal_mulai:$('kasStart').value,tanggal_selesai:$('kasEnd').value,nominal:$('kasNominal').value};
+ if(!payload.label.trim()||!payload.tanggal_mulai||!payload.tanggal_selesai){msg.textContent='Lengkapi label dan tanggal periode terlebih dahulu.';showToast(msg.textContent,'error');return;}
+ btn.dataset.busy='1';btn.disabled=true;btn.textContent='Menyimpan...';msg.textContent='Sedang menyimpan periode. Mohon jangan klik kembali.';
+ try{
+   const r=await api(payload);msg.textContent=r.message||'Proses selesai.';
+   showToast(msg.textContent,r.duplicate?'info':'success');
+   if(!r.duplicate){$('kasPeriodLabel').value='';$('kasStart').value='';$('kasEnd').value='';$('kasNominal').value='';}
+   await loadKas();
+ }catch(e){msg.textContent=e.message||'Gagal membuat periode.';showToast(msg.textContent,'error');}
+ finally{btn.dataset.busy='0';btn.disabled=false;btn.textContent='Buat Periode';}
+};
 $('kasSaveAmount').onclick=async()=>{try{const r=await api({action:'kasSetAmount',token,nominal:$('kasAmountSetting').value});$('kasMsg').textContent=r.message;await loadKas();}catch(e){$('kasMsg').textContent=e.message;}};
 $('kasLoadRows').onclick=()=>{kasPage=1;loadKasRows(1);};
 $('kasSubmit').onclick=async()=>{const btn=$('kasSubmit'),f=$('kasPayProof').files[0],p={action:'kasSubmitPayment',token,periode_id:$('kasPayPeriod').value,metode:$('kasMethod').value,catatan:$('kasNote').value};try{if(!p.periode_id)throw Error('Pilih periode iuran terlebih dahulu.');if(f)p.image_data=await compressPhoto(f);btn.disabled=true;const r=await api(p);$('kasPayMsg').textContent=r.message||'Pembayaran berhasil diajukan.';$('kasNote').value='';$('kasPayProof').value='';kasPage=1;await loadKas();if(typeof loadKasDashboardStatus==='function')loadKasDashboardStatus();}catch(e){$('kasPayMsg').textContent=e.message;showToast(e.message,'error');}finally{btn.disabled=false;}};
