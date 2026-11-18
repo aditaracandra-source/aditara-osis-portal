@@ -335,6 +335,42 @@ body{background:var(--bg);color:var(--ink)}
 .mading-card{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}.mading-card img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block}.mading-card .body{padding:11px}.mading-card b{font-size:12px}.mading-card p{font-size:10px;color:var(--muted);line-height:1.55}.mading-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.mading-feature{grid-column:span 2}.mading-feature img{aspect-ratio:16/8}.mading-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
 .mading-photo-list{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}.mading-photo-open{border:0;padding:0;background:transparent;cursor:zoom-in;border-radius:9px;overflow:hidden}.mading-photo-open img{width:92px;height:76px;object-fit:cover;border-radius:9px;border:1px solid var(--line)}.mading-public-photos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}.mading-public-photos .mading-photo-open{width:100%}.mading-public-photos .mading-photo-open img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}.mading-lightbox{position:fixed;inset:0;background:rgba(8,12,30,.88);display:none;align-items:center;justify-content:center;padding:18px;z-index:10000}.mading-lightbox.show{display:flex}.mading-lightbox img{max-width:min(100%,1100px);max-height:82dvh;object-fit:contain;border-radius:12px}.mading-lightbox-close{position:absolute;top:14px;right:14px;background:#fff;color:#111;border:0;border-radius:999px;padding:10px 14px;font-weight:700;cursor:pointer}.mading-upload-hint{display:block;margin-top:5px}
 @media(max-width:700px){#kasSummary{grid-template-columns:repeat(2,1fr)}.mading-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.mading-feature{grid-column:span 2}.mading-card .body{padding:8px}}
+/* ADITARA Mading refresh */
+#madingPublic{max-width:1320px!important;padding:30px clamp(16px,4vw,54px)!important}
+.mading-public-hero{background:linear-gradient(120deg,#102e5b 0%,#174f86 58%,#5a55bd 100%);color:#fff;border-radius:22px;padding:clamp(22px,4vw,42px);margin:18px 0 22px;position:relative;overflow:hidden;box-shadow:0 18px 40px #142d5b20}
+.mading-public-hero:after{content:'ADITARA';position:absolute;right:25px;bottom:-25px;font-size:clamp(50px,9vw,112px);font-weight:900;letter-spacing:3px;color:#ffffff0d;pointer-events:none}
+.mading-public-hero .eyebrow{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#c9dcf5;font-weight:800}
+.mading-public-hero h1{font-size:clamp(25px,4vw,40px);line-height:1.12;margin:9px 0 8px;max-width:680px}
+.mading-public-hero p{font-size:13px;color:#e1ebf8;margin:0;max-width:620px;line-height:1.65}
+.mading-public-tools{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin:0 0 17px}
+.mading-public-tools input{flex:1;min-width:220px;max-width:420px;border:1px solid var(--line);background:#fff;border-radius:12px;padding:12px 14px;font-size:12px;outline:none}
+.mading-public-tools input:focus{border-color:#8aaee0;box-shadow:0 0 0 3px #dcecff}
+.mading-public-tools .mading-count{font-size:11px;color:var(--muted)}
+#madingPublicList.mading-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;align-items:stretch}
+#madingPublicList .mading-card{border-radius:18px;box-shadow:0 8px 26px #152e5510;transition:transform .18s ease,box-shadow .18s ease;display:flex;flex-direction:column;min-width:0}
+#madingPublicList .mading-card:hover{transform:translateY(-3px);box-shadow:0 16px 34px #152e5520}
+#madingPublicList .mading-public-photos{display:block;position:relative;overflow:hidden;background:#e8eef6}
+#madingPublicList .mading-public-photos .mading-photo-open{display:block;width:100%;border-radius:0}
+#madingPublicList .mading-public-photos .mading-photo-open:not(:first-child){display:none}
+#madingPublicList .mading-public-photos img{width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;border:0;border-radius:0;transition:transform .35s ease}
+#madingPublicList .mading-card:hover .mading-public-photos img{transform:scale(1.025)}
+#madingPublicList .mading-card .body{padding:17px 18px 19px;display:flex;flex-direction:column;gap:8px;flex:1}
+#madingPublicList .mading-card .body small{font-size:10px;color:#53739b;letter-spacing:.35px;text-transform:uppercase;font-weight:700}
+#madingPublicList .mading-card .body b{font-size:17px;line-height:1.35;color:#172b49}
+#madingPublicList .mading-card .body p{font-size:12px;line-height:1.7;color:#687b95;margin:0;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+#madingPublicList .mading-feature{grid-column:span 2;display:grid;grid-template-columns:1.2fr 1fr;min-height:270px}
+#madingPublicList .mading-feature .mading-public-photos{height:100%;min-height:270px}
+#madingPublicList .mading-feature .mading-public-photos img{height:100%;min-height:270px;aspect-ratio:auto}
+#madingPublicList .mading-feature .body{justify-content:center;padding:25px}
+#madingPublicList .mading-feature .body b{font-size:clamp(19px,2.2vw,26px)}
+#madingPublicList .mading-feature .body p{-webkit-line-clamp:5}
+#madingPublicPager{display:flex;justify-content:center;align-items:center;gap:12px;margin:24px 0 12px}
+#madingMemberReader .mading-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:12px}
+#madingMemberReader .mading-card .body b{font-size:12px;line-height:1.4}
+#madingMemberReader .mading-card .body p{font-size:10px}
+@media(max-width:850px){#madingPublicList.mading-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#madingPublicList .mading-feature{grid-column:span 2}}
+@media(max-width:600px){#madingPublic{padding:16px 12px 28px!important}.mading-public-hero{margin:12px 0 16px;border-radius:17px;padding:23px 19px}.mading-public-hero p{font-size:11px}.mading-public-tools input{max-width:none;width:100%}#madingPublicList.mading-grid{grid-template-columns:1fr;gap:13px}#madingPublicList .mading-feature{grid-column:auto;display:flex;min-height:0}#madingPublicList .mading-feature .mading-public-photos{min-height:0;height:auto}#madingPublicList .mading-feature .mading-public-photos img{min-height:0;aspect-ratio:16/9}#madingPublicList .mading-feature .body{padding:15px}#madingPublicList .mading-card .body{padding:14px}#madingPublicList .mading-card .body b{font-size:15px}#madingMemberReader .mading-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
 .aditara-filterbar select{min-width:112px;max-width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:9px;background:var(--card);font-size:12px}.aditara-filterbar button{padding:8px 12px;font-size:12px}
 </style><style>
 .finance-proof{display:inline-flex;align-items:center;gap:8px;margin-top:6px;text-decoration:none;color:var(--primary);font-size:12px}
@@ -411,7 +447,7 @@ body{background:var(--bg);color:var(--ink)}
 
 <section class="page" id="settings"><div class="pagehead"><div><h2>Pengaturan</h2><p>Kelola akun masuk pengurus: status, password, dan aktivasi.</p></div><button class="btn" onclick="loadSettings(1)">Muat ulang</button></div><div class="card"><b>Manajemen Akun Pengurus</b><p class="tiny">Gunakan Atur Password untuk membuat atau mengganti password. Akun hanya bisa masuk setelah berstatus AKTIF. Nonaktifkan akses tanpa menghapus riwayat kegiatan.</p><div id="settingsUsers" class="record-list">Memuat...</div><div id="settingsPager" class="module-pager"></div></div></section>
 </div></main><nav class="mobilebar"><button class="active" data-page="home"><i>⌂</i>Beranda</button><button data-page="agenda"><i>▣</i>Agenda</button><button data-page="attendance"><i>▦</i>Absensi</button><button data-page="people"><i>♙</i>Pengurus</button></nav></div>
-<section class="page" id="madingPublic" style="display:none;min-height:100dvh;padding:22px;max-width:1200px;margin:0 auto"><div class="pagehead"><div><h2>Mading Digital <span style="color:var(--violet)">ADITARA</span></h2><p>Informasi, cerita, dan dokumentasi kegiatan OSIS SMP Negeri 2 Kawali.</p></div><button class="secondary" id="madingBackLogin">Masuk Pengurus</button></div><div id="madingPublicList" class="mading-grid">Memuat mading...</div><div id="madingPublicPager" class="pager"></div></section>
+<section class="page" id="madingPublic" style="display:none;min-height:100dvh;padding:22px;max-width:1200px;margin:0 auto"><div class="pagehead"><div><h2>Mading Digital <span style="color:var(--violet)">ADITARA</span></h2><p>Informasi, cerita, dan dokumentasi kegiatan OSIS SMP Negeri 2 Kawali.</p></div><button class="secondary" id="madingBackLogin">Masuk Pengurus</button></div><div class="mading-public-hero"><div class="eyebrow">Ruang informasi dan inspirasi siswa</div><h1>Cerita kegiatan, karya, dan prestasi ADITARA</h1><p>Ikuti berbagai kegiatan OSIS SMP Negeri 2 Kawali melalui dokumentasi, kabar terbaru, dan cerita dari lingkungan sekolah.</p></div><div class="mading-public-tools"><input id="madingPublicSearch" type="search" placeholder="Cari judul atau kategori kegiatan..."><span class="mading-count" id="madingPublicCount">Memuat konten...</span></div><div id="madingPublicList" class="mading-grid">Memuat mading...</div><div id="madingPublicPager" class="pager"></div></section>
 <div id="globalToast" role="status" aria-live="polite"><span id="globalToastIcon">✓</span><span id="globalToastText"></span></div>
 <div class="mading-lightbox" id="madingLightbox" role="dialog" aria-modal="true" aria-label="Foto kegiatan"><button type="button" class="mading-lightbox-close" id="madingLightboxClose">Tutup ✕</button><img id="madingLightboxImage" alt="Foto kegiatan"></div>
 <div class="modal" id="profileModal"><div class="modalbox"><h3 id="modalName">Profil</h3><p id="modalInfo"></p><div id="adminAccountArea" class="account-admin-area hidden"></div><div class="modalrow"><button class="secondary" onclick="closeProfile()">Tutup</button></div></div></div>
@@ -1094,11 +1130,17 @@ function closeMadingImage(){$('madingLightbox').classList.remove('show');$('madi
 $('madingLightboxClose').onclick=closeMadingImage;
 $('madingLightbox').addEventListener('click',e=>{if(e.target===$('madingLightbox'))closeMadingImage();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMadingImage();});
+async function loadMadingPublishedPreview(){
+ const target=$('madingMemberList');if(!target)return;
+ target.innerHTML='<p class="tiny">Memuat konten terbit...</p>';
+ try{const r=await api({action:'madingPublicList',page:1,pageSize:6});const items=r.items||[];
+  target.innerHTML=items.map(x=>{const imgs=x.images_data||(x.image_data?[x.image_data]:[]);return `<article class="mading-card">${madingPhotoButtons(imgs,x.judul,true)}<div class="body"><small class="tiny">${escapeHtml(x.kategori)} · ${moduleDate(x.tanggal)}</small><b>${escapeHtml(x.judul)}</b><p>${escapeHtml(x.caption)}</p></div></article>`;}).join('')||'<p class="tiny">Belum ada konten yang diterbitkan.</p>';
+ }catch(e){target.textContent='Pratinjau konten terbit gagal dimuat: '+e.message;}
+}
 async function loadMadingAdmin(){
  ensureAditaraFilters('mading');try{
+  await loadMadingPublishedPreview();
   if(!moduleCan('mading.upload')&&!moduleCan('mading.manage')){
-   const r=await api({action:'madingPublicList',page:1,pageSize:6});
-   $('madingMemberList').innerHTML=(r.items||[]).map(x=>{const imgs=x.images_data||(x.image_data?[x.image_data]:[]);return `<article class="mading-card">${madingPhotoButtons(imgs,x.judul,true)}<div class="body"><small class="tiny">${escapeHtml(x.kategori)} · ${moduleDate(x.tanggal)}</small><b>${escapeHtml(x.judul)}</b><p>${escapeHtml(x.caption)}</p></div></article>`;}).join('')||'<p class="tiny">Belum ada konten yang diterbitkan.</p>';
    return;
   }
   const r=await api({action:'madingList',token,page:madingAdminPage,pageSize:6,...aditaraFilterPayload('mading')});
@@ -1132,13 +1174,20 @@ async function compressMadingPhoto(file){
  let out=canvas.toDataURL('image/jpeg',.62);if(out.length>820000)out=canvas.toDataURL('image/jpeg',.48);if(out.length>870000)throw new Error('Foto masih terlalu besar setelah kompresi. Pilih foto dengan resolusi lebih kecil.');return out;
 }
 let madingPublicPage=1, madingAdminPage=1;
+let madingPublicItems=[];
+function renderMadingPublic(){
+ const q=String($('madingPublicSearch')?.value||'').trim().toLocaleLowerCase('id-ID');
+ const items=madingPublicItems.filter(x=>!q||(String(x.judul)+' '+String(x.kategori)+' '+String(x.caption)).toLocaleLowerCase('id-ID').includes(q));
+ $('madingPublicCount').textContent=items.length+' konten ditampilkan';
+ $('madingPublicList').innerHTML=items.map((x,i)=>{const imgs=x.images_data||(x.image_data?[x.image_data]:[]);return `<article class="mading-card ${x.unggulan&&i===0?'mading-feature':''}">${madingPhotoButtons(imgs,x.judul,true)}<div class="body"><small>${escapeHtml(x.kategori)} · ${moduleDate(x.tanggal)}</small><b>${escapeHtml(x.judul)}</b><p>${escapeHtml(x.caption||'Dokumentasi kegiatan OSIS SMP Negeri 2 Kawali.')}</p></div></article>`;}).join('')||'<p class="tiny">Tidak ada konten yang cocok. Coba kata kunci lain.</p>';
+}
 async function loadMadingPublic(page=1){
  madingPublicPage=page;$('madingPublicList').innerHTML='Memuat mading...';
- try{const r=await api({action:'madingPublicList',page,pageSize:6});const items=r.items||[];$('madingPublicList').className='mading-grid';
-  $('madingPublicList').innerHTML=items.map((x,i)=>{const imgs=x.images_data||(x.image_data?[x.image_data]:[]);return `<article class="mading-card ${x.unggulan&&i===0?'mading-feature':''}">${madingPhotoButtons(imgs,x.judul,true)}<div class="body"><small class="tiny">${escapeHtml(x.kategori)} · ${moduleDate(x.tanggal)}</small><b>${escapeHtml(x.judul)}</b><p>${escapeHtml(x.caption)}</p></div></article>`;}).join('')||'<p class="tiny">Belum ada konten yang diterbitkan.</p>';
+ try{const r=await api({action:'madingPublicList',page,pageSize:6});madingPublicItems=r.items||[];renderMadingPublic();
   $('madingPublicPager').innerHTML=r.totalPages>1?`<button class="secondary" ${page<=1?'disabled':''} onclick="loadMadingPublic(${page-1})">Sebelumnya</button> <span class="tiny">Halaman ${page}/${r.totalPages}</span> <button class="secondary" ${page>=r.totalPages?'disabled':''} onclick="loadMadingPublic(${page+1})">Berikutnya</button>`:'';
- }catch(e){$('madingPublicList').textContent=e.message;}
+ }catch(e){$('madingPublicList').textContent=e.message;$('madingPublicCount').textContent='Konten belum dapat dimuat';}
 }
+$('madingPublicSearch')?.addEventListener('input',renderMadingPublic);
 function showPublicMading(){ $('loginView').classList.add('hidden');$('appView').classList.add('hidden');$('madingPublic').style.display='block';$('madingPublic').classList.add('active');loadMadingPublic(1); }
 $('openPublicMading').onclick=showPublicMading;$('madingBackLogin').onclick=()=>{$('madingPublic').style.display='none';$('madingPublic').classList.remove('active');$('loginView').classList.remove('hidden');};
 document.addEventListener('click',async e=>{const mi=e.target.closest('[data-mading-src]');if(mi){e.preventDefault();openMadingImage(mi.dataset.madingSrc);return;}const kpp=e.target.closest('[data-kas-period-page]');if(kpp&&!kpp.disabled){kasPeriodPage=Number(kpp.dataset.kasPeriodPage)||1;loadKas();return;}const kp=e.target.closest('[data-kas-page]');if(kp&&!kp.disabled){loadKasRows(Number(kp.dataset.kasPage));return;}const v=e.target.closest('[data-kas-verify]');if(v){const sel=document.querySelector('[data-kas-status-select="'+v.dataset.kasVerify+'"]');if(!sel)return;const next=sel.value;if(!confirm('Ubah status pembayaran menjadi '+next+'?'))return;v.disabled=true;try{const r=await api({action:'kasVerifyPayment',token,id:v.dataset.kasVerify,status:next});await loadKas();}catch(x){alert(x.message);}finally{v.disabled=false;}}const map=e.target.closest('[data-mading-admin-page]');if(map&&!map.disabled){madingAdminPage=Number(map.dataset.madingAdminPage)||1;loadMadingAdmin();return;}const ms=e.target.closest('[data-mading-status-save]');if(ms){const sel=document.querySelector('[data-mading-status-select="'+CSS.escape(ms.dataset.madingStatusSave)+'"]');if(!sel)return;ms.disabled=true;try{const r=await api({action:'madingSetStatus',token,id:ms.dataset.madingStatusSave,status:sel.value});showToast(r.message,'success');await loadMadingAdmin();}catch(err){showToast(err.message,'error');}finally{ms.disabled=false;}}const d=e.target.closest('[data-mading-del]');if(d&&confirm('Hapus konten mading ini?')){try{const r=await api({action:'madingDelete',token,id:d.dataset.madingDel});alert(r.message);await loadMadingAdmin();}catch(x){alert(x.message);}}});
